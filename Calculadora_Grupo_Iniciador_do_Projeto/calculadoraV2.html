@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeiraz</title>
+    <link rel="stylesheet" href="igor_styles.css">
+</head>
+<body style="background-color: rgb(133, 203, 231);">
+    <h1>Calculadora financeira - Simulação Renda</h1>
+    <label>Qual será o medicamento armazenado?</label>
+    <select id="ipt_medicamentos">
+        <option id="ipt_vacina" value="vacina">Vacina</option>
+        <option id="ipt_insulina" value="Insulina">Insulina</option>
+        <option id="ipt_biologicos" value="Biologicos">Medicamentos Biológicos</option>
+        <option id="ipt_hemoderivados" value="Hemoderivados">Hemoderivados</option>
+        <option id="ipt_antibioticos" value="Antibioticos">Antibióticos termossensíveis</option>
+        <option id="ipt_hormonios" value="Hormonios">Hormônios</option>
+        <option id="ipt_colirios" value="Colirios">Colírios especiais</option>
+        <option id="ipt_quimioterapicos" value="Quimioterapicos">Quimioterápicos</option>
+        <option id="ipt_anestesicos_esp" value="Anestesicos">Anestésicos especiais</option>
+        <option id="ipt_doencasRaras" value="Medicamentos">Medicamentos para doenças raras</option>
+    </select>
+    <br>
+    <br>
+    <label>Quantos lotes serão armazenados?</label>
+    <input type="number" id="ipt_lotes" min="1"  placeholder="Quantidade de lotes">
+    <br>
+    <br>
+    <label>Quantas unidades do medicamento serão armazenadas em cada lote?</label>
+    <input type="number" id="ipt_qtdMed" min="1" placeholder="Unidadades de medicamento">
+    <br>
+    <br>
+    <button onclick="calcularEconomia()">Calcular Ecônomia!</button>
+    <div id="div_frase"></div>
+    <br>
+    <h2>Calculo de custo do produto</h2>
+    <label>Quantas unidades de refrigeramento serão utilizadas no transporte?</label>
+    <input type="number" id="ipt_uniRefri" min="1" placeholder="Unidades refrigeramento">
+    <br>
+    <br>
+    <label>Quantos funcionários serão disponibilizados para o treinamento de utilização do software?</label>
+    <input type="number" id="ipt_qtdFuncionarios" min="1" placeholder="Quantidade funcionários">
+    <br>
+    <br>
+    <button onclick="calcularCusto()">Calcule o custo do serviço!</button>
+    <div id="div_frase2"></div>
+</body>
+
+<script>
+    function calcularEconomia(){
+
+       
+
+    var medicamentos = ipt_medicamentos.value
+    var lotes = Number(ipt_lotes.value) * 200 //definindo preço da unidade do lote
+    var qtd_med = Number(ipt_qtdMed.value) 
+    var calculoMedi
+
+    if (medicamentos == ipt_vacina.value){
+        calculoMedi = (lotes + qtd_med * 75) * 0.25
+
+    } else if (medicamentos == ipt_insulina.value){
+        calculoMedi = (lotes + qtd_med * 150) * 0.25
+
+    } else if (medicamentos == ipt_biologicos.value){
+        calculoMedi = (lotes + qtd_med * 7500) * 0.25
+
+    } else if (medicamentos == ipt_hemoderivados.value){
+        calculoMedi = (lotes + qtd_med * 2500) * 0.25
+
+    } else if (medicamentos == ipt_antibioticos.value){
+        calculoMedi = (lotes + qtd_med * 100) * 0.25
+
+    } else if(medicamentos == ipt_hormonios.value){
+        calculoMedi = (lotes + qtd_med * 2500 ) * 0.25
+
+    } else if(medicamentos == ipt_colirios.value){
+        calculoMedi = (lotes + qtd_med * 150) * 0.25
+
+    } else if(medicamentos == ipt_quimioterapicos.value){
+        calculoMedi = (lotes + qtd_med * 7500) * 0.25
+
+    } else if(medicamentos == ipt_anestesicos_esp.value){
+        calculoMedi = (lotes + qtd_med * 250 ) * 0.25
+
+    }else if(medicamentos == ipt_doencasRaras.value){
+        calculoMedi = (lotes + qtd_med * 25000 ) * 0.25
+    } else {
+        div_frase.innerHTML = `Medicamento não válido` // Se nenhum medicamento for válido, a economia não será calculada
+    }
+
+    // Exibe o cálculo da economia
+   div_frase.innerHTML = 
+    `<h3>O custo inicial de medicamentos para a empresa seria de R$${calculoMedi * 4}. No entanto, com a aquisição do nosso produto, esse valor será reduzido para R$${(calculoMedi * 4) - calculoMedi}, resultando em uma economia de R$${calculoMedi}, o que representa uma redução de 25% nos gastos.</h3>`
+    }   
+    // Realizar proxima função
+    function calcularCusto(){
+
+        var preçoTreinamento = Number(ipt_qtdFuncionarios.value) * 1000 // Definindo preço do treinamento
+        var preçoSensor = Number(ipt_uniRefri.value) * 200 // Definindo o preço a ser gasto (1 sensor = 1 unidade de refrigeração)
+        var preçoSuporteManuntencao = 1250 // Definindo preço do suporte e manutenção do produto
+
+        div_frase2.innerHTML = `<h3>O valor total para a implementação do nosso serviço será de R$${preçoTreinamento + preçoSensor + preçoSuporteManuntencao}, englobando todos os custos envolvidos, desde a equipe necessária, os sensores, a manutenção e suporte, garantindo um investimento eficiente e bem planejado.</h3>`
+}
+</script>
+</html>
