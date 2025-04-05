@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", sans-serif;
+    background: linear-gradient(to bottom, rgb(35, 156, 223) 16%, rgb(54, 125, 174) 55%, rgb(15, 39, 129) 100% );
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header{
+    background-color: rgb(35, 156, 223);
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 2px white;
+
+}
+
+.header h1{
+    font-weight: 400;
+    font-size: 40px;
+}
+
+.header img{
+    width: 100px;
+    height: 83px;
+}
+
+
+
+.navbar{
+    width: 600px;
+    display: flex;
+    margin-right: 5%;
+    margin-left: 40%;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: white;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+}
+
+.informacao{
+    color: white;
+
+}
+
+.informacao h2{
+    font-size: 41px;
+    
+}
+
+.informacao .titulo{
+    margin-top: 8%;
+    margin-left: 15%;
+    margin-right: 40%;
+}
+
+.informacao p{
+    font-size: 23px;
+    font-weight: 300;
+}
+
+.informacao .primeiro_p{
+    margin-top: 4%;
+    margin-left: 15%;
+    margin-right: 48%;
+}
+
+.geladeira{
+    margin-top: -24%;
+    margin-left: 60%;
+}
+
+.informacao .titulo2{
+    margin-left: 30%;
+}
+
+.conjunto_fornecimentos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding-inline: 17%;
+    margin-top: 4%;
+}
+
+.fornecimentos{
+    color: black;
+    background-color: white;
+    height: 170px;
+    width: 29%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    
+}
+
+.fornecimentos h3{
+    font-size: 30px;
+}
+
+.fornecimentos p{
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: -3%;
+    
+}
+
+.fotos_sobrenos{
+    display: flex;
+    flex-direction: column;
+    width: 15.44%;
+    height: 190px;
+    margin-left: 11%;
+    margin-top: 17%;
+}
+
+.sobre_nos{
+    background-color: white;
+    color: black;
+    height: 530px;
+    width: 29%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    margin-top: -19%;
+    margin-left: 26%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.sobre_nos h3{
+    font-size: 30px;
+    margin-left: 4%;
+}
+
+.sobre_nos p{
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 4%;
+    margin-right: 6%;
+    margin-top: 15%;
+}
+
+.como_funcionamos{
+    background-color: white;
+    color: black;
+    height: 380px;
+    width: 29%;
+    border-radius: 0 30px 30px 0;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    margin-top: -35%;
+    margin-left: 59%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.aplicacao{
+    margin-left: 21%;
+    margin-top: 15%;
+}
+
+.diagrama_solucao{
+    width: 80%;
+    display: flex;
+    justify-self: center;
+    margin-top: 10%;
+}
+
+.equipe{
+    margin-left: 19%;
+    margin-top: 10%;
+}
+
+.card_pessoas1{
+    background-color: white;
+    color: black;
+    height: 330px;
+    width: 27%;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.card_pessoas2{
+    background-color: white;
+    color: black;
+    height: 330px;
+    width: 43.2%;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.card_pessoas1 .foto{
+    width: 50%;
+    height: 160px;
+    border: solid 1px black;
+    border-radius: 100px;
+}
+
+.card_pessoas2 .foto{
+    width: 50%;
+    height: 160px;
+    border: solid 1px black;
+    border-radius: 100px;
+}
+
+.fileira{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 10%;
+    margin-top: 9%;
+
+}
+
+.fileira2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 25%;
+    margin-top: 4%;
+
+}
+
+.redes_sociais{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 25%;
+    padding-inline: 37%;
+}
+
+.insta{
+    width: 70px;
+    height: 70px;
+}
+
+.x{
+    width: 75px;
+    height: 45px;
+    margin-top: 19%;
+}
+
+.linkedin{
+    width: 75px;
+    height: 70px;
+}
+
+.endereco{
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.telefone_e_mail{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-inline: 17%;
+    margin-top: 4%;
+    margin-left: 7%;
+}
+
+.telefone{
+    display: flex;
+    align-items: center;
+}
+
+.telefone a{
+    text-decoration: none;
+    color: white;
+}
+
+.mail{
+    display: flex;
+    align-items: center;
+}
+
+.mail a{
+    text-decoration: none;
+    color: white;
+}
+
+.logo_final{
+    display: flex;
+    justify-self: center;
+    margin-top: 4%;
+    margin-bottom: 3%;
+}
