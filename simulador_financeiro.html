@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Biologistic</title>
+</head>
+<body>
+    <div class="header">
+        <img src="img/logo-removebg-preview 1.png" alt="" class="logo">
+        <h1>Biologistic</h1>
+        <ul class="navbar">
+            <li class="agora">
+                <a href="pag_inicial.html">Página Inicial</a>
+            </li>
+            <li>
+                <a href="#"> <b>Calculadora Financeira</b></a>
+            </li>
+            <li>
+                <a href="">Cadastre-se</a>
+            </li>
+            <li>
+                <a href="">Login</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="calculadora">
+        <h1>Calculadora financeira - Simulação Renda</h1>
+        <label>Qual será o medicamento armazenado?</label>
+        <select id="ipt_medicamentos">
+            <option id="ipt_vacina" value="vacina">Vacina</option>
+            <option id="ipt_insulina" value="Insulina">Insulina</option>
+            <option id="ipt_biologicos" value="Biologicos">Medicamentos Biológicos</option>
+            <option id="ipt_hemoderivados" value="Hemoderivados">Hemoderivados</option>
+            <option id="ipt_antibioticos" value="Antibioticos">Antibióticos termossensíveis</option>
+            <option id="ipt_hormonios" value="Hormonios">Hormônios</option>
+            <option id="ipt_colirios" value="Colirios">Colírios especiais</option>
+            <option id="ipt_quimioterapicos" value="Quimioterapicos">Quimioterápicos</option>
+            <option id="ipt_anestesicos_esp" value="Anestesicos">Anestésicos especiais</option>
+            <option id="ipt_doencasRaras" value="Medicamentos">Medicamentos para doenças raras</option>
+        </select>
+        <br>
+        <br>
+        <label>Quantos lotes serão transportados?</label>
+        <input type="number" id="ipt_lotes" min="1"  placeholder="Quantidade de lotes">
+        <br>
+        <br>
+        <label>Quantas unidades do medicamento em cada lote?</label>
+        <input type="number" id="ipt_qtdMed" min="1" placeholder="Unidadades de medicamento">
+        <br>
+        <button onclick="calcularEconomia()">Calcular Ecônomia!</button>
+        <div id="div_frase"></div>
+
+    </div>
+
+    <div class="fotter">
+        <div class="redes_sociais">
+            <a href="">
+                <img src="img/instagram-new.png" alt="" class="insta">
+            </a>
+            <a href="">
+                <img src="img/X.png" alt="" class="x">
+            </a>
+            <a href="">
+                <img src="img/image 22.png" alt="" class="linkedin">
+            </a>
+        </div>
+  
+
+        <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
+        <div class="telefone_e_mail">
+            <div class="telefone">
+                <img src="img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
+                <a href="https://wa.me/5511985831860">
+                    <p>+55 11 98583-1860</p>
+                </a>
+            </div>
+            <div class="mail">
+                <img src="img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
+                    alt="">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
+                    <p>medmonitoramento@gmail.com</p>
+                </a>
+            </div>
+        </div>
+        <img src="img/logo-removebg-preview 1.png" alt="" class="logo_final">
+    </div>
+</body>
+<script>
+    function calcularEconomia(){
+       
+       var lotes = Number(ipt_lotes.value)
+       var qtd_med = Number(ipt_qtdMed.value)
+       var desperdicio
+       var calculoMedi
+   
+       var calculoMedi
+   
+       if (medicamentos == ipt_vacina.value){
+           calculoMedi = (lotes * qtd_med * 80)
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if (medicamentos == ipt_insulina.value){
+           calculoMedi = (lotes * qtd_med * 80)
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if (medicamentos == ipt_biologicos.value){
+           calculoMedi = (lotes * qtd_med * 80 )
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if (medicamentos == ipt_hemoderivados.value){
+           calculoMedi = (lotes * qtd_med * 80)
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if (medicamentos == ipt_antibioticos.value){
+           calculoMedi = (lotes * qtd_med * 80 )
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if(medicamentos == ipt_hormonios.value){
+           calculoMedi = (lotes * qtd_med * 80 )
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if(medicamentos == ipt_colirios.value){
+           calculoMedi = (lotes * qtd_med * 80 )
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if(medicamentos == ipt_quimioterapicos.value){
+           calculoMedi = (lotes * qtd_med * 80 )
+           desperdicio =  calculoMedi * 0.2
+   
+       } else if(medicamentos == ipt_anestesicos_esp.value){
+           calculoMedi = (lotes * qtd_med * 80 )
+           desperdicio =  calculoMedi * 0.2
+   
+       }else if(medicamentos == ipt_doencasRaras.value){
+           calculoMedi = (lotes * qtd_med * 80 )
+           desperdicio =  calculoMedi * 0.2
+   
+       } else {
+           div_frase.innerHTML = `Medicamento não válido` // Se nenhum medicamento for válido, a economia não será calculada
+       }
+   
+       // Exibe o cálculo da economia
+      div_frase.innerHTML = 
+       `<h3>O preço total pago nos medicamentos é de R$${calculoMedi * 4}. Com um prejuízo estimado de R$${desperdicio} caso não haja cuidado com a temperatura.
+            No entanto, com a aquisição do nosso produto, esse valor será reduzido para R$${desperdicio * 0.25}, 
+            resultando em uma economia de R$${calculoMedi}, o que representa uma redução de 25% nos gastos.</h3>`
+       }   
+
+</script>
+</html>
