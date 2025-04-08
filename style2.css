@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", sans-serif;
+    background: linear-gradient(to bottom, rgb(35, 156, 223) 16%, rgb(54, 125, 174) 55%, rgb(15, 39, 129) 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+
+.header {
+    background-color: rgb(35, 156, 223);
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 2px white;
+
+}
+
+.header h1 {
+    font-weight: 400;
+    font-size: 40px;
+}
+
+.header img {
+    width: 100px;
+    height: 83px;
+}
+
+
+
+.navbar {
+    width: 600px;
+    display: flex;
+    margin-right: 5%;
+    margin-left: 40%;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: white;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+.cadastro_Pedido {
+    display: flex;
+    /*define em qual direção os itens dentro de um container display: flex vão se organizar. */
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+
+}
+
+
+.subtitulo {
+    display: flex;
+    color: white;
+    font-family: "Rubik", sans-serif;
+    font-size: 200%;
+    justify-content: flex-start;
+    width: 70%;
+    margin-left: 28%;
+}
+
+.box_informacoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 40%;
+    padding: 40px;
+    /*espaço interno */
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    flex-direction: column;
+    padding: 40px;
+    margin: auto;
+}
+.linha {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 40px;
+  }
+
+.campo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.campo label {
+    width: 200px;
+}
+
+.campo input {
+    flex: 1;
+    /* faz o input ocupar o restante do espaço */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 48%;
+}
+
+.coluna2 {
+    justify-content: start;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 48%;
+
+}
+
+.coluna input,
+.coluna2 input {
+    width: 200px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.box_botao {
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.box_botao button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #239cdf;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.box_botao button:hover {
+    background-color: #1b7fb4;
+}
+
+
+.redes_sociais {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 25%;
+    padding-inline: 37%;
+}
+
+.insta {
+    width: 70px;
+    height: 70px;
+}
+
+.x {
+    width: 75px;
+    height: 45px;
+    margin-top: 19%;
+}
+
+.linkedin {
+    width: 75px;
+    height: 70px;
+}
+
+.endereco {
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.telefone_e_mail {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-inline: 17%;
+    margin-top: 4%;
+    margin-left: 7%;
+}
+
+.telefone {
+    display: flex;
+    align-items: center;
+}
+
+.telefone a {
+    text-decoration: none;
+    color: white;
+}
+
+.mail {
+    display: flex;
+    align-items: center;
+}
+
+.mail a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo_final {
+    display: flex;
+    justify-self: center;
+    margin-top: 4%;
+    margin-bottom: 3%;
+}
