@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", sans-serif;
+    background: linear-gradient(to bottom, rgb(35, 156, 223) 16%, rgb(54, 125, 174) 55%);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header {
+    background-color: rgb(35, 156, 223);
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 2px white;
+
+}
+
+.header h1 {
+    font-weight: 400;
+    font-size: 40px;
+}
+
+.header img {
+    width: 100px;
+    height: 83px;
+}
+
+
+
+.navbar {
+    width: 400px;
+    display: flex;
+    margin-left: 50%;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: white;
+    
+}
+.header .exitLogo{
+    display: flex;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 2px;
+    vertical-align: middle;
+}
+.header a {
+    text-decoration: none;
+    color: white;
+    
+}
+
+/* Conteúdo */
+.informacao {
+    color: white;
+
+}
+
+.informacao h2 {
+    font-size: 41px;
+
+}
+
+.informacao .titulo {
+    margin-top: 5%;
+    margin-left: 25vh;
+    margin-right: 40%;
+    margin-bottom: 3%;
+}
+
+.containerPedido {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 15%;
+}
+
+
+.containerPedido #pedidos {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.grafico {
+    display: flex;
+    justify-content: center;
+}
+
+.grafico img {
+    width: 75%;
+}
+
+.mensagemAlerta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 15%;
+
+}
+
+
+
+
+
+/*fotter*/
+
+
+.redes_sociais {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 25%;
+    padding-inline: 37%;
+}
+
+.insta {
+    width: 70px;
+    height: 70px;
+}
+
+.x {
+    width: 75px;
+    height: 45px;
+    margin-top: 19%;
+}
+
+.linkedin {
+    width: 75px;
+    height: 70px;
+}
+
+.endereco {
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.telefone_e_mail {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-inline: 17%;
+    margin-top: 4%;
+    margin-left: 7%;
+}
+
+.telefone {
+    display: flex;
+    align-items: center;
+}
+
+.telefone a {
+    text-decoration: none;
+    color: white;
+}
+
+.mail {
+    display: flex;
+    align-items: center;
+}
+
+.mail a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo_final {
+    display: flex;
+    justify-self: center;
+    margin-top: 4%;
+    margin-bottom: 3%;
+}
