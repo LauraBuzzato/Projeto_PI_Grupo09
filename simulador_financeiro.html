@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Biologistic</title>
 </head>
+
 <body>
     <div class="header">
         <img src="img/logo-removebg-preview 1.png" alt="" class="logo">
@@ -27,31 +29,54 @@
     </div>
 
     <div class="calculadora">
-        <h1>Calculadora financeira - Simulação Renda</h1>
-        <label>Qual será o medicamento armazenado?</label>
-        <select id="ipt_medicamentos">
-            <option id="ipt_vacina" value="vacina">Vacina</option>
-            <option id="ipt_insulina" value="Insulina">Insulina</option>
-            <option id="ipt_biologicos" value="Biologicos">Medicamentos Biológicos</option>
-            <option id="ipt_hemoderivados" value="Hemoderivados">Hemoderivados</option>
-            <option id="ipt_antibioticos" value="Antibioticos">Antibióticos termossensíveis</option>
-            <option id="ipt_hormonios" value="Hormonios">Hormônios</option>
-            <option id="ipt_colirios" value="Colirios">Colírios especiais</option>
-            <option id="ipt_quimioterapicos" value="Quimioterapicos">Quimioterápicos</option>
-            <option id="ipt_anestesicos_esp" value="Anestesicos">Anestésicos especiais</option>
-            <option id="ipt_doencasRaras" value="Medicamentos">Medicamentos para doenças raras</option>
-        </select>
-        <br>
-        <br>
-        <label>Quantos lotes serão transportados?</label>
-        <input type="number" id="ipt_lotes" min="1"  placeholder="Quantidade de lotes">
-        <br>
-        <br>
-        <label>Quantas unidades do medicamento em cada lote?</label>
-        <input type="number" id="ipt_qtdMed" min="1" placeholder="Unidadades de medicamento">
-        <br>
-        <button onclick="calcularEconomia()">Calcular Ecônomia!</button>
-        <div id="div_frase"></div>
+        <div class="titulo">
+            <h1>Simulador Financeiro - Responda e avalie seu negócio!</h1>
+        </div>
+        <div class="perguntas">
+            <label for="slc_qualidadeTransporte" class="perg um">      1. Seu negócio possui um transporte com equipamentos de segurança
+                térmica?</label>
+                <br>
+            <select id="slc_qualidadeTransporte">
+                <option value="none"></option>
+                <option value="simQualidade">Sim</option>
+                <option value="naoQualidade">Não</option>
+            </select>
+            <br>
+            <label for="slc_monitoramento" class="perg dois">
+                2. Seu negócio possui um monitoramento em tempo real da
+                temperutura durante o transporte de medicamentos termossensíveis?
+            </label>
+                <br>
+            <select id="slc_monitoramento">
+                <option value="none"></option>
+                <option value="simMonitoramento">Sim</option>
+                <option value="naoMonitoramento">Não</option>
+            </select>
+            <br>
+            <label for="ipt_quantidade" for="slc_tempo" class="perg tres">3. Insira a quantidade de medicamentos termossensíveis
+                transportados em um determinado período de tempo:</label>
+                <br>
+                <label class="perg3 a">Quantidade:</label>
+            <input type="number" id="ipt_quantidade">
+            <br>
+            <label class="perg3 b" >Tempo:</label>
+            <select id="slc_tempo">
+                <option value="none"></option>
+                <option value="dia">Um Dia</option>
+                <option value="mes">Um Mês</option>
+                <option value="ano">Um ano</option>
+            </select>
+            <br>
+            <button onclick="calcular()">Calcular</button>
+        </div>
+        <div class="caixaResposta">
+            <div class="resposta" id="div_resposta">
+            </div>
+        </div>
+            
+            
+
+        
 
     </div>
 
@@ -67,7 +92,7 @@
                 <img src="img/image 22.png" alt="" class="linkedin">
             </a>
         </div>
-  
+
 
         <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
         <div class="telefone_e_mail">
@@ -86,68 +111,62 @@
             </div>
         </div>
         <img src="img/logo-removebg-preview 1.png" alt="" class="logo_final">
-    </div>
+
+</div>
 </body>
 <script>
-    function calcularEconomia(){
-       
-       var lotes = Number(ipt_lotes.value)
-       var qtd_med = Number(ipt_qtdMed.value)
-       var desperdicio
-       var calculoMedi
-   
-       var calculoMedi
-   
-       if (medicamentos == ipt_vacina.value){
-           calculoMedi = (lotes * qtd_med * 80)
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if (medicamentos == ipt_insulina.value){
-           calculoMedi = (lotes * qtd_med * 80)
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if (medicamentos == ipt_biologicos.value){
-           calculoMedi = (lotes * qtd_med * 80 )
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if (medicamentos == ipt_hemoderivados.value){
-           calculoMedi = (lotes * qtd_med * 80)
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if (medicamentos == ipt_antibioticos.value){
-           calculoMedi = (lotes * qtd_med * 80 )
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if(medicamentos == ipt_hormonios.value){
-           calculoMedi = (lotes * qtd_med * 80 )
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if(medicamentos == ipt_colirios.value){
-           calculoMedi = (lotes * qtd_med * 80 )
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if(medicamentos == ipt_quimioterapicos.value){
-           calculoMedi = (lotes * qtd_med * 80 )
-           desperdicio =  calculoMedi * 0.2
-   
-       } else if(medicamentos == ipt_anestesicos_esp.value){
-           calculoMedi = (lotes * qtd_med * 80 )
-           desperdicio =  calculoMedi * 0.2
-   
-       }else if(medicamentos == ipt_doencasRaras.value){
-           calculoMedi = (lotes * qtd_med * 80 )
-           desperdicio =  calculoMedi * 0.2
-   
-       } else {
-           div_frase.innerHTML = `Medicamento não válido` // Se nenhum medicamento for válido, a economia não será calculada
-       }
-   
-       // Exibe o cálculo da economia
-      div_frase.innerHTML = 
-       `<h3>O preço total pago nos medicamentos é de R$${calculoMedi * 4}. Com um prejuízo estimado de R$${desperdicio} caso não haja cuidado com a temperatura.
-            No entanto, com a aquisição do nosso produto, esse valor será reduzido para R$${desperdicio * 0.25}, 
-            resultando em uma economia de R$${calculoMedi}, o que representa uma redução de 25% nos gastos.</h3>`
-       }   
+    function calcular() {
+        var qualidade = slc_qualidadeTransporte.value
+        var monitoramento = slc_monitoramento.value
+        var quantidade = Number(ipt_quantidade.value)
+        var tempo = slc_tempo.value
+
+
+        var calculo = quantidade * 0.5
+        var calculoDesperdicio = calculo * 0.75
+
+        if (quantidade <= 0 || qualidade == 'none' || monitoramento == 'none' || tempo == 'none') {
+            if (quantidade <= 0) {
+                alert('Insira uma quantidade válida de medicamentos')
+            }
+            if (qualidade == 'none' || monitoramento == 'none' || tempo == 'none') {
+                alert('Campo obrigatório não selecionado')
+            }
+
+        } else if (qualidade == 'naoQualidade' && monitoramento == 'naoMonitoramento') { // caso N-N
+
+
+            div_resposta.innerHTML += `Cuidado! Sem um equipamento adequado para o transporte de medicamentos termosenssíveis 
+            você corre o risco de perdê-los por completo! Além de que uma das principais causas de perda de carga é por conta
+            de um transporte sem monitoramento em tempo real adequado! Sem monitoramento seu negócio corre risco alto de desperdício!
+            Aproximadamente ${calculo} em um ${tempo}.  <b>Venha para a Biologistic e esse desperdício vai ser reduzido, podendo salvar
+            cerca de ${calculoDesperdicio} da sua carga!</b> `
+
+
+        } else if (qualidade == 'naoQualidade' && monitoramento == 'simMonitoramento') { // caso N-S
+
+
+            div_resposta.innerHTML += `Cuidado! Sem um equipamento adequado para o transporte de medicamentos termosenssíveis você corre o risco
+             de perdê-los por completo!<b> Com o monitoramento em tempo real da Biologistic garanta mais segurança para seus medicamentos! </b>`
+            
+
+
+        } else if (qualidade == 'simQualidade' && monitoramento == 'naoMonitoramento') { // caso S-N
+
+
+            div_resposta.innerHTML += `Você possui um equipamento de qualidade para o transporte seguro! Mas cuidado, sem um monitoramento em
+             tempo real adequado seu negócio corre risco alto de desperdício!Aproximademente ${calculo} em um ${tempo}. 
+            <b>Venha para a Biologistic e esse desperdício vai ser reduzido, podendo salvar cerca de ${calculoDesperdicio} da sua carga!</b>`
+
+
+        } else if (qualidade == 'simQualidade' && monitoramento == 'simMonitoramento') {// caso S-S
+
+            div_resposta.innerHTML += `Parabéns! Seu negócio possui uma boa segurança com seus medicamentos termosenssíveis!<b>Com 
+            a ajuda da Biologistic melhore ainda mais e fique mais seguro, podemos reduzir grande parte do seu desperdício!</b> `
+
+        }
+    }
 
 </script>
+
 </html>
