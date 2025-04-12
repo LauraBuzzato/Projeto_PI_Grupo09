@@ -35,7 +35,7 @@ body{
     width: 600px;
     display: flex;
     margin-right: 5%;
-    margin-left: 40%;
+    margin-left: 20%;
     align-items: center;
     justify-content: space-between;
     list-style: none;
@@ -61,11 +61,14 @@ body{
     margin-top: 8%;
     margin-left: 15%;
     margin-right: 40%;
+    width: 60%;
+  
 }
 
 .informacao p{
     font-size: 23px;
     font-weight: 300;
+   
 }
 
 .informacao .primeiro_p{
@@ -77,6 +80,7 @@ body{
 .geladeira{
     margin-top: -24%;
     margin-left: 60%;
+    width: 40%;
 }
 
 .informacao .titulo2{
@@ -171,7 +175,7 @@ body{
 }
 
 .diagrama_solucao{
-    width: 80%;
+    width: 60%;
     display: flex;
     justify-self: center;
     margin-top: 10%;
