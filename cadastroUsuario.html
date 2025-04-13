@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biologistic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header">
+        <img src="img/logo-removebg-preview 1.png" alt="" class="logo">
+        <h1>Biologistic</h1>
+        <ul class="navbar">
+            <li class="agora">
+                <a href="pag_inicial.html"> Página Inicial</a>
+            </li>
+            <li>
+                <a href="simulador_financeiro.html"> Calculadora Financeira</a>
+            </li>
+            <li class="agora">
+                <a href="cadastroUsuario.html"><b>Cadastre-se</b></a>
+            </li>
+            <li>
+                <a href="login.html">Login</a>
+            </li>
+        </ul>
+    </div>
+    <div class="pagina">
+        <!-- Lado esquerdo azul -->
+        <div class="lado-esquerdo">
+            <h1><b>Cadastre sua Transportadora</b></h1>
+            <p>Preencha o formulário ao lado para começar a utilizar nossos serviços de monitoramento de temperatura
+                para transportes refrigerados.</p>
+        </div>
+
+        <!-- Lado direito branco com formulário -->
+        <div class="lado-direito">
+            <form class="formulario">
+                <div class="form-group">
+                    <label for="nome">Nome da Transportadora</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cnpj">CNPJ</label>
+                    <input type="text" id="cnpj" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmar-senha">Confirmar Senha</label>
+                    <input type="password" id="confirmar-senha" required>
+                </div>
+                <button>Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
