@@ -28,24 +28,6 @@ html, body {
 h1 {
     font-weight: 400;
     font-size: clamp(1.5rem, 5vw, 2.5rem);
-    font-size: 40px;
-}
-
-.header img{
-    width: 100px;
-    height: 83px;
-}
-
-
-
-.navbar{
-    width: 600px;
-    display: flex;
-    margin-right: 5%;
-    margin-left: 20%;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
     color: white;
     margin: 0;
 }
@@ -83,25 +65,24 @@ h1 {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-.informacao .titulo{
-    margin-top: 8%;
-    margin-left: 15%;
-    margin-right: 40%;
-    width: 60%;
+.informacao .titulo {
+    margin: 2rem 0;
+    width: 100%;
 }
 
 .informacao p {
     font-size: clamp(1rem, 2vw, 1.4rem);
     font-weight: 300;
     width: 100%;
-
 }
 
 .informacao .primeiro_p {
     margin: 1rem 0;
 }
 
-
+.geladeira {
+    display: none; /* Esconder em mobile */
+}
 
 .conjunto_fornecimentos {
     display: flex;
@@ -128,161 +109,18 @@ h1 {
 .fornecimentos h3 {
     font-size: 2rem;
     color: #239cdf;
-    margin-bottom: 5px;
-}
-
-.fornecimentos img{
-    width: 60px;
 }
 
 .fornecimentos p {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 5px;
 }
 
-.fotos_sobrenos{
-    display: flex;
-    flex-direction: column;
-    width: 15.44%;
-    height: 190px;
-    margin-left: 11%;
-    margin-top: 17%;
-}
-
-.sobre_nos{
-    background-color: white;
-    color: black;
-    height: 530px;
-    width: 29%;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    padding: 2%;
-    margin-top: -19%;
-    margin-left: 26%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.sobre_nos h3{
-    font-size: 30px;
-    margin-left: 4%;
-}
-
-.sobre_nos p{
-    font-size: 18px;
-    font-weight: 700;
-    margin-left: 4%;
-    margin-right: 6%;
-    margin-top: 15%;
-}
-
-.como_funcionamos{
-    background-color: white;
-    color: black;
-    height: 380px;
-    width: 29%;
-    border-radius: 0 30px 30px 0;
-    display: flex;
-    flex-direction: column;
-    padding: 2%;
-    margin-top: -35%;
-    margin-left: 59%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.aplicacao{
-    margin-left: 21%;
-    margin-top: 15%;
-}
-
-.diagrama_solucao{
-    width: 60%;
-    display: flex;
-    justify-self: center;
-    margin-top: 10%;
-}
-
-.equipe{
-    margin-left: 19%;
-    margin-top: 10%;
-}
-
-.card_pessoas1{
-    background-color: white;
-    color: black;
-    height: 330px;
-    width: 27%;
-    border-radius: 30px;
-    text-align: center;
-}
-
-.card_pessoas2{
-    background-color: white;
-    color: black;
-    height: 330px;
-    width: 43.2%;
-    border-radius: 30px;
-    text-align: center;
-}
-
-.card_pessoas1 .foto{
-    width: 50%;
-    height: 160px;
-    border: solid 1px black;
-    border-radius: 100px;
-}
-
-.card_pessoas2 .foto{
-    width: 50%;
-    height: 160px;
-    border: solid 1px black;
-    border-radius: 100px;
-}
-
-.fileira{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-inline: 10%;
-    margin-top: 9%;
-
-}
-
-.fileira2{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-inline: 25%;
-    margin-top: 4%;
-
-}
-
-.redes_sociais{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 25%;
-    padding-inline: 37%;
-}
-
-.insta{
+.fornecimentos img{
     width: 70px;
-    height: 70px;
 }
 
-.x{
-    width: 75px;
-    height: 45px;
-    margin-top: 19%;
-}
-
-.linkedin{
-    width: 75px;
-    height: 70px;
-}
-
-.endereco{
+.cards-info {
     display: flex;
     justify-content: center;
     gap: 2rem;
@@ -320,7 +158,6 @@ h1 {
     line-height: 1.6;
     white-space: normal; 
 }
-
 .aplicacao, .equipe {
     width: 100%;
     max-width: 800px;
