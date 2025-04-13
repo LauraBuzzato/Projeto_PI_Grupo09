@@ -31,10 +31,10 @@ body {
 
 
 
-.navbar {
+.navbarDash {
     width: 400px;
     display: flex;
-    margin-left: 50%;
+    margin-left: 35%;
     align-items: center;
     justify-content: space-between;
     list-style: none;
@@ -71,35 +71,104 @@ body {
     margin-left: 25vh;
     margin-right: 40%;
     margin-bottom: 3%;
+    width: 80%;
 }
 
 .containerPedido {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: start;
-    margin-left: 15%;
+    margin-left: 10%;
 }
 
 
 .containerPedido #pedidos {
     font-size: 25px;
     font-weight: bold;
+    border-radius: 30px;
+    width: 20%;
+
+}
+
+.ultimoAlerta h4{
+    color: black;
+    background-color: white;
+    height: 20px;
+    width: 20%;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+}
+.KPI{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-self: center;
+    width: 80%;
+    margin: 3%;
+}
+.KPI_Horario{
+    color: black;
+    background-color: white;
+    height: 170px;
+    width: 25%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center; 
+}
+.KPI_Duracao{
+    color: black;
+    background-color: white;
+    height: 170px;
+    width: 25%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+}
+.KPI_Temp{
+    color: black;
+    background-color: white;
+    height: 170px;
+    width: 25%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+}
+
+.KPI p {
+    font-size: 180%;
 }
 
 .grafico {
     display: flex;
-    justify-content: center;
+
+    justify-self: center;
+    width: 80%;
+    background-color: white;
+   
 }
 
-.grafico img {
-    width: 75%;
-}
 
 .mensagemAlerta {
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin-left: 15%;
+    margin-top: 5%;
+    margin-left: 25vh;
+    margin-right: 40%;
+    margin-bottom: 3%;
+    width: 80%;
 
 }
 
