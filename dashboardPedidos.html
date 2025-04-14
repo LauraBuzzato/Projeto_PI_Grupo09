@@ -61,7 +61,11 @@
             <div class="grafico">
                 <canvas id="myChart"></canvas>
               </div>
+              <div class="grafico">
+                <canvas id="myChart2"></canvas>
+              </div>
         </div>
+
 
         <!--Iniciando footer-->
         <div class="fotter">
@@ -98,27 +102,65 @@
     </div>
 </body>
 <script>
-    const ctx = document.getElementById('myChart');
-  
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['1256', '1257', '1258', '1259', '1260', '1261'],
-      datasets: [{
-        label: 'Alertas',
-        backgroundColor: 'rgb(25,25,112)',
-        borderColor: 'rgb(25,25,112)',
-        data: [4, 9, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+
+    // grafico barra
+const labels = ["Alerta 1256", "Alerta 1257", "Alerta 1258", "Alerta 1259", "Alerta 1260", "Alerta 1261"];
+const data = {
+  labels: labels,
+  datasets: [{
+    axis: 'y',
+    label: 'Duração (min)',
+    data: [5,5,4,2,2,1],
+    fill: false,
+    backgroundColor: [
+      'rgba(255, 99, 132)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)'
+    ],
+    borderWidth: 1
+  }]
+};
+
+const config = {
+  type: 'bar',
+  data,
+  options: {
+    indexAxis: 'y',
+  }
+};
+
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  )
+
+  // grafico rosquinha
+
+  const data2 = {
+  labels: [
+    'Acima de 8ºC',
+    'Abaixo de 2ºC',
+    'Dentro dos Padrões'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+const config2 = {
+  type: 'doughnut',
+  data: data2,
+};
+const myChart2 = new Chart(
+    document.getElementById('myChart2'),
+    config2
+  )
 </script>
 </html>

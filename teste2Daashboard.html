@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="grafico">
+        <canvas id="myChart"></canvas>
+      </div>
+</body>
+<script>
+    const data = {
+  labels: [
+    'Acima de 8ºC',
+    'Abaixo de 2ºC',
+    'Dentro dos Padrões'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+const config2 = {
+  type: 'doughnut',
+  data: data,
+};
+const myChart = new Chart(
+    document.getElementById('myChart2'),
+    config2
+  )
+</script>
+</html>
