@@ -1,27 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-html, body {
+html,
+body {
     overflow-x: hidden;
-    width: 100%; 
-    max-width: 100%; 
+    width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
     font-family: "Rubik", sans-serif;
     background: linear-gradient(to bottom, rgb(35, 156, 223) 18%, rgb(54, 125, 174) 55%, rgb(15, 39, 129));
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 100vh;
 }
 
 .header {
+    display: flex;
     background-color: rgb(35, 156, 223);
     color: white;
-    display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     border-bottom: solid 2px white;
-    gap: 1rem;
+
 }
 
 h1 {
@@ -32,18 +32,19 @@ h1 {
 
 .header img {
     width: 9rem;
+    justify-content: flex-start;
     margin-left: 2%;
 
 }
 
 .navbar {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-right: 2%;
     list-style: none;
     padding: 0;
-    margin-left: 60%;
     width: 100%;
     max-width: 600px;
 }
@@ -81,10 +82,6 @@ h1 {
     margin: 1rem 0;
 }
 
-.geladeira {
-    display: none; /* Esconder em mobile */
-}
-
 .conjunto_fornecimentos {
     display: flex;
     flex-wrap: nowrap;
@@ -117,7 +114,7 @@ h1 {
     font-weight: 700;
 }
 
-.fornecimentos img{
+.fornecimentos img {
     width: 70px;
 }
 
@@ -138,12 +135,12 @@ h1 {
     display: inline-flex;
     flex-direction: column;
     padding: 2rem;
-    width: 45%; 
-    min-width: 400px; 
+    width: 45%;
+    min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     flex-shrink: 0;
-    position: relative; 
-    overflow: hidden; 
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
 }
 
@@ -157,9 +154,10 @@ h1 {
     font-size: 1.3rem;
     font-weight: 700;
     line-height: 1.6;
-    white-space: normal; 
+    white-space: normal;
 }
- .equipe {
+
+.equipe {
     width: 100%;
     max-width: 800px;
     margin: 2rem auto;
@@ -167,7 +165,7 @@ h1 {
 }
 
 
-.aplicacao{
+.aplicacao {
     display: flex;
 }
 
@@ -176,7 +174,8 @@ h1 {
     width: 80%;
 }
 
-.fileira, .fileira2 {
+.fileira,
+.fileira2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -185,7 +184,8 @@ h1 {
     margin: 2rem 0;
 }
 
-.card_pessoas1, .card_pessoas2 {
+.card_pessoas1,
+.card_pessoas2 {
     background-color: white;
     color: black;
     border-radius: 30px;
@@ -195,7 +195,8 @@ h1 {
     margin: 0 auto;
 }
 
-.card_pessoas1 .foto, .card_pessoas2 .foto {
+.card_pessoas1 .foto,
+.card_pessoas2 .foto {
     width: clamp(100px, 50%, 150px);
     height: auto;
     aspect-ratio: 1/1;
@@ -217,7 +218,8 @@ h1 {
     padding: 0 5vw;
 }
 
-.insta, .linkedin {
+.insta,
+.linkedin {
     width: clamp(40px, 8vw, 70px);
     height: auto;
 }
@@ -246,14 +248,16 @@ h1 {
     padding: 0 5vw;
 }
 
-.telefone, .mail {
+.telefone,
+.mail {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
-.telefone a, .mail a {
+.telefone a,
+.mail a {
     text-decoration: none;
     color: white;
 }
@@ -278,7 +282,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 5vw;
+    padding: 1rem 5vw;
 }
 
 .calculadora .titulo {
@@ -294,7 +298,6 @@ h1 {
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    padding: 1rem;
 }
 
 .calculadora .perg {
@@ -314,7 +317,7 @@ h1 {
     padding: 1rem;
 }
 
-.calculadora select, 
+.calculadora select,
 .calculadora input {
     border: 1.5px solid #000000;
     background-color: #ede7e7;
@@ -370,7 +373,7 @@ h1 {
 
 /*Inicio do style de login e cadastro*/
 
- .pagina {
+.pagina {
     display: flex;
     flex-wrap: wrap;
     min-height: calc(100vh - 150px);
@@ -388,7 +391,7 @@ h1 {
     color: white;
 }
 
-.lado-esquerdo p{
+.lado-esquerdo p {
     font-size: 1.3rem;
 }
 
@@ -400,7 +403,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
+
 }
 
 .formulario {
@@ -411,7 +414,7 @@ h1 {
 
 .formulario .form-group {
     margin-bottom: 1.5rem;
-    
+
 }
 
 .formulario label {
@@ -527,7 +530,8 @@ h1 {
     font-size: 1rem;
 }
 
-.coluna, .coluna2 {
+.coluna,
+.coluna2 {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -547,7 +551,7 @@ h1 {
 }
 
 .box_botao button {
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem;
     border-radius: 7rem;
     border: none;
     background-color: #239cdf;
@@ -561,9 +565,142 @@ h1 {
     background-color: #1b7fb4;
 }
 
-.box_botao button svg{
+.box_botao button svg {
     width: 100%;
     height: 2rem;
 }
 
 /*Fim do style de cadastro do pedido*/
+
+/*Style das dashboards*/
+
+#pedidos {
+    background-color: rgb(17, 74, 179);
+    color: rgb(223, 240, 255);
+    border: 2px solid rgb(124, 229, 255);
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#pedidos:focus {
+    border-color: rgb(99, 198, 255);
+    box-shadow: 0 0 0 3px rgba(124, 229, 255, 0.3);
+}
+
+#pedidos option {
+    background-color: rgb(13, 47, 109);
+    color: rgb(223, 240, 255);
+    padding: 0.5rem;
+}
+
+
+.containerPedido {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#pedidos {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgb(124, 229, 255)'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+}
+
+
+.KPI{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5rem;
+    justify-content: flex-start;
+    padding-top: 3rem;
+}
+
+
+.KPI_Alerta{
+    display: flex;
+    background-color: rgb(17, 74, 179);
+    border-radius: 8px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    width: 15rem;
+}
+
+.graficos-gerais {
+    display: flex;
+    background-color: rgb(13, 61, 150);
+    border-radius: 8px;
+    padding: 20px;
+    width: 95%;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grafico {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.grafico1, .grafico2 {
+    position: relative; 
+    width: 100%;
+    height: 400px; 
+}
+
+/*Importante!("obriga o canvas a ocupar todos os espaços")*/
+.grafico1 canvas, .grafico2 canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.grafico1 {
+    flex: 2;
+    min-height: 500px;
+    border-radius: 8px;
+    background-color: #1372c0;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grafico2 {
+    flex: 1;
+    min-height: 500px;
+    border-radius: 8px;
+    background-color: #1372c0;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grafico-Principal {
+    width: 100%;
+    height: 500px; /* Aumente este valor para deixar o gráfico maior */
+    border-radius: 8px;
+    background-color: #0072cf;
+    margin: 20px 0;
+}
+
+.grafico-Principal canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+

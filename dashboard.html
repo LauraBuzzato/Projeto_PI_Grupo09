@@ -12,7 +12,7 @@
 <body>
     <div class="header">
         <img src="img/biologistics.png" alt="Biologistic" class="logo">
-        <ul class="navbarDash">
+        <ul class="navbar">
             <li>
                 <a href="cadastroPedido.html">Cadastros</a>
             </li>
@@ -23,16 +23,15 @@
                 <a href="dashboardPedidos.html">Pedidos</a>
             </li>
             <li>
-                <a  href="pag_inicial.html">Sair</a>
-                <img class="exitLogo" src="img/logoExit.png">
+                <a href="pag_inicial.html">Sair</a>
             </li>
-                
+
         </ul>
     </div>
     <div class="informacao">
         <h2 class="titulo">Monitoramento em tempo Real</h2>
-       
- 
+
+
         <div class="containerPedido">
             <select id="pedidos">
                 <option value="pedido1">Pedido 8732</option>
@@ -40,27 +39,30 @@
                 <option value="pedido3">Pedido 8734</option>
                 <option value="pedido4">Pedido 8735</option>
             </select>
-          
+
         </div>
         <div class="ultimoAlerta">
-            <h4>Útimo alerta: 1256</h4>
+            <h3>Útimo alerta: 1256</h3>
         </div>
         <div class="KPI">
-            <div class="KPI_Horario">
+            <div class="KPI_Alerta">
                 <h3>Horário:</h3>
-                <p>12:00</p>
+                <h3>12:00</h3>
             </div>
-            <div class="KPI_Duracao">
+            <div class="KPI_Alerta">
                 <h3>Duração:</h3>
-                <p>2min</p>
+                <h3>2min</h3>
             </div>
-            <div class="KPI_Temp">
+            <div class="KPI_Alerta">
                 <h3>Temperatura:</h3>
-                <p>9°C</p>
+                <h3>9°C</h3>
             </div>
         </div>
-        <div class="grafico">
-            <canvas id="myChart"></canvas>
+        <div class="graficos-gerais">
+            <div class="grafico-Principal">
+                <canvas id="myChart"></canvas>
+            </div>
+
         </div>
         <div class="mensagemAlerta">
             <h2 class="tituloAlerta">Alertas</h2>
@@ -95,47 +97,85 @@
                     </a>
                 </div>
             </div>
-            <img src="img/logo-removebg-preview 1.png" alt="" class="logo_final">
         </div>
-
     </div>
 </body>
 <script>
-        const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart');
 
-new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['11:00', '11:30', '12:00', '12:30', '13:00', '13:30'],
-    datasets: [{
-      label: 'Sensor 1256',
-      backgroundColor: 'rgb(0,191,255)',
-      borderColor: 'rgb(0,191,255)',
-      data: [5, 6, 9, 7, 4, 3],
-      borderWidth: 1
-    },
-     {
-      label: 'Máx.',
-      backgroundColor: 'rgb(255,0,0)',
-      borderColor: 'rgb(255,0,0)',
-      data: [8, 8, 8, 8, 8, 8],
-      borderWidth: 1
-    },
-   {
-      label: 'Mín.',
-      backgroundColor: 'rgb(255,165,0)',
-      borderColor: 'rgb(255,165,0)',
-      data: [2, 2, 2, 2, 2, 2],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-});
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['11:00', '11:30', '12:00', '12:30', '13:00', '13:30'],
+            datasets: [{
+                label: 'Sensor 1256',
+                backgroundColor: 'rgb(99, 198, 255)',
+                borderColor: 'rgb(124, 229, 255)',
+                data: [5, 6, 9, 7, 4, 3],
+                borderWidth: 3,
+                tension: 0.4,
+                fill: false
+            },
+            {
+                label: 'Máx. Permitido',
+                backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                borderColor: 'rgb(255, 0, 0)',
+                data: [8, 8, 8, 8, 8, 8],
+                borderWidth: 2,
+                borderDash: [8, 8],
+                pointRadius: 0
+            },
+            {
+                label: 'Mín. Permitido',
+                backgroundColor: 'rgba(255, 165, 0, 0.1)',
+                borderColor: 'rgb(0, 46, 105)',
+                data: [2, 2, 2, 2, 2, 2],
+                borderWidth: 2,
+                borderDash: [8, 8],
+                pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgb(223, 240, 255)',
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgb(223, 240, 255)',
+                    },
+                    ticks: {
+                        color: 'rgb(223, 240, 255)',
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    grid: {
+                        color: 'rgb(223, 240, 255)',
+                    },
+                    ticks: {
+                        color: 'rgb(223, 240, 255)',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
+    });
 </script>
+
 </html>

@@ -6,16 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style_dashboard.css">
+    <link rel="stylesheet" href="style/style.css">
 
 </head>
 
 <body>
     <div class="header">
-        <img src="img/logo-removebg-preview 1.png" alt="" class="logo">
-        <h1>Biologistic</h1>
-        <ul class="navbarDash">
+        <img src="img/biologistics.png" alt="" class="logo">
+        <ul class="navbar">
             <li>
                 <a href="cadastroPedido.html">Cadastros</a>
             </li>
@@ -26,17 +24,16 @@
                 <a href=""><b>Pedidos</b></a>
             </li>
             <li>
-                <a  href="pag_inicial.html">Sair</a>
-                <img class="exitLogo" src="img/logoExit.png">
+                <a href="pag_inicial.html">Sair</a>
             </li>
-                
+
         </ul>
     </div>
     <div class="informacao">
         <h2 class="titulo">Tabela de Pedidos</h2>
-       
 
-   
+
+
         <div class="mensagemAlerta">
             <h2 class="tituloAlerta">Resumo dos Pedidos</h2>
             <div class="containerPedido">
@@ -48,119 +45,174 @@
                 </select>
             </div>
             <div class="KPI">
-                <div class="KPI_AlertaHora">
+                <div class="KPI_Alerta">
                     <h3>Alertas/Hora:</h3>
-                    <p>0.75</p>
+                    <h3>0.75</h3>
                 </div>
-                <div class="KPI_QtdAlertas">
+                <div class="KPI_Alerta">
                     <h3>Quantidade de Alertas:</h3>
-                    <p>9</p>
-                </div>
+                    <h3>9</h3>
                 </div>
             </div>
+        </div>
+        <div class="graficos-gerais">
             <div class="grafico">
-                <canvas id="myChart"></canvas>
-              </div>
-              <div class="grafico">
-                <canvas id="myChart2"></canvas>
-              </div>
-        </div>
-
-
-        <!--Iniciando footer-->
-        <div class="fotter">
-            <div class="redes_sociais">
-                <a href="">
-                    <img src="img/instagram-new.png" alt="" class="insta">
-                </a>
-                <a href="">
-                    <img src="img/X.png" alt="" class="x">
-                </a>
-                <a href="">
-                    <img src="img/image 22.png" alt="" class="linkedin">
-                </a>
-            </div>
-            <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
-            <div class="telefone_e_mail">
-                <div class="telefone">
-                    <img src="img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
-                    <a href="https://wa.me/5511985831860">
-                        <p>+55 11 98583-1860</p>
-                    </a>
+                <div class="grafico1">
+                    <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
                 </div>
-                <div class="mail">
-                    <img src="img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
-                        alt="">
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
-                        <p>medmonitoramento@gmail.com</p>
-                    </a>
+
+                <div class="grafico2">
+                    <canvas id="myChart2"></canvas>
                 </div>
             </div>
-            <img src="img/logo-removebg-preview 1.png" alt="" class="logo_final">
         </div>
+
+    </div>
+
+
+    <!--Iniciando footer-->
+    <div class="fotter">
+        <div class="redes_sociais">
+            <a href="">
+                <img src="img/instagram-new.png" alt="" class="insta">
+            </a>
+            <a href="">
+                <img src="img/X.png" alt="" class="x">
+            </a>
+            <a href="">
+                <img src="img/image 22.png" alt="" class="linkedin">
+            </a>
+        </div>
+        <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
+        <div class="telefone_e_mail">
+            <div class="telefone">
+                <img src="img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
+                <a href="https://wa.me/5511985831860">
+                    <p>+55 11 98583-1860</p>
+                </a>
+            </div>
+            <div class="mail">
+                <img src="img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
+                    alt="">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
+                    <p>medmonitoramento@gmail.com</p>
+                </a>
+            </div>
+        </div>
+    </div>
 
     </div>
 </body>
 <script>
 
     // grafico barra
-const labels = ["Alerta 1256", "Alerta 1257", "Alerta 1258", "Alerta 1259", "Alerta 1260", "Alerta 1261"];
-const data = {
-  labels: labels,
-  datasets: [{
-    axis: 'y',
-    label: 'Duração (min)',
-    data: [5,5,4,2,2,1],
-    fill: false,
-    backgroundColor: [
-      'rgba(255, 99, 132)'
-    ],
-    borderColor: [
-      'rgb(255, 99, 132)'
-    ],
-    borderWidth: 1
-  }]
-};
+    const labels = ["Alerta 1256", "Alerta 1257", "Alerta 1258", "Alerta 1259", "Alerta 1260", "Alerta 1261"];
+    const data = {
+        labels: labels,
+        datasets: [{
+            axis: 'y',
+            label: 'Duração (min)',
+            data: [5, 5, 4, 2, 2, 1],
+            fill: false,
+            backgroundColor: [
+                'rgb(99, 198, 255)'
+            ],
+            borderColor: [
+                'rgb(124, 229, 255)'
+            ],
+            borderWidth: 2
+        }]
+    };
 
-const config = {
-  type: 'bar',
-  data,
-  options: {
-    indexAxis: 'y',
-  }
-};
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgb(223, 240, 255)',
+                    },
+                    ticks: {
+                        color: 'rgb(223, 240, 255)',
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgb(223, 240, 255)',
+                    },
+                    ticks: {
+                        color: 'rgb(223, 240, 255)',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgb(223, 240, 255)',
+                    }
+                }
+            }
+        }
+    };
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    )
 
-const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  )
+    // grafico rosquinha
 
-  // grafico rosquinha
-
-  const data2 = {
-  labels: [
-    'Acima de 8ºC',
-    'Abaixo de 2ºC',
-    'Dentro dos Padrões'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-  }]
-};
-const config2 = {
-  type: 'doughnut',
-  data: data2,
-};
-const myChart2 = new Chart(
-    document.getElementById('myChart2'),
-    config2
-  )
+    const data2 = {
+        labels: [
+            'Acima de 8ºC',
+            'Abaixo de 2ºC',
+            'Dentro dos Padrões'
+        ],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [300, 50, 100],
+            backgroundColor: [
+                'rgb(99, 198, 255)',
+                'rgb(0, 53, 122)',
+                'rgb(124, 229, 255)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const config2 = {
+        type: 'doughnut',
+        data: data2,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgb(223, 240, 255)',
+                    }
+                }
+            }
+        }
+    };
+    const myChart2 = new Chart(
+        document.getElementById('myChart2'),
+        config2
+    )
 </script>
+
 </html>
+
+<style>
+    .header {
+        color: rgb(124, 229, 255);
+    }
+</style>
