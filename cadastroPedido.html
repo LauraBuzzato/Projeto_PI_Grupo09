@@ -36,37 +36,50 @@
 
                 <div class="campo">
                     <label for="Cliente">Cliente:</label>
-                    <input type="text" id="Cliente" name="Cliente">
+                    <input type="text" id="Cliente" name="Cliente" required>
+                </div>
+                <div class="campo">
+                    <label for="docCliente">Documento do Cliente:</label>
+                    <input type="text" id="docCliente" name="docCliente" required>
                 </div>
 
                 <div class="campo">
                     <label for="dataPedido">Data do pedido:</label>
-                    <input type="number" id="dataPedido" name="dataPedido">
+                    <input type="number" id="dataPedido" name="dataPedido" required>
                 </div>
 
                 <div class="campo">
                     <label for="entregaPrevista">Entrega Prevista:</label>
-                    <input type="text" id="entregaPrevista" name="entregaPrevista">
+                    <input type="text" id="entregaPrevista" name="entregaPrevista" required>
                 </div>
 
                 <div class="campo">
                     <label for="partida">Local de partida:</label>
-                    <input type="text" id="partida" name="partida">
+                    <input type="text" id="partida" name="partida" required>
                 </div>
 
                 <div class="campo">
                     <label for="chegada">Local de chegada:</label>
-                    <input type="text" id="chegada" name="chegada">
+                    <input type="text" id="chegada" name="chegada" required>
+                </div>
+                
+                <div class="campo">
+                    <label for="veiculoPedido">Escolha o veículo:</label>
+                   <select name="veiculoPedido" id="veiculoPedido">
+                    <option value="um">Automóvel -placa: BRW9O02</option>
+                    <option value="um">Aéreo -placa: SP-EKN </option>
+                    <option value="um">Automóvel -plca: KDW2W02</option>
+                   </select>
                 </div>
 
                 <div class="campo">
                     <label for="med1">Tipo do primeiro medicamento:</label>
-                    <input type="text" id="med1" name="med1">
+                    <input type="text" id="med1" name="med1" required>
                 </div>
 
                 <div class="campo">
                     <label for="qtd_med1">Quantidade do primeiro medicamento:</label>
-                    <input type="text" id="qtd_med1" name="qtd_med1">
+                    <input type="text" id="qtd_med1" name="qtd_med1" required>
                 </div>
 
                 <div class="campo">
@@ -100,14 +113,9 @@
     
                     <div class="campo">
                         <label for="placa">Placa:</label>
-                        <input type="text" id="placa" name="placa">
+                        <input type="text" id="placa" name="placa" required>
                     </div>
-    
-                    <div class="campo">
-                        <label for="quantidade">Quantidade de medicamento:</label>
-                        <input type="number" id="quantidade" name="quantidade">
-                    </div>
-    
+
                     <div class="campo">
                         <label for="tipo">Tipo de transporte:</label>
                         <select name="tipo" id="tipo">
@@ -120,12 +128,12 @@
     
                     <div class="campo">
                         <label for="modelo">Modelo:</label>
-                        <input type="text" id="modelo" name="modelo">
+                        <input type="text" id="modelo" name="modelo" required>
                     </div>
     
                     <div class="campo">
                         <label for="ano">Ano:</label>
-                        <input type="ano" id="ano" name="ano">
+                        <input type="ano" id="ano" name="ano" required>
                     </div>
     
                     <div class="box_botao">

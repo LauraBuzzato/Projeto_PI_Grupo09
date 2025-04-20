@@ -602,6 +602,29 @@ h1 {
     background-size: 1.2rem;
 }
 
+.info_pedido {
+    display: flex;
+    background-color: white;
+    flex-direction: row;
+    color: #000000;
+    border-radius: 20px;
+}
+
+.ultimoAlerta {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: white;
+
+}
+.ultimoAlerta button{
+    padding: 0.5rem;
+    margin: 1.5rem;
+    border-radius: 10px;
+    border: #114AB3 solid;
+    background-color: #114AB3;
+    color: white;
+}
 
 .KPI{
     display: flex;

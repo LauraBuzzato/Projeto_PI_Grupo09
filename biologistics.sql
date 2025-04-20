@@ -52,20 +52,6 @@ create table leiturasensor (
     foreign key (idsensor) references sensor(idsensor)
 );
 
-create table lotemedicamento (
-    idlote int primary key auto_increment,
-    fabricante varchar(60) not null,
-    nome_medicamento varchar(70) not null,
-    numero_lote varchar(50) not null,
-    data_fabricacao date not null,
-    data_validade date not null,
-    quantidade_inicial int not null,
-    quantidade_disponivel int not null,
-    idveiculo int not null,
-    statusmedicamento varchar(50),
-    foreign key (idveiculo) references veiculo(idveiculo)
-);
-
 create table enderecopedido (
     idendereco_pedido int primary key auto_increment,
     logradouro varchar(100) not null,
@@ -91,8 +77,11 @@ create table pedido (
     data_entrega_real datetime,
     idendereco_origem int not null,
     idendereco_destino int not null,
+    tipo_medicamento1 varchar(100),
+    quantidade_medicamento1 int,
+    tipo_medicamento2 varchar(100),
+    quantidade_medicamento2 int,
     status varchar(20) default 'pendente',
-    temperatura_requerida decimal(5,2),
     foreign key (idtransportadora) references transportadora(idtransportadora),
     foreign key (idveiculo) references veiculo(idveiculo),
     foreign key (idendereco_origem) references enderecopedido(idendereco_pedido),
