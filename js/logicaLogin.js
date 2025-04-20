@@ -6,20 +6,20 @@ function login(){
     /*email já utilizado */
     emailCadastrados = ["email1@gmail.com", "email2@gmail.com", "email3@gmail.com", "email4@gmail.com"];
 
-    // senha pra cada email
-    senhaEmail = []
-
-    
     
 
-    var emUso = true;
+    var emUso = false;
     for(var i = 0; i<= emailUtilizados.length; i++){
-        if (emailTransportadora == emailUtilizados[i]) {
+        if (email == emailUtilizados[i]) {
             emUso = true;
         }
     }
-    /* Verificação de senha*/
-    if (!emUso || senha) {
+
+    // Simulação de lo
+
+    if (emUso && senha == 'senhaEmail' && email == 'email1@gmail.com') {
+        alert("Bem vindo!")
+    }else {
         alert("Algum campo está incorreto!")
     }
 
