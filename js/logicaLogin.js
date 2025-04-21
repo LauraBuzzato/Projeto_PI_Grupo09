@@ -8,16 +8,16 @@ function login(){
 
     
 
-    var emUso = false;
-    for(var i = 0; i<= emailUtilizados.length; i++){
-        if (email == emailUtilizados[i]) {
-            emUso = true;
-        }
-    }
+ //  var emUso = false;
+  //  for(var i = 0; i<= emailUtilizados.length; i++){
+  //      if (email == emailUtilizados[i]) {
+  //         emUso = true;
+ //       }
+   // }
 
-    // Simulação de lo
+    // Simulação de login
 
-    if (emUso && senha == 'senhaEmail' && email == 'email1@gmail.com') {
+    if (senha == '123' && email == 'email1@gmail.com') {
         alert("Bem vindo!")
     }else {
         alert("Algum campo está incorreto!")

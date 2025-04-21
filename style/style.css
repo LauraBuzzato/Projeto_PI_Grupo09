@@ -890,3 +890,19 @@ h1 {
     width: 100% !important;
     height: 100% !important;
 }
+
+/* ESTILOS DAS TABELAS */
+
+/* tabela de pedidos */
+.tabelaPedidos {
+    width: 95%;
+    display: flex;
+    justify-self: center;
+}
+
+.tabelaAlerta{
+    width: 95%;
+    display: flex;
+    justify-self: center;
+}
+
