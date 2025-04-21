@@ -30,63 +30,70 @@
         </ul>
     </div>
     <div class="informacao">
-       
-
-
-
         <div class="mensagemAlerta">
             <h2 class="tituloAlerta">Resumo dos Pedidos</h2>
             <div class="containerPedido">
-                <select id="pedidos">             
+                <select id="pedidos">
                     <option value="pedido2">Pedido 8733 - Veículo placa: TJK2I0</option>
                     <option value="pedido3">Pedido 8734 - Veículo placa: DFK5E3</option>
                     <option value="pedido4">Pedido 8735 - Veículo placa: WJN5P6</option>
                     <option value="pedido1">Visualização Mensal</option>
                 </select>
             </div>
-            <div class="KPI">
-                <div class="KPI_Alerta">
-                    <h3>Alertas/Hora:</h3>
-                    <h3>0.75</h3>
+            <div class="KPI_container">
+                <div class="KPI_column">
+                    <div class="KPI_Alerta">
+                        <h3>Alertas/Hora:</h3>
+                        <h3>0.75</h3>
+                    </div>
+                    <div class="KPI_Alerta">
+                        <h3>Quantidade de Alertas:</h3>
+                        <h3>9</h3>
+                    </div>
                 </div>
-                <div class="KPI_Alerta">
-                    <h3>Quantidade de Alertas:</h3>
-                    <h3>9</h3>
-                </div>
-                <div class="info_resumo_pedido">
-                    <h3>Informações do Pedido:</h3>
-                    <h5>Tipo de veículo: Automóvel</h5>
-                    <h5>Cliente: MedCorp</h5>
-                    <h5>Documento do cliente: 123214</h5>
-                    <h5>Duração do pedido: 5 horas</h5>
-                    <h5>Endereço remetente: R. Patinhos 222</h5>
-                    <h5>Endereço destinatário: R.Fagundez Lima 748</h5>
-                    <h5>Data prevista da entrega: 11/08/2024 12:00</h5>
-                    <h5>Data real da entrega: 11/08/2024 11:00</h5>
-                    <h5>Tipo de medicamento: CoronaVac</h5>
-                    <h5>Quantidade de medicamento: 500</h5>
-                    <h5>Tipo de medicamento: none</h5>
-                    <h5>Quantidade de medicamento: none</h5>
+                <div class="pedido_info_container">
+                    <h2 class="informacao_pedido">Informações do Pedido:</h2>
+                    <div class="resumo_pedido_container">
+                        <div class="resumo_pedido">
+                            <div class="partes">
+                                <h4>Tipo de veículo: Automóvel</h4>
+                                <h4>Cliente: MedCorp</h4>
+                                <h4>Documento do cliente: 123214</h4>
+                                <h4>Duração do pedido: 5 horas</h4>
+                                <h4>Endereço remetente: R. Patinhos 222</h4>
+                                <h4>Endereço destinatário: R.Fagundez Lima 748</h4>
+                            </div>
+                            <div class="partes">
+                                <h4>Data prevista da entrega: 11/08/2024 12:00</h4>
+                                <h4>Data real da entrega: 11/08/2024 11:00</h4>
+                                <h4>Tipo de medicamento: CoronaVac</h4>
+                                <h4>Quantidade de medicamento: 500</h4>
+                                <h4>Tipo de medicamento: none</h4>
+                                <h4>Quantidade de medicamento: none</h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="graficos-gerais">
-            <div class="grafico">
-                <div class="grafico1">
-                    <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
-                </div>
-
-                <div class="grafico2">
-                    <canvas id="myChart2"></canvas>
-                </div>
-            </div>
-        </div>
-        <h2 class="titulo">Alertas</h2>
-        print de um select da tabela leiturasensor com os alertas do pedido selecionado
-        
-        <h2 class="titulo">Tabela de Pedidos</h2>
-        print da tabela de pedidos com inner (mostra as infos de todos os pedidos - futuramente da pra fazer uma aba de pesquisa para achar os pedidos mais fácil)
     </div>
+    <div class="graficos-gerais">
+        <div class="grafico">
+            <div class="grafico1">
+                <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
+            </div>
+
+            <div class="grafico2">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+    </div>
+    <h2 class="titulo">Alertas</h2>
+    <!--print de um select da tabela leiturasensor com os alertas do pedido selecionado--> 
+
+    <h2 class="titulo">Tabela de Pedidos</h2>
+    <!-- print da tabela de pedidos com inner (mostra as infos de todos os pedidos - futuramente da pra fazer uma aba de
+    pesquisa para achar os pedidos mais fácil)--> 
 
 
     <!--Iniciando footer-->
@@ -230,9 +237,3 @@
 </script>
 
 </html>
-
-<style>
-    .header {
-        color: rgb(124, 229, 255);
-    }
-</style>
