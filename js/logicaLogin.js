@@ -1,6 +1,6 @@
 function login(){
-    email = email.value
-    senha = senha.value
+    emailUsuario = email.value
+    senhaUsuario = senha.value
 
 
     /*email já utilizado */
@@ -17,10 +17,11 @@ function login(){
 
     // Simulação de login
 
-    if (senha == '123' && email == 'email1@gmail.com') {
+    if (senhaUsuario == '123' && emailUsuario == 'email1@gmail.com') {
         alert("Bem vindo!")
     }else {
         alert("Algum campo está incorreto!")
+        return;
     }
 
 }

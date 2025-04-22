@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 
 <body>
     <div class="header">
-        <img src="img/biologistics.png" alt="Biologistic" class="logo">
+        <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
             <li class="agora">
                 <a href="pag_inicial.html"> Página Inicial</a>
@@ -36,7 +36,7 @@
 
         <!-- Lado direito branco com formulário -->
         <div class="lado-direito">
-            <form class="formulario">
+            <form class="formulario" action="cadastroEndereco.html">
                 <div class="form-group">
                     <label for="nome">Nome da Transportadora</label>
                     <input type="text" id="nome" required>
@@ -61,10 +61,10 @@
                     <label for="confirmar_senha">Confirmar Senha</label>
                     <input type="password" id="confirmar_senha" required>
                 </div>
-                <button onclick="cadastrar()">Cadastrar</button>
+                <a href="cadastroEndereco.html"><button type="submit" onclick="cadastrar()">Cadastrar</button></a>
             </form>
         </div>
     </div>
 </body>
-<script src="js/logica.js"></script>
+<script src="../js/logica.js"></script>
 </html>

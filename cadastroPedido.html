@@ -22,16 +22,16 @@
                 <a href="dashboardPedidos.html">Pedidos</a>
             </li>
             <li>
-                <a href="pag_inicial.html">Sair</a>
+                <a href="paginas-Iniciais/pag_inicial.html">Sair</a>
             </li>
 
         </ul>
     </div>
-    <form class="formularioPedido">
-        <h1>
-            <b>Cadastre seu pedido!</b>
-        </h1>
-        <div class="cadastro_Pedido">
+    <div class="cadastro_Pedido">
+        <form class="formularioPedido">
+            <h1>
+                <b>Cadastre seu pedido!</b>
+            </h1>
             <div class="informacoes_pedido">
 
                 <div class="campo">
@@ -54,22 +54,22 @@
                 </div>
 
                 <div class="campo">
-                    <label for="partida">Local de partida:</label>
+                    <label for="partida">Endereço de partida(CEP):</label>
                     <input type="text" id="partida" name="partida" required>
                 </div>
 
                 <div class="campo">
-                    <label for="chegada">Local de chegada:</label>
+                    <label for="chegada">Endereço de chegada(CEP):</label>
                     <input type="text" id="chegada" name="chegada" required>
                 </div>
-                
+
                 <div class="campo">
                     <label for="veiculoPedido">Escolha o veículo:</label>
-                   <select name="veiculoPedido" id="veiculoPedido">
-                    <option value="um">Automóvel -placa: BRW9O02</option>
-                    <option value="um">Aéreo -placa: SP-EKN </option>
-                    <option value="um">Automóvel -plca: KDW2W02</option>
-                   </select>
+                    <select name="veiculoPedido" id="veiculoPedido">
+                        <option value="um">Automóvel -placa: BRW9O02</option>
+                        <option value="um">Aéreo -placa: SP-EKN </option>
+                        <option value="um">Automóvel -plca: KDW2W02</option>
+                    </select>
                 </div>
 
                 <div class="campo">
@@ -99,88 +99,185 @@
                                 d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
                         </svg></button>
                 </div>
-
             </div>
-            
-    </form>
 
-        <form class="formularioVeiculo">
+        </form>
+
+        <!--Formulário do endereço-->
+        <form class="formularioEndereco">
+            <h1>
+                <b>endereço de origem!</b>
+            </h1>
+            <div class="informacoes_pedido">
+
+                <div class="campo">
+                    <label for="logradouro">logradouro:</label>
+                    <input type="text" id="logradouro" name="logradouro" required>
+                </div>
+                <div class="campo">
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" required>
+                </div>
+
+                <div class="campo">
+                    <label for="estado">Estado:</label>
+                    <input type="text" id="estado" name="estado" required>
+                </div>
+
+                <div class="campo">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" required>
+                </div>
+
+                <div class="campo">
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" id="bairro" name="bairro" required>
+                </div>
+
+                <div class="campo">
+                    <label for="chegada">numero:</label>
+                    <input type="text" id="chegada" name="chegada" required>
+                </div>
+                <div class="campo">
+                    <label for="chegada">complemento:</label>
+                    <input type="text" id="chegada" name="chegada" required>
+                </div>
+                <div class="box_botao">
+                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                        </svg></button>
+                </div>
+            </div>
+
+        </form>
+        <form class="formularioEndereco">
+            <h1>
+                <b>endereço de partida</b>
+            </h1>
+            <div class="informacoes_pedido">
+
+                <div class="campo">
+                    <label for="logradouro">logradouro:</label>
+                    <input type="text" id="logradouro" name="logradouro" required>
+                </div>
+                <div class="campo">
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" required>
+                </div>
+
+                <div class="campo">
+                    <label for="estado">Estado:</label>
+                    <input type="text" id="estado" name="estado" required>
+                </div>
+
+                <div class="campo">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" required>
+                </div>
+
+                <div class="campo">
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" id="bairro" name="bairro" required>
+                </div>
+
+                <div class="campo">
+                    <label for="chegada">numero:</label>
+                    <input type="text" id="chegada" name="chegada" required>
+                </div>
+                <div class="campo">
+                    <label for="chegada">complemento:</label>
+                    <input type="text" id="chegada" name="chegada" required>
+                </div>
+                <div class="box_botao">
+                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                        </svg></button>
+                </div>
+            </div>
+        </form>
+        <!--
+             <form class="formularioVeiculo">
             <h1>
                 <b>Cadastre seu Veiculo!</b>
             </h1>
-            <div class="cadastro_Veiculo">
-                <div class="informacoes_veiculo">
-    
-                    <div class="campo">
-                        <label for="placa">Placa:</label>
-                        <input type="text" id="placa" name="placa" required>
-                    </div>
+            <div class="informacoes_pedido">
 
-                    <div class="campo">
-                        <label for="tipo">Tipo de transporte:</label>
-                        <select name="tipo" id="tipo">
-                            <option value="escolha">Escolha uma opção</option>
-                            <option value="carro">Automóvel</option>
-                            <option value="aereo">Aéreo</option>
-                        </select>
-                      
-                    </div>
-    
-                    <div class="campo">
-                        <label for="modelo">Modelo:</label>
-                        <input type="text" id="modelo" name="modelo" required>
-                    </div>
-    
-                    <div class="campo">
-                        <label for="ano">Ano:</label>
-                        <input type="ano" id="ano" name="ano" required>
-                    </div>
-    
-                    <div class="box_botao">
-                        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                            </svg></button>
-                    </div>
-    
+                <div class="campo">
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" name="placa" required>
                 </div>
-                
-            </form>
+
+                <div class="campo">
+                    <label for="tipo">Tipo de transporte:</label>
+                    <select name="tipo" id="tipo">
+                        <option value="escolha">Escolha uma opção</option>
+                        <option value="carro">Automóvel</option>
+                        <option value="aereo">Aéreo</option>
+                    </select>
+
+                </div>
+
+                <div class="campo">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" id="modelo" name="modelo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="ano">Ano:</label>
+                    <input type="ano" id="ano" name="ano" required>
+                </div>
+
+                <div class="box_botao">
+                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                        </svg></button>
+                </div>
+            </div>
+        </form>
+        -->
+   
+    </div>
 
 
-        <div class="fotter">
-            <div class="redes_sociais">
-                <a href="">
-                    <img src="img/instagram-new.png" alt="" class="insta">
-                </a>
-                <a href="">
-                    <img src="img/X.png" alt="" class="x">
-                </a>
-                <a href="">
-                    <img src="img/image 22.png" alt="" class="linkedin">
+    <div class="fotter">
+        <div class="redes_sociais">
+            <a href="">
+                <img src="img/instagram-new.png" alt="" class="insta">
+            </a>
+            <a href="">
+                <img src="img/X.png" alt="" class="x">
+            </a>
+            <a href="">
+                <img src="img/image 22.png" alt="" class="linkedin">
+            </a>
+        </div>
+        <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
+        <div class="telefone_e_mail">
+            <div class="telefone">
+                <img src="img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
+                <a href="https://wa.me/5511985831860">
+                    <p>+55 11 98583-1860</p>
                 </a>
             </div>
-            <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
-            <div class="telefone_e_mail">
-                <div class="telefone">
-                    <img src="img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
-                    <a href="https://wa.me/5511985831860">
-                        <p>+55 11 98583-1860</p>
-                    </a>
-                </div>
-                <div class="mail">
-                    <img src="img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
-                        alt="">
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
-                        <p>medmonitoramento@gmail.com</p>
-                    </a>
-                </div>
+            <div class="mail">
+                <img src="img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
+                    alt="">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
+                    <p>medmonitoramento@gmail.com</p>
+                </a>
             </div>
         </div>
-        <img src="img/logo-removebg-preview 1.png" alt="" class="logo_final">
+    </div>
+    <img src="img/logo-removebg-preview 1.png" alt="" class="logo_final">
 
 
-    
+
 </body>
+
 </html>

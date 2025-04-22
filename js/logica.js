@@ -18,12 +18,18 @@ function cadastrar() {
             emUso = true;
         }
     }
-    if (emUso) {
+    if(nomeTransportadora == null || cnpjTransportadora == null ||telefoneTransportadora == null == emailTransportadora || senhaTransportadora == null||senhaConfirmada == null){
+        alert("preencha todos os campos!")
+    } else if (emUso) {
         alert("Email já em uso")
-    }
+        return;
 
-    /* Verificação de senha*/
-    if (senhaConfirmada != senhaTransportadora) {
+    
+    } else if (senhaConfirmada != senhaTransportadora) {
         alert("Algum campo está incorreto!")
+        return;
+
+    } else{
+        alert("Transportadora cadastrada com sucesso!")
     }
 }
