@@ -7,9 +7,9 @@ create table transportadora (
     idtransportadora int primary key auto_increment,
     nome varchar(100) not null,
     cnpj varchar(18)  not null,
-    telefone varchar(20),
-    email varchar(100),
-    data_cadastro date,
+    telefone varchar(20) not null,
+    email varchar(100) not null,
+    data_cadastro date default current_timestamp,
     senha varchar(20),
     ativo boolean default true
 );
@@ -32,9 +32,9 @@ create table endereco (
 create table veiculo (
     idveiculo int primary key auto_increment,
     idtransportadora int not null,
-    tipo varchar(12),
+    tipo varchar(12) not null,
     placa varchar(10) unique not null,
-    modelo varchar(50),
+    modelo varchar(50) not null,
     ano int,
     ativo boolean default true,
     foreign key (idtransportadora) references transportadora(idtransportadora)
@@ -74,7 +74,7 @@ create table pedido (
     idveiculo int,
     cliente_nome varchar(100) not null,
     cliente_documento varchar(20) not null,
-    data_pedido datetime not null,
+    data_pedido datetime,
     data_entrega_prevista datetime,
     data_entrega_real datetime,
     idendereco_origem int not null,
