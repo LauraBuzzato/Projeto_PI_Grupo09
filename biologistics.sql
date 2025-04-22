@@ -9,7 +9,7 @@ create table transportadora (
     cnpj varchar(18)  not null,
     telefone varchar(20) not null,
     email varchar(100) not null,
-    data_cadastro date default current_timestamp,
+    data_cadastro timestamp default current_timestamp,
     senha varchar(20),
     ativo boolean default true
 );
@@ -196,3 +196,18 @@ select p.idpedido as Pedido, p.cliente_nome as Cliente, p.cliente_documento as D
 select ls.idleitura_sensor as Alerta, ls.idpedido as Pedido, ls.idsensor as Sensor, ls.valor as Valor_do_alerta, ls.data_hora as Data_Hora
 	from leiturasensor as ls
     where ls.idpedido = 9 and ls.valor > 8 or ls.valor < 2;
+    
+-- mensagens alertas
+    
+    select 
+	case 
+		when valor  > 8 then Concat('Alerta crítico de segurança aos medicamentos! O Id ',idsensor,' está detectando temperatura acima do suportado')
+	
+		when valor < 2 then Concat('Alerta crítico de segurança aos medicamentos! O Id ',idsensor,' está detectando temperatura abaixo do suportado')
+	
+		else concat('Nível de temperatura adequado no(s) sensor(es) ', idsensor ) 
+	
+	end as situação
+from leiturasensor;
+
+select valor from leiturasensor;
