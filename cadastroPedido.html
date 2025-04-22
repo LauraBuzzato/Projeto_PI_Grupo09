@@ -35,19 +35,19 @@
             <div class="informacoes_pedido">
 
                 <div class="campo">
-                    <label for="Cliente">Cliente:</label>
+                    <label for="Cliente">Cliente:<span style="color: red;">*</span></label>
                     <input type="text" id="Cliente" name="Cliente" required placeholder="Nome da Empresa">
                 </div>
                 <div class="campo">
-                    <label for="docCliente">Documento do Cliente:</label>
+                    <label for="docCliente">Documento do Cliente:<span style="color: red;">*</span></label>
                     <input type="text" id="docCliente" name="docCliente" required placeholder="CNPJ">
                 </div>
                 <div class="campo">
-                    <label for="destinatario">Nome do destinatário:</label>
+                    <label for="destinatario">Nome do destinatário:<span style="color: red;">*</span></label>
                     <input type="text" id="destinatario" name="docCliente" required placeholder="Quem vai receber">
                 </div>
                 <div class="campo">
-                    <label for="destinatarioTel">Telefone do destinatário:</label>
+                    <label for="destinatarioTel">Telefone do destinatário:<span style="color: red;">*</span></label>
                     <input type="number" id="destinatarioTel" name="docCliente" required placeholder="Telefone com apenas números, sem espaço, com DDD">
                 </div>
 
@@ -57,22 +57,22 @@
                 </div>
 
                 <div class="campo">
-                    <label for="entregaPrevista">Entrega Prevista:</label>
+                    <label for="entregaPrevista">Entrega Prevista:<span style="color: red;">*</span></label>
                     <input type="date" id="entregaPrevista" name="entregaPrevista" required>
                 </div>
 
                 <div class="campo">
-                    <label for="partida">Local de partida:</label>
+                    <label for="partida">Local de partida:<span style="color: red;">*</span></label>
                     <input type="text" id="partida" name="partida" required>
                 </div>
 
                 <div class="campo">
-                    <label for="chegada">Local de chegada:</label>
+                    <label for="chegada">Local de chegada:<span style="color: red;">*</span></label>
                     <input type="text" id="chegada" name="chegada" required>
                 </div>
                 
                 <div class="campo">
-                    <label for="veiculoPedido">Escolha o veículo:</label>
+                    <label for="veiculoPedido">Escolha o veículo:<span style="color: red;">*</span></label>
                    <select name="veiculoPedido" id="veiculoPedido">
                     <option value="um">Automóvel -placa: BRW9O02</option>
                     <option value="um">Aéreo -placa: SP-EKN </option>
@@ -81,12 +81,12 @@
                 </div>
 
                 <div class="campo">
-                    <label for="med1">Tipo do primeiro medicamento:</label>
+                    <label for="med1">Tipo do primeiro medicamento:<span style="color: red;">*</span></label>
                     <input type="text" id="med1" name="med1" required>
                 </div>
 
                 <div class="campo">
-                    <label for="qtd_med1">Quantidade do primeiro medicamento:</label>
+                    <label for="qtd_med1">Quantidade do primeiro medicamento:<span style="color: red;">*</span></label>
                     <input type="number" id="qtd_med1" name="qtd_med1" required>
                 </div>
 
@@ -120,12 +120,12 @@
                 <div class="informacoes_veiculo">
     
                     <div class="campo">
-                        <label for="placa">Placa:</label>
+                        <label for="placa">Placa:<span style="color: red;">*</span></label>
                         <input type="text" id="placa" name="placa" required placeholder="apenas as letras e números, sem espaço">
                     </div>
 
                     <div class="campo">
-                        <label for="tipo">Tipo de transporte:</label>
+                        <label for="tipo">Tipo de transporte:<span style="color: red;">*</span></label>
                         <select name="tipo" id="tipo">
                             <option value="carro">Automóvel</option>
                             <option value="aereo">Aéreo</option>
@@ -134,13 +134,13 @@
                     </div>
     
                     <div class="campo">
-                        <label for="modelo">Modelo:</label>
-                        <input type="text" id="modelo" name="modelo" required>
+                        <label for="modelo">Modelo:<span style="color: red;">*</span></label>
+                        <input type="text" id="modelo" name="modelo" required placeholder="Modelo do veículp">
                     </div>
     
                     <div class="campo">
                         <label for="ano">Ano:</label>
-                        <input type="ano" id="ano" name="ano" >
+                        <input type="number" id="ano" name="ano" placeholder="Ano de lançamento do veículo">
                     </div>
     
                     <div class="box_botao">
