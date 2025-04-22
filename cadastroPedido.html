@@ -22,7 +22,7 @@
                 <a href="dashboardPedidos.html">Pedidos</a>
             </li>
             <li>
-                <a href="pag_inicial.html">Sair</a>
+                <a href="paginas-Iniciais/pag_inicial.html">Sair</a>
             </li>
 
         </ul>
@@ -64,13 +64,33 @@
                 </div>
 
                 <div class="campo">
-                    <label for="partida">Local de partida:<span style="color: red;">*</span></label>
+                    <label for="partida">CEP do local de partida:<span style="color: red;">*</span></label>
                     <input type="text" id="partida" name="partida" required>
                 </div>
 
                 <div class="campo">
-                    <label for="chegada">Local de chegada:<span style="color: red;">*</span></label>
+                    <label for="numPartida">Número:<span style="color: red;">*</span></label>
+                    <input type="number" id="numPartida" name="numPartida" required placeholder="Referente ao local de partida">
+                </div>
+
+                <div class="campo">
+                    <label for="complePartida">Complemento:<span style="color: red;">*</span></label>
+                    <input type="text" id="complePartida" name="complePartida" required placeholder="Referente ao local de partida">
+                </div>
+
+                <div class="campo">
+                    <label for="chegada">CEP do local de chegada:<span style="color: red;">*</span></label>
                     <input type="text" id="chegada" name="chegada" required>
+                </div>
+
+                <div class="campo">
+                    <label for="chegada">Número:<span style="color: red;">*</span></label>
+                    <input type="text" id="chegada" name="chegada" required placeholder="Referente ao local de chegada">
+                </div>
+
+                <div class="campo">
+                    <label for="compleChegada">Complemento:<span style="color: red;">*</span></label>
+                    <input type="text" id="compleChegada" name="compleChegada" required placeholder="Referente ao local de chegada">
                 </div>
 
                 <div class="campo">
@@ -113,144 +133,6 @@
             </div>
 
         </form>
-        <!--Formulário do endereço-->
-        <form class="formularioEndereco">
-            <h1>
-                <b>endereço de origem!</b>
-            </h1>
-            <div class="informacoes_pedido">
-
-                <div class="campo">
-                    <label for="logradouro">logradouro:</label>
-                    <input type="text" id="logradouro" name="logradouro" required>
-                </div>
-                <div class="campo">
-                    <label for="cep">CEP:</label>
-                    <input type="text" id="cep" name="cep" required>
-                </div>
-
-                <div class="campo">
-                    <label for="estado">Estado:</label>
-                    <input type="text" id="estado" name="estado" required>
-                </div>
-
-                <div class="campo">
-                    <label for="cidade">Cidade:</label>
-                    <input type="text" id="cidade" name="cidade" required>
-                </div>
-
-                <div class="campo">
-                    <label for="bairro">Bairro:</label>
-                    <input type="text" id="bairro" name="bairro" required>
-                </div>
-
-                <div class="campo">
-                    <label for="chegada">numero:</label>
-                    <input type="text" id="chegada" name="chegada" required>
-                </div>
-                <div class="campo">
-                    <label for="chegada">complemento:</label>
-                    <input type="text" id="chegada" name="chegada" required>
-                </div>
-                <div class="box_botao">
-                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                        </svg></button>
-                </div>
-            </div>
-
-        </form>
-        <form class="formularioEndereco">
-            <h1>
-                <b>endereço de partida</b>
-            </h1>
-            <div class="informacoes_pedido">
-
-                <div class="campo">
-                    <label for="logradouro">logradouro:</label>
-                    <input type="text" id="logradouro" name="logradouro" required>
-                </div>
-                <div class="campo">
-                    <label for="cep">CEP:</label>
-                    <input type="text" id="cep" name="cep" required>
-                </div>
-
-                <div class="campo">
-                    <label for="estado">Estado:</label>
-                    <input type="text" id="estado" name="estado" required>
-                </div>
-
-                <div class="campo">
-                    <label for="cidade">Cidade:</label>
-                    <input type="text" id="cidade" name="cidade" required>
-                </div>
-
-                <div class="campo">
-                    <label for="bairro">Bairro:</label>
-                    <input type="text" id="bairro" name="bairro" required>
-                </div>
-
-                <div class="campo">
-                    <label for="chegada">numero:</label>
-                    <input type="text" id="chegada" name="chegada" required>
-                </div>
-                <div class="campo">
-                    <label for="chegada">complemento:</label>
-                    <input type="text" id="chegada" name="chegada" required>
-                </div>
-                <div class="box_botao">
-                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                        </svg></button>
-                </div>
-            </div>
-        </form>
-        <!--
-             <form class="formularioVeiculo">
-            <h1>
-                <b>Cadastre seu Veiculo!</b>
-            </h1>
-            <div class="informacoes_pedido">
-
-                <div class="campo">
-                    <label for="placa">Placa:</label>
-                    <input type="text" id="placa" name="placa" required>
-                </div>
-
-                <div class="campo">
-                    <label for="tipo">Tipo de transporte:</label>
-                    <select name="tipo" id="tipo">
-                        <option value="escolha">Escolha uma opção</option>
-                        <option value="carro">Automóvel</option>
-                        <option value="aereo">Aéreo</option>
-                    </select>
-
-                </div>
-
-                <div class="campo">
-                    <label for="modelo">Modelo:</label>
-                    <input type="text" id="modelo" name="modelo" required>
-                </div>
-
-                <div class="campo">
-                    <label for="ano">Ano:</label>
-                    <input type="ano" id="ano" name="ano" required>
-                </div>
-
-                <div class="box_botao">
-                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                        </svg></button>
-                </div>
-            </div>
-        </form>
-        -->
 
     </div>
 
@@ -289,5 +171,5 @@
 
 
 </body>
-
+<script src="js/logicaCadastros.js"></script>
 </html>
