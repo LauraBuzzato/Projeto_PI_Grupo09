@@ -11,8 +11,7 @@ create table endereco (
     bairro varchar(50) not null,
     cidade varchar(50) not null,
     estado char(2) not null,
-    cep varchar(9) not null,
-    idtransportadora int not null
+    cep varchar(9) not null
 );
 
 create table cliente(
@@ -21,7 +20,8 @@ create table cliente(
     nome varchar(80),
     CNPJ varchar(18),
     telefone varchar(20),
-    foreign key (idendereco) references endereco(idendereco));
+    foreign key (idendereco) references endereco(idendereco)
+    );
 
 
 create table transportadora (
@@ -73,6 +73,7 @@ create table sensor (
 create table pedido (
     idpedido int primary key auto_increment,
     idveiculo int,
+    idcliente int,
     data_pedido datetime,
     data_entrega_prevista datetime,
     data_entrega_real datetime,
@@ -84,6 +85,7 @@ create table pedido (
     destinatario_tel varchar(20),
     status varchar(20) default 'pendente',
     foreign key (idveiculo) references veiculo(idveiculo),
+    foreign key (idcliente) references cliente(idcliente),
     constraint chk_status check (status in ('pendente', 'em_transporte', 'entregue', 'cancelado'))
 );
 
