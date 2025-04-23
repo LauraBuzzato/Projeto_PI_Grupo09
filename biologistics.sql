@@ -3,18 +3,6 @@ use biologistics;
 
 
 
-create table transportadora (
-    idtransportadora int primary key auto_increment,
-    nome varchar(100) not null,
-    cnpj varchar(18)  not null,
-    telefone varchar(20) not null,
-    email varchar(100) not null,
-    data_cadastro timestamp default current_timestamp,
-    senha varchar(20),
-    ativo boolean default true
-);
-
-
 create table endereco (
     idendereco int primary key auto_increment,
     logradouro varchar(100) not null,
@@ -24,8 +12,38 @@ create table endereco (
     cidade varchar(50) not null,
     estado char(2) not null,
     cep varchar(9) not null,
-    idtransportadora int not null,
-    foreign key (idtransportadora) references transportadora(idtransportadora)
+    idtransportadora int not null
+);
+
+create table cliente(
+    idcliente int not null primary key auto_increment,
+    idendereco int not null,
+    nome varchar(80),
+    CNPJ varchar(18),
+    telefone varchar(20),
+    foreign key (idendereco) references endereco(idendereco));
+
+
+create table transportadora (
+    idtransportadora int primary key auto_increment,
+    nome varchar(100) not null,
+    cnpj varchar(18)  not null,
+    telefone varchar(20) not null,
+    ativo boolean default true,
+    idendereco int not null,
+    matrizTransportadora int,
+    foreign key (idendereco) references endereco(idendereco),
+    foreign key (matrizTransportadora) references transportadora(idTransportadora)
+);
+
+create table usuario(
+idUsuario int not null primary key auto_increment,
+email varchar(100) not null,
+senha varchar(20) not null,
+administrador boolean,
+ativo boolean default true,
+idTransportadora int not null,
+foreign key (idTransportadora) references transportadora(idTransportadora)
 );
 
 
@@ -52,42 +70,20 @@ create table sensor (
 
 
 
-
-
-create table enderecopedido (
-    idendereco_pedido int primary key auto_increment,
-    logradouro varchar(100) not null,
-    numero varchar(10) not null,
-    complemento varchar(50),
-    bairro varchar(50) not null,
-    cidade varchar(50) not null,
-    estado char(2) not null,
-    cep varchar(9) not null,
-    destinatario_nome varchar(100),
-    destinatario_telefone varchar(20)
-);
-
-
 create table pedido (
     idpedido int primary key auto_increment,
-    idtransportadora int not null,
     idveiculo int,
-    cliente_nome varchar(100) not null,
-    cliente_documento varchar(20) not null,
     data_pedido datetime,
     data_entrega_prevista datetime,
     data_entrega_real datetime,
-    idendereco_origem int not null,
-    idendereco_destino int not null,
     tipo_medicamento1 varchar(100),
     quantidade_medicamento1 int,
     tipo_medicamento2 varchar(100),
     quantidade_medicamento2 int,
+    destinatario_nome varchar(80),
+    destinatario_tel varchar(20),
     status varchar(20) default 'pendente',
-    foreign key (idtransportadora) references transportadora(idtransportadora),
     foreign key (idveiculo) references veiculo(idveiculo),
-    foreign key (idendereco_origem) references enderecopedido(idendereco_pedido),
-    foreign key (idendereco_destino) references enderecopedido(idendereco_pedido),
     constraint chk_status check (status in ('pendente', 'em_transporte', 'entregue', 'cancelado'))
 );
 
