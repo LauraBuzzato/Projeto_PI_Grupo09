@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
+    <link rel="stylesheet" href="../style/style.css">
+
+</head>
+
+<body>
+    <div class="header">
+        <img src="../img/biologistics.png" alt="" class="logo">
+        <ul class="navbar">
+            
+            <li>
+                <a href="cadastroPedido.html">Cadastro Pedidos</a>
+            </li>
+            <li>
+                <a href="cadastroVeiculo.html">Cadastro Veiculos</a>
+            </li>
+            <li>
+                <a href="dashboard.html">Monitoramento</a>
+            </li>
+            <li>
+                <a href="dashboardPedidos.html"><b>Pedidos</b></a>
+            </li>
+            <li>
+                <a href="../paginas-Iniciais/pag_inicial.html">Sair</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="informacao">
+        <div class="mensagemAlerta">
+            <h2 class="tituloAlerta">Resumo dos Pedidos</h2>
+            <div class="containerPedido">
+                <select id="pedidos">
+                    <option value="pedido2">Pedido 2 - Veículo placa: GDI7J89</option>
+                    <option value="pedido3">Pedido 3 - Veículo placa: DRF4G56</option>
+                    <option value="pedido4">Pedido 4 - Veículo placa: GDI7J89</option>
+                    <option value="pedido4">Pedido 5 - Veículo placa: DRF4G56</option>
+                    <option value="pedido4">Pedido 6 - Veículo placa: GDI7J89</option>
+                    <option value="pedido4">Pedido 7 - Veículo placa: DRF4G56</option>
+                    <option value="pedido4">Pedido 8 - Veículo placa: GDI7J89</option>
+                    <option value="pedido4">Pedido 10 - Veículo placa: GDI7J89</option>
+                    <option value="pedido4">Pedido 11 - Veículo placa: DRF4G56</option>
+                    <option value="pedido4">Pedido 13 - Veículo placa: DRF4G56</option>
+                    <option value="pedido4">Pedido 14 - Veículo placa: GDI7J89</option>
+                    <option value="pedido4">Pedido 15 - Veículo placa: DRF4G56</option>
+                    <option value="pedido1">Visualização Mensal</option>
+                </select>
+            </div>
+            <div class="KPI_container">
+                <div class="KPI_column">
+                    <div class="KPI_Alerta">
+                        <h3>Alertas/Hora:</h3>
+                        <h3>0.75</h3>
+                    </div>
+                    <div class="KPI_Alerta">
+                        <h3>Quantidade de Alertas:</h3>
+                        <h3>9</h3>
+                    </div>
+                </div>
+                <div class="pedido_info_container">
+                    <h2 class="informacao_pedido">Informações do Pedido:</h2>
+                    <div class="resumo_pedido_container">
+                        <div class="resumo_pedido">
+                            <div class="partes">
+                                <h4>Tipo de veículo: Automóvel</h4>
+                                <h4>Cliente: MedCorp</h4>
+                                <h4>Documento do cliente: 123214</h4>
+                                <h4>Duração do pedido: 5 horas</h4>
+                                <h4>Endereço remetente: R. Patinhos 222</h4>
+                                <h4>Endereço destinatário: R.Fagundez Lima 748</h4>
+                            </div>
+                            <div class="partes">
+                                <h4>Data prevista da entrega: 11/08/2024 12:00</h4>
+                                <h4>Data real da entrega: 11/08/2024 11:00</h4>
+                                <h4>Tipo de medicamento: CoronaVac</h4>
+                                <h4>Quantidade de medicamento: 500</h4>
+                                <h4>Tipo de medicamento: none</h4>
+                                <h4>Quantidade de medicamento: none</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="graficos-gerais">
+        <div class="grafico">
+            <div class="grafico1">
+                <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
+            </div>
+
+            <div class="grafico2">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+    </div>
+    <h2 class="titulo">Alertas</h2>
+    <img src="../img/tabelaAlerta.png" alt="" class="tabelaAlerta">
+
+    <h2 class="titulo">Tabela de Pedidos</h2>
+        <img src="../img/tabelaPedidosCorreta.png" alt="" class="tabelaPedidos">
+
+
+    <!--Iniciando footer-->
+    <div class="fotter">
+        <div class="redes_sociais">
+            <a href="">
+                <img src="../img/instagram-new.png" alt="" class="insta">
+            </a>
+            <a href="">
+                <img src="../img/X.png" alt="" class="x">
+            </a>
+            <a href="">
+                <img src="../img/image 22.png" alt="" class="linkedin">
+            </a>
+        </div>
+        <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
+        <div class="telefone_e_mail">
+            <div class="telefone">
+                <img src="../img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
+                <a href="https://wa.me/5511985831860">
+                    <p>+55 11 98583-1860</p>
+                </a>
+            </div>
+            <div class="mail">
+                <img src="../img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
+                    alt="">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
+                    <p>medmonitoramento@gmail.com</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <img src="../img/logo-removebg-preview 1.png" alt="" class="logo_final">
+
+    </div>
+</body>
+<script>
+
+    // grafico barra
+    const labels = ["Alerta 1256", "Alerta 1257", "Alerta 1258", "Alerta 1259", "Alerta 1260", "Alerta 1261"];
+    const data = {
+        labels: labels,
+        datasets: [{
+            axis: 'y',
+            label: 'Duração (min)',
+            data: [5, 5, 4, 2, 2, 1],
+            fill: false,
+            backgroundColor: [
+                'rgb(99, 198, 255)'
+            ],
+            borderColor: [
+                'rgb(124, 229, 255)'
+            ],
+            borderWidth: 2
+        }]
+    };
+
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgb(223, 240, 255)',
+                    },
+                    ticks: {
+                        color: 'rgb(223, 240, 255)',
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgb(223, 240, 255)',
+                    },
+                    ticks: {
+                        color: 'rgb(223, 240, 255)',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgb(223, 240, 255)',
+                    }
+                }
+            }
+        }
+    };
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    )
+
+    // grafico rosquinha
+
+    const data2 = {
+        labels: [
+            'Acima de 8ºC',
+            'Abaixo de 2ºC',
+            'Dentro dos Padrões'
+        ],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [300, 50, 100],
+            backgroundColor: [
+                'rgb(99, 198, 255)',
+                'rgb(0, 53, 122)',
+                'rgb(124, 229, 255)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const config2 = {
+        type: 'doughnut',
+        data: data2,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgb(223, 240, 255)',
+                    }
+                }
+            }
+        }
+    };
+    const myChart2 = new Chart(
+        document.getElementById('myChart2'),
+        config2
+    )
+</script>
+
+</html>

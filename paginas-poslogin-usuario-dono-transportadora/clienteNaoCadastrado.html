@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
 </head>
 
 <body>
     <div class="header">
-        <img src="img/biologistics.png" alt="Biologistic" class="logo">
+        <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
             <li>
                 <a href="cadastroUsuario.html">Cadastro Usuários</a>
@@ -28,7 +28,7 @@
                 <a href="dashboardPedidos.html">Pedidos</a>
             </li>
             <li>
-                <a href="paginas-Iniciais/pag_inicial.html">Sair</a>
+                <a href="../paginas-Iniciais/pag_inicial.html">Sair</a>
             </li>
 
         </ul>
@@ -42,11 +42,58 @@
             <div class="informacoes_pedido">
 
                 <div class="campo">
-                    <label for="Cliente">Selecione seu cliente:<span style="color: red;">*</span></label>
-                    <select name="Cliente" id="Cliente">
-                        <option value="MedCorp">MedCorp</option>
-                        <option value="HelthCorp">HealthCorp</option>
-                    </select>
+                    <label for="nomeCliente">Nome do Cliente:<span style="color: red;">*</span></label>
+                    <input type="text" id="nomeCliente" name="comeCliente" required placeholder="Nome da Empresa">
+                </div>
+
+                <div class="campo">
+                    <label for="docCliente">Documento do Cliente:<span style="color: red;">*</span></label>
+                    <input type="text" id="docCliente" name="docCliente" required placeholder="CNPJ com as pontuações">
+                </div>
+
+                <div class="campo">
+                    <label for="clienteTel">Telefone do Cliente:<span style="color: red;">*</span></label>
+                    <input type="number" id="clienteTel" name="clienteTel" required
+                        placeholder="Telefone com apenas números, sem espaço, com DDD">
+                </div>
+
+                
+                <div class="campo">
+                    <label for="cepCliente">CEP:</label>
+                    <input type="text" id="cepCliente" name="cepCliente"
+                    placeholder="Inclua a pontuação">
+                </div>
+
+                <div class="campo">
+                    <label for="logradouroCliente">Logradouro:<span style="color: red;">*</span></label>
+                    <input type="text" id="logradouroCliente" name="logradouroCliente" required
+                        placeholder="Referente ao cliente">
+                </div>
+
+                <div class="campo">
+                    <label for="numeroCliente">Número:<span style="color: red;">*</span></label>
+                    <input type="number" id="numeroCliente" name="numeroCliente" required>
+                </div>
+
+                <div class="campo">
+                    <label for="complementoCliente">Complemento:<span style="color: red;">*</span></label>
+                    <input type="text" id="complementoCliente" name="complementoCliente" required>
+                </div>
+
+                <div class="campo">
+                    <label for="bairroCliente">Bairro:<span style="color: red;">*</span></label>
+                    <input type="text" id="bairroCliente" name="bairroCliente">
+                </div>
+
+                <div class="campo">
+                    <label for="cidadeCliente">Cidade:<span style="color: red;">*</span></label>
+                    <input type="text" id="cidadeCliente" name="cidadeCliente">
+                </div>
+
+                <div class="campo">
+                    <label for="estadoCliente">Estado:<span style="color: red;">*</span></label>
+                    <input type="text" id="estadoCliente" name="estadoCliente"
+                    placeholder="sigla (2 dígitos)">
                 </div>
 
                 <div class="campo">
@@ -89,7 +136,7 @@
                 </div>
 
                 <div class="box_botao">
-                    <button type="submit" onclick="verificarPedidoJa()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    <button type="submit" onclick="verificarPedidoNao()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                             height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
@@ -106,25 +153,25 @@
     <div class="fotter">
         <div class="redes_sociais">
             <a href="">
-                <img src="img/instagram-new.png" alt="" class="insta">
+                <img src="../img/instagram-new.png" alt="" class="insta">
             </a>
             <a href="">
-                <img src="img/X.png" alt="" class="x">
+                <img src="../img/X.png" alt="" class="x">
             </a>
             <a href="">
-                <img src="img/image 22.png" alt="" class="linkedin">
+                <img src="../img/image 22.png" alt="" class="linkedin">
             </a>
         </div>
         <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
         <div class="telefone_e_mail">
             <div class="telefone">
-                <img src="img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
+                <img src="../img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
                 <a href="https://wa.me/5511985831860">
                     <p>+55 11 98583-1860</p>
                 </a>
             </div>
             <div class="mail">
-                <img src="img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
+                <img src="../img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
                     alt="">
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
                     <p>medmonitoramento@gmail.com</p>
@@ -132,10 +179,10 @@
             </div>
         </div>
     </div>
-    <img src="img/logo-removebg-preview 1.png" alt="" class="logo_final">
+    <img src="../img/logo-removebg-preview 1.png" alt="" class="logo_final">
 
 
 
 </body>
-<script src="js/logicaCadastros.js"></script>
+<script src="../js/logicaCadastros.js"></script>
 </html>
