@@ -19,9 +19,12 @@ function login(){
 
     if (senhaUsuario == '123' && emailUsuario == 'email1@gmail.com') {
         alert("Bem vindo!")
+        
+        
     }else {
         alert("Algum campo está incorreto!")
         return;
+
     }
 
 }
