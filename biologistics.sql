@@ -211,3 +211,4 @@ select ls.idleitura_sensor as Alerta, ls.idpedido as Pedido, ls.idsensor as Sens
 from leiturasensor;
 
 select valor from leiturasensor;
+
