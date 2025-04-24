@@ -14,6 +14,18 @@ create table endereco (
     cep varchar(9) not null
 );
 
+-- insert endereco 
+insert into endereco (logradouro, numero, complemento, bairro, cidade, estado, cep) values
+('Rua das Acácias', 125, 'Galpão 2', 'Jardim Primavera', 'São Paulo', 'SP', '01234-567'),
+('Avenida Brasil', 3020, 'Bloco B', 'Centro', 'Rio de Janeiro', 'RJ', '22040-110'),
+('Rua dos Pinheiros', 87, 'Sala 5', 'Pinheiros', 'São Paulo', 'SP', '05422-010'),
+('Rua Almeida Júnior', 45, 'Fundos', 'Parque Industrial', 'Campinas', 'SP', '13036-520'),
+('Travessa da Serra', 19, 'Casa 1', 'Vila Nova', 'Curitiba', 'PR', '80045-120'),
+('Avenida das Nações', 501, 'Galpão logístico', 'Distrito Industrial', 'Belo Horizonte', 'MG', '31080-300'),
+('Rua do Comércio', 213, null, 'Centro', 'Fortaleza', 'CE', '60060-000');
+
+select * from endereco;
+
 create table cliente(
     idcliente int not null primary key auto_increment,
     idendereco int not null,
@@ -22,6 +34,15 @@ create table cliente(
     telefone varchar(20),
     foreign key (idendereco) references endereco(idendereco)
     );
+-- insert  cliente
+insert into cliente(idendereco, nome, CNPJ, telefone) values 
+(4, 'AstraZeneca do Brasil', '60.318.797/0001-06', '(19) 3721-8000'),
+(2, 'Fiocruz','00.394.544/0001-40', '(21) 3865-9500'),
+(7, 'Janssen-Cilag Farmacêutica', '59.748.514/0001-00', '(85) 3456-7890'),
+(1, 'Pfizer Brasil', '33.000.167/0001-10', '(11) 4002-8922'),
+(6, 'Bio-Manguinhos', '00.394.544/0015-00', '(31) 3224-1010'),
+(5, 'Moderna Brasil', '12.345.678/0001-99', '(41) 3304-1000'),
+(3, 'Butantan', '63.025.530/0001-38', '(11) 2627-9300');
 
 
 create table transportadora (
@@ -36,6 +57,20 @@ create table transportadora (
     foreign key (matrizTransportadora) references transportadora(idTransportadora)
 );
 
+-- insert trasportadora
+
+-- insert transportadora
+insert into transportadora (nome, cnpj, telefone, idendereco, matrizTransportadora) values 
+
+  ('HealthCargo Logística', '01.987.654/0001-01', '(11) 3456-7890', 3, null),
+  ('PharmaExpress','02.123.456/0001-02', '(21) 2345-6789', 1, null),
+  ('BioTransMedic','03.654.321/0001-03', '(31) 8765-4321', 2, null),
+  ('HealthCargo - Unidade Campinas', '01.987.654/0002-01', '(19) 4002-8922', 4, 3),
+  ('HealthCargo - Unidade Curitiba', '01.987.654/0003-01', '(41) 3222-3344', 5, 3),
+  ('PharmaExpress - Unidade BH',     '02.123.456/0002-02', '(31) 3555-6677', 6, 1),
+  ('BioTransMedic - Fortaleza',      '03.654.321/0002-03', '(85) 98877-1122', 7, 2);
+
+
 create table usuario(
 idUsuario int not null primary key auto_increment,
 email varchar(100) not null,
@@ -45,6 +80,15 @@ ativo boolean default true,
 idTransportadora int not null,
 foreign key (idTransportadora) references transportadora(idTransportadora)
 );
+-- insert usuarios
+insert into usuario (email, senha, administrador, idTransportadora) values 
+('gloria.souza@pharmaexpress.com','senha123',  true,  4), 
+('fernando.lima@healthcargo.com', 'hc2023@',   false, 2), 
+('ana.moreira@biotrans.com','bio321!',   true,  6), 
+('carlos.silva@hc-campinas.com','campi@22',  false, 7), 
+('natan.alves@hc-curitiba.com','curi@001',  false, 5), 
+('luana.torres@pharma-bh.com','pharmabh#', false, 1),
+('juliana.peres@biofort.com','fort#987',  false, 3); 
 
 
 create table veiculo (
@@ -57,6 +101,15 @@ create table veiculo (
     ativo boolean default true,
     foreign key (idtransportadora) references transportadora(idtransportadora)
 );
+-- inseert veiculos
+insert into veiculo (idtransportadora, tipo, placa, modelo, ano) values 
+(6, 'Caminhão', 'ABC1D23', 'Mercedes-Benz Atego 2430',2020),
+(2, 'Avião',    'XYZ9K88', 'Embraer EMB-120 Brasília',2018),
+(1, 'Caminhão', 'JKL3Z45', 'Volkswagen Constellation',2022),
+(4, 'Avião',    'QWE7F65', 'Cessna Caravan 208B',2021),
+(5, 'Caminhão', 'MNO2P34', 'Volvo VM 270', 2023),
+(3, 'Caminhão', 'HGF5T67', 'Ford Cargo 1119', 2019),
+(7, 'Avião',    'RTY8H76', 'Beechcraft King Air 350',2020);
 
 
 create table sensor (
@@ -67,6 +120,15 @@ create table sensor (
     ativo boolean default true,
     foreign key (idveiculo) references veiculo(idveiculo)
 );
+-- insert sensores
+insert into sensor (idveiculo, faixa_min, faixa_max) values 
+(1, 2.00, 8.00),
+(2, 2.00, 8.00),
+(3, 2.00, 8.00),
+(4, 2.00, 8.00),
+(5, 2.00, 8.00),
+(6, 2.00, 8.00),
+(7, 2.00, 8.00);
 
 
 
@@ -85,9 +147,19 @@ create table pedido (
     destinatario_tel varchar(20),
     status varchar(20) default 'pendente',
     foreign key (idveiculo) references veiculo(idveiculo),
-    foreign key (idcliente) references cliente(idcliente),
-    constraint chk_status check (status in ('pendente', 'em_transporte', 'entregue', 'cancelado'))
+    foreign key (idcliente) references cliente(idcliente)
+    
 );
+-- insert pedidos
+insert into pedido (idveiculo, idcliente, data_pedido, data_entrega_prevista, data_entrega_real, tipo_medicamento1, quantidade_medicamento1, tipo_medicamento2, quantidade_medicamento2, destinatario_nome, destinatario_tel, status) values 
+(5, 2, '2025-04-21 12:30:00', '2025-04-22 16:00:00', null, 'Vacina C', 150, 'Vacina D', 250, 'Maria Oliveira', '(21) 93456-7890', 'pendente'),
+(2, 6, '2025-04-20 10:00:00', '2025-04-21 14:00:00', '2025-04-21 15:00:00', 'Vacina A', 100, 'Vacina B', 200, 'João Silva', '(11) 98765-4321', 'entregue'),
+(7, 1, '2025-04-23 13:00:00', '2025-04-24 15:30:00', null, 'Vacina E', 200, null, null, 'Fernanda Souza', '(31) 99876-5432', 'pendente'),
+(3, 4, '2025-04-22 09:15:00', '2025-04-23 10:30:00', null, 'Medicamento X', 50, 'Medicamento Y', 120, 'Carlos Pereira', '(41) 91234-5678', 'em_transporte'),
+(1, 5, '2025-04-24 08:45:00', '2025-04-25 11:00:00', '2025-04-25 12:00:00', 'Medicamento Z', 75, 'Medicamento W', 180, 'Lucas Lima', '(51) 95555-1234', 'entregue'),
+(4, 3, '2025-04-25 14:00:00', '2025-04-26 18:00:00', null, 'Vacina F', 300, 'Vacina G', 100, 'Juliana Martins', '(85) 98888-7777', 'cancelado');
+
+
 
 create table leiturasensor (
     idleitura_sensor int primary key auto_increment,
@@ -99,9 +171,24 @@ create table leiturasensor (
     foreign key (idpedido) references pedido(idpedido)
 );
 
+-- insert leitura dos sensores
+insert into leiturasensor (idsensor, idpedido, valor) values
+(1, 1, 3.25),
+(3, 2, 4.10),
+(2, 3, 5.00),
+(5, 4, 2.80),
+(6, 5, 7.60),
+(4, 6, 6.30);
+
+
+SELECT idpedido FROM pedido;
+
+
+
+
 
 -- Inserts
-
+/*
 insert into transportadora (nome, cnpj, telefone, email, data_cadastro, senha) values
 ('Translog Brasil', '12.345.678/0001-90', '(11) 91234-5678', 'contato@translogbrasil.com.br', '2023-08-15', 'translog123'),
 ('Rápido Norte', '98.765.432/0001-55', '(21) 99876-5432', 'suporte@rapidonorte.com.br', '2024-01-10', 'rnorte2024'),
@@ -208,5 +295,5 @@ select ls.idleitura_sensor as Alerta, ls.idpedido as Pedido, ls.idsensor as Sens
 	end as situação
 from leiturasensor;
 
-select valor from leiturasensor;
+select valor from leiturasensor; */
 
