@@ -1,0 +1,969 @@
+/* Importa a fonte Rubik do Google Fonts com todos os pesos e estilos */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* Estilos gerais para html e body */
+html,
+body {
+    overflow-x: hidden; /* Impede rolagem horizontal */
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", sans-serif; /* Define fonte padrão */
+    /* Gradiente de fundo azul */
+    background: linear-gradient(to bottom, rgb(35, 156, 223) 18%, rgb(54, 125, 174) 55%, rgb(15, 39, 129));
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white; /* Cor do texto padrão */
+}
+
+/* HEADER - Barra de navegação superior */
+.header {
+    display: flex; /* Layout flexível */
+    background-color: rgb(35, 156, 223);
+    color: white;
+    flex-wrap: nowrap; /* Impede quebra de linha */
+    align-items: center; /* Alinha itens verticalmente */
+    justify-content: space-between; /* Espaço entre logo e navbar */
+    border-bottom: solid 2px white; /* Borda inferior */
+}
+
+/* Estilo para títulos h1 */
+h1 {
+    font-weight: 400;
+    font-size: 2.5rem;
+    color: white;
+}
+
+/* Estilo da logo no header */
+.header img {
+    width: 9rem;
+    justify-content: flex-start; /* Alinha à esquerda */
+    margin-left: 2%;
+}
+
+/* NAVBAR - Lista de navegação */
+.navbar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end; /* Alinha itens à direita */
+    gap: 1rem; /* Espaço entre itens */
+    margin-right: 3%;
+    list-style: none; /* Remove marcadores de lista */
+    padding: 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Links da navbar */
+.header a {
+    text-decoration: none; /* Remove sublinhado */
+    color: white;
+    font-size: 1rem;
+    white-space: nowrap; /* Impede quebra de texto */
+}
+
+/* FIM DO HEADER */
+
+/* SEÇÃO DE INFORMAÇÕES PRINCIPAIS */
+.informacao {
+    color: white;
+    padding: 2rem 5vw; /* Padding responsivo (5% da largura da viewport) */
+}
+
+/* Títulos na seção de informação */
+.informacao h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Tamanho responsivo */
+}
+
+/* Título principal */
+.informacao .titulo {
+    margin: 2rem 0;
+    width: 100%;
+}
+
+/* Parágrafos */
+.informacao p {
+    font-size: clamp(1rem, 2vw, 1.4rem); /* Tamanho responsivo */
+    font-weight: 300;
+    width: 100%;
+}
+
+/* Primeiro parágrafo com margem especial */
+.informacao .primeiro_p {
+    margin: 1rem 0;
+}
+
+/* Container dos cards de fornecimentos */
+.conjunto_fornecimentos {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center; /* Centraliza cards */
+    gap: 2rem; /* Espaço entre cards */
+    padding: 2rem 5vw;
+    margin: 2rem 0;
+}
+
+/* Cards individuais de fornecimento */
+.fornecimentos {
+    color: rgba(39, 39, 39);
+    background-color: white;
+    min-height: 170px;
+    width: clamp(250px, 80%, 400px); /* Largura responsiva */
+    border-radius: 30px; /* Bordas arredondadas */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    padding: 1.5rem;
+    margin: 0 auto; /* Centraliza */
+}
+
+/* Títulos nos cards */
+.fornecimentos h3 {
+    font-size: 2rem;
+    color: #239cdf;
+}
+
+/* Texto nos cards */
+.fornecimentos p {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Imagens nos cards */
+.fornecimentos img {
+    width: 70px;
+}
+
+/* Container dos cards "Sobre nós" */
+.cards-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 5vw;
+    margin: 2rem auto;
+    max-width: 1200px;
+    white-space: nowrap;
+}
+
+/* Cards "Sobre nós" */
+.sobre_nos {
+    background-color: white;
+    color: rgb(39, 39, 39);
+    border-radius: 30px;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 45%;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Títulos nos cards "Sobre nós" */
+.sobre_nos h3 {
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+    color: #239cdf;
+}
+
+/* Texto nos cards "Sobre nós" */
+.sobre_nos p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.6;
+    white-space: normal;
+}
+
+/* Seção da equipe */
+.equipe {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 5vw;
+}
+
+/* Título de aplicação */
+.aplicacao {
+    display: flex;
+}
+
+/* Diagrama da solução */
+.diagrama_solucao {
+    width: 80%;
+    display: flex;
+    justify-self: center;
+}
+
+/* Fileiras de cards de pessoas */
+.fileira,
+.fileira2 {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebra de linha */
+    justify-content: center; /* Centraliza cards */
+    gap: 2rem; /* Espaço entre cards */
+    padding: 0 5vw;
+    margin: 2rem 0;
+}
+
+/* Cards de pessoas (versão 1) */
+.card_pessoas1,
+/* Cards de pessoas (versão 2) */
+.card_pessoas2 {
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    text-align: center;
+    padding: 1.5rem;
+    width: clamp(250px, 80%, 400px); /* Largura responsiva */
+    margin: 0 auto; /* Centraliza */
+}
+
+/* Fotos nas cards de pessoas */
+.card_pessoas1 .foto,
+.card_pessoas2 .foto {
+    width: clamp(100px, 50%, 150px); /* Largura responsiva */
+    height: auto;
+    aspect-ratio: 1/1; /* Mantém proporção quadrada */
+    border: solid 1px black;
+    border-radius: 50%; /* Torna a imagem circular */
+    margin: 0 auto; /* Centraliza */
+}
+
+/* FIM DOS ESTILOS DA PÁGINA INICIAL */
+
+/* COMEÇO DO FOOTER */
+
+/* Redes sociais no footer */
+.redes_sociais {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza ícones */
+    gap: clamp(1rem, 5vw, 3rem); /* Espaço responsivo */
+    margin: 3rem 0;
+    padding: 0 5vw;
+}
+
+/* Estilo dos ícones */
+.insta,
+.linkedin {
+    width: clamp(40px, 8vw, 70px); /* Tamanho responsivo */
+    height: auto;
+}
+
+.x {
+    width: clamp(40px, 8vw, 75px);
+    height: auto;
+}
+
+/* Endereço no footer */
+.endereco {
+    display: flex;
+    justify-content: center; /* Centraliza texto */
+    margin: 2rem 0;
+    text-align: center;
+    color: white;
+    padding: 0 5vw;
+    font-size: clamp(0.9rem, 2vw, 1rem); /* Tamanho responsivo */
+}
+
+/* Container de telefone e email */
+.telefone_e_mail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza itens */
+    gap: clamp(1rem, 5vw, 3rem);
+    margin: 2rem 0;
+    padding: 0 5vw;
+}
+
+/* Estilo do telefone */
+.telefone,
+/* Estilo do email */
+.mail {
+    display: flex;
+    align-items: center; /* Alinha ícone com texto */
+    gap: 0.5rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* Links no footer */
+.telefone a,
+.mail a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Logo no final do footer */
+.logo_final {
+    display: flex;
+    justify-self: center;
+    margin: 2rem 0;
+}
+
+.logo_final img {
+    width: clamp(80px, 15vw, 120px);
+    height: auto;
+}
+
+/* FIM DO FOOTER */
+
+/* CALCULADORA FINANCEIRA */
+
+/* Container principal da calculadora */
+.calculadora {
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 5vw;
+}
+
+/* Perguntas na calculadora */
+.calculadora .perg {
+    color: black;
+    background-color: white;
+    min-height: 55px;
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem 0;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+}
+
+/* Selects e inputs na calculadora */
+.calculadora select,
+.calculadora input {
+    border: 1.5px solid #000000;
+    background-color: #ede7e7;
+    border-radius: 10px;
+    padding: 0.8rem;
+    width: 100%;
+    max-width: 300px;
+    margin: 0.5rem 0;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* Botão da calculadora */
+.calculadora button {
+    border-radius: 10px;
+    border: 1.5px solid #000000;
+    background-color: #ede7e7;
+    font-weight: 600;
+    padding: 0.8rem;
+    width: 100%;
+    max-width: 200px;
+    margin: 1rem 0;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* Caixa de resposta */
+.caixaResposta {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.343);
+    min-height: 200px;
+    width: 100%;
+    max-width: 800px;
+    margin: 1rem 0;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-image: url(img/logo-removebg-preview\ 1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding: 1rem;
+}
+
+/* Texto de resposta */
+.calculadora .resposta {
+    color: rgb(3, 3, 96);
+    font-weight: 450;
+    padding: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+/* Título da calculadora */
+.tituloCalculadora {
+    font-weight: 600;
+    font-size: 2.5rem;
+    width: 100%;
+    padding: 3rem;
+    margin-left: 2rem;
+    color: white;
+}
+
+/* FIM DA CALCULADORA */
+
+/* INICIO DO STYLE DE LOGIN E CADASTRO */
+
+/* Container da página dividida */
+.pagina {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebra em telas pequenas */
+    min-height: calc(100vh - 150px);
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Lado esquerdo (azul) */
+.lado-esquerdo {
+    flex: 1; /* Ocupa espaço disponível */
+    min-width: 300px;
+    padding: 2rem 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+/* Texto no lado esquerdo */
+.lado-esquerdo p {
+    font-size: 1.3rem;
+}
+
+.lado-esquerdo a{
+    text-decoration: none;
+    color: white;
+}
+
+/* Lado direito (branco com formulário) */
+.lado-direito {
+    flex: 1;
+    min-width: 300px;
+    background-color: white;
+    padding: 2rem 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Formulários */
+.formulario {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; /* Centraliza */
+}
+
+/* Grupos de campos do formulário */
+.formulario .form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Labels dos formulários */
+.formulario label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+}
+
+/* Inputs dos formulários */
+.formulario input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* Botões dos formulários */
+.formulario button {
+    background-color: #239cdf;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+}
+
+/* FIM DO STYLE DE LOGIN E CADASTRO */
+
+/* INICIO DO STYLE DE CADASTRO-PEDIDO */
+
+/* Container do cadastro de pedido */
+.cadastro_Pedido {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: 7rem;
+   padding: 3rem;
+   margin-left: -30px;
+
+}
+
+.formularioEndereco{
+    margin-top: -500px;
+}
+
+
+/* Título do formulário */
+.formularioPedido h1 {
+    color: white;
+    justify-content: center;
+    font-family: "Rubik", sans-serif;
+    font-size: 2.5rem;
+    text-align: center;
+    width: 90%;
+    margin: 2rem ;
+}
+
+/* Informações do pedido */
+.informacoes_pedido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    flex-direction: column;
+}
+
+
+/* Campos do formulário */
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+/* Labels dos campos */
+.campo label {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Inputs dos campos */
+.campo input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Container do botão */
+.box_botao {
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+/* Estilo do botão */
+.box_botao button {
+    padding: 0.8rem;
+    border-radius: 7rem;
+    border: none;
+    background-color: #239cdf;
+    color: white;
+    cursor: pointer;
+    width: 10%;
+}
+
+/* Efeito hover do botão */
+.box_botao button:hover {
+    background-color: #1b7fb4;
+    transition: 0.4s;
+}
+
+/* Ícone dentro do botão */
+.box_botao button svg {
+    width: 100%;
+    height: 2rem;
+}
+
+/* FIM DO STYLE DE CADASTRO DO PEDIDO */
+
+/* STYLE DAS DASHBOARDS */
+
+/* Select de pedidos */
+#pedidos {
+    background-color: rgb(17, 74, 179);
+    color: rgb(223, 240, 255);
+    border: 2px solid rgb(124, 229, 255);
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    width: 340px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito hover do select */
+#pedidos:hover {
+    background-color: rgb(45, 107, 221);
+    color: rgb(223, 240, 255);
+    border: 2px solid rgb(162, 236, 255);
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    width: 340px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.4s;
+}
+
+/* Efeito focus do select */
+#pedidos:focus {
+    border-color: rgb(99, 198, 255);
+    box-shadow: 0 0 0 3px rgba(124, 229, 255, 0.3);
+}
+
+/* Opções do select */
+#pedidos option {
+    background-color: rgb(13, 47, 109);
+    color: rgb(223, 240, 255);
+    padding: 0.5rem;
+}
+
+/* Container do select de pedidos */
+.containerPedido {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Seta personalizada no select */
+#pedidos {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgb(124, 229, 255)'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+}
+
+/* Container de informações do pedido */
+.info_pedido {
+    display: flex;
+    background-color: white;
+    flex-direction: row;
+    color: #000000;
+    border-radius: 20px;
+}
+
+/* Último alerta */
+.ultimoAlerta {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: white;
+    gap: 2rem;
+    margin-top: 4%;
+}
+
+/* Botão do último alerta */
+.ultimoAlerta button {
+    width: 7.5rem;
+    height: 3.3rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: #114AB3 solid;
+    background-color: #114AB3;
+    color: white;
+    justify-content: space-around;
+}
+
+/* Efeito hover do botão */
+.ultimoAlerta button:hover {
+    width: 7.5rem;
+    height: 3.3rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: #4785f8 solid;
+    background-color: #0b64da;
+    color: white;
+    justify-content: space-around;
+    transition: 0.4s;
+}
+
+/* Container dos KPIs */
+.KPI_container {
+    display: flex;
+    flex-direction: row-reverse; /* Inverte a ordem */
+    gap: 3rem;
+    align-items: flex-start;
+    padding-top: 3rem;
+}
+
+/* Coluna de KPIs */
+.KPI_column {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 2%;
+}
+
+/* Linha de KPIs */
+.KPI_row {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    margin-top: 2%; 
+}
+
+/* Cards de KPI */
+.KPI_Alerta {
+    display: flex;
+    background-color: rgb(17, 74, 179);
+    border-radius: 8px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    width: 15rem;
+    height: 9rem;
+}
+
+/* Container de informações do pedido */
+.pedido_info_container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; 
+    margin-top: -4%;
+}
+
+/* Informação do pedido */
+.informacao_pedido {
+    color: white;
+    margin: 0;
+    padding: 0;
+    align-self: flex-start; 
+    text-align: center; 
+}
+
+/* Container do resumo do pedido */
+.resumo_pedido_container {
+    display: flex;
+    padding: 1.5rem;
+    background-color: rgb(13, 61, 150);
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+}
+
+
+
+/* Resumo do pedido */
+.resumo_pedido{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    padding: 3.3rem;
+    border-radius: 8px;
+    background-color: #1372c0;
+}
+
+/* Texto no resumo */
+.resumo_pedido h4, .resumo_pedido h3 {
+    margin-top: -2%;
+    margin-bottom: -2%;
+}
+
+/* Partes do resumo */
+.partes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 2rem;
+}
+
+/* Container do botão */
+.botao {
+    display: flex;
+    justify-content: center;
+}
+
+/* Gráficos gerais */
+.graficos-gerais {
+    display: flex;
+    background-color: rgb(13, 61, 150);
+    border-radius: 8px;
+    padding: 20px;
+    width: 95%;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Container dos gráficos */
+.grafico {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Gráfico 1 e 2 */
+.grafico1, .grafico2 {
+    position: relative; 
+    width: 100%;
+    height: 400px; 
+}
+
+/* Canvas dos gráficos */
+.grafico1 canvas, .grafico2 canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Estilo específico do gráfico 1 */
+.grafico1 {
+    flex: 2; /* Ocupa mais espaço */
+    min-height: 500px;
+    border-radius: 8px;
+    background-color: #1372c0;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo específico do gráfico 2 */
+.grafico2 {
+    flex: 1; /* Ocupa menos espaço */
+    min-height: 500px;
+    border-radius: 8px;
+    background-color: #1372c0;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Gráfico principal */
+.grafico-Principal {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    background-color: #0072cf;
+    margin: 20px 0;
+}
+
+/* Canvas do gráfico principal */
+.grafico-Principal canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ESTILOS DAS TABELAS */
+
+/* tabela de pedidos */
+.tabelaPedidos {
+    width: 95%;
+    display: flex;
+    justify-self: center;
+}
+
+.tabelaAlerta{
+    width: 95%;
+    display: flex;
+    justify-self: center;
+}
+
+/*Style de cadastro do usuario*/
+
+/*Container do cadastro*/
+.Container_usuariosCadastrados{
+    display: flex;
+    padding: 1.5rem;
+    background-color: rgb(11, 5, 99);
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 3rem;
+}
+
+.UsuariosCadastrados{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    margin-top: 3rem;
+}
+
+.cadastro_Usuario{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    margin-top: 3rem;
+}
+
+.cadastro_Usuario input {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    height: 1.5rem;
+}
+
+.cadastro_Usuario label {
+    margin-bottom: 0.5rem;
+    font-weight: 100;
+    color: #ffffff;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    margin-left: 2rem;
+}
+
+/*Botão cadastrar*/
+.cadastro_Usuario button {
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: none;
+    background-color: #6890e6;
+    color: white;
+    cursor: pointer;
+    
+}
+
+/* Efeito hover do botão */
+.cadastro_Usuario button:hover {
+    background-color: #1b44b4;
+    transition: 0.4s;
+}
+

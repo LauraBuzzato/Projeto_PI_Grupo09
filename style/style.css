@@ -48,7 +48,7 @@ h1 {
     flex-wrap: nowrap;
     justify-content: flex-end; /* Alinha itens à direita */
     gap: 1rem; /* Espaço entre itens */
-    margin-right: 2%;
+    margin-right: 3%;
     list-style: none; /* Remove marcadores de lista */
     padding: 0;
     width: 100%;
@@ -433,6 +433,11 @@ h1 {
 /* Texto no lado esquerdo */
 .lado-esquerdo p {
     font-size: 1.3rem;
+}
+
+.lado-esquerdo a{
+    text-decoration: none;
+    color: white;
 }
 
 /* Lado direito (branco com formulário) */

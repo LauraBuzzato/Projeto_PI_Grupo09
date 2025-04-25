@@ -20,16 +20,38 @@ function cadastrar() {
     }
     if(nomeTransportadora == null || cnpjTransportadora == null ||telefoneTransportadora == null == emailTransportadora || senhaTransportadora == null||senhaConfirmada == null){
         alert("preencha todos os campos!")
+        return false;
     } else if (emUso) {
-        alert("Email já em uso")
-        return;
+        alert("Esse email já está sendo utilizado!")
+        return false;
 
     
     } else if (senhaConfirmada != senhaTransportadora) {
         alert("Algum campo está incorreto!")
-        return;
+        return false;
 
     } else{
         alert("Transportadora cadastrada com sucesso!")
+        window.location.href = "cadastroEndereco.html";
     }
+}
+
+function cadastrarEndereco(){
+    logradouroTransportadora = logradouro.value;
+    cepTransportadora = cep.value;
+    estadoTransportadora = estado.value;
+    cidadeTransportadora = cidade.value;
+    bairroTransportadora = bairro.value;
+    numeroTransportadora = numero.value;
+    complementoTransportadora = complemento.value;
+
+
+    if(logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null ){
+        alert("preencha todos os campos!")
+        return false;
+    } else {
+        alert("Endereço da transportadora cadastrado com sucesso!")
+        window.location.href = "../transportadora/cadastroPedido.html";
+    }
+
 }
