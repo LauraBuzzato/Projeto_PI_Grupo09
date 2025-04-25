@@ -236,6 +236,10 @@ h1 {
 /* FIM DOS ESTILOS DA PÁGINA INICIAL */
 
 /* COMEÇO DO FOOTER */
+.fotter{
+    display: block;
+    margin-top: 10.5rem;
+}
 
 /* Redes sociais no footer */
 .redes_sociais {

@@ -13,7 +13,7 @@ body {
     /* Gradiente de fundo azul */
     background: linear-gradient(to bottom, rgb(35, 156, 223) 18%, rgb(54, 125, 174) 55%, rgb(15, 39, 129));
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:auto;
     color: white; /* Cor do texto padrão */
 }
 
@@ -236,7 +236,10 @@ h1 {
 /* FIM DOS ESTILOS DA PÁGINA INICIAL */
 
 /* COMEÇO DO FOOTER */
-
+.fotter{
+    display: block;
+    margin-top: 10.5rem;
+}
 /* Redes sociais no footer */
 .redes_sociais {
     display: flex;
