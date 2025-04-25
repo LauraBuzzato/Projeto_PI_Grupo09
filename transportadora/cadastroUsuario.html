@@ -33,31 +33,29 @@
 
         </ul>
     </div>
+<div class="tituloFuncionarios"><h1><b>Cadastre seus Funcionários!</b></h1></div>
+    
 
+    <div class="cadastro_Usuario">
 
+        <label for="nome">Nome: </label>
+        <input type="text" id="nome" required>
 
-        <div class="cadastro_Usuario">
-            <form action="" class="cadastrarUsuario">
-                <h1><b>Cadastre seus Funcionários!</b></h1>
-                <label for="nome">Nome: </label>
-                <input type="text" id="nome" required>
+        <label for="email">Email: </label>
+        <input type="email" id="email" required>
 
-                <label for="email">Email: </label>
-                <input type="email" id="email" required>
+        <label for="senha">Senha: </label>
+        <input type="text" id="senha" required>
 
-                <label for="senha">Senha: </label>
-                <input type="text" id="senha" required>
-
-                <button type="submit" onclick="cadastroFuncionario()">cadastrar Usuario</button>
-
-            </form>
-        </div>
-        <div id="usuariosCadastrados" class="Container_usuariosCadastrados">
+        <button onclick="cadastroFuncionario()">cadastrar Usuario</button>
     </div>
-    
+    <div class="Container_usuariosCadastrados">
+        <div id="usuariosCadastrados" class="usuariosCadastrados"></div>
+    </div>
 
 
-    
+
+
     <div class="fotter">
         <div class="redes_sociais">
             <a href="">
@@ -88,7 +86,8 @@
         </div>
         <img src="../img/logo-removebg-preview 1.png" alt="" class="logo_final">
     </div>
-    
+
 </body>
+<script src="../js/logicaCadastros.js"></script>
 
 </html>

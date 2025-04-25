@@ -501,6 +501,36 @@ h1 {
 
 /* INICIO DO STYLE DE CADASTRO-PEDIDO */
 
+.cardPedidos{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8rem;
+    width: 100%;
+    margin-top: 10rem;
+}
+
+.cardPedidos a{
+    text-decoration: none;
+
+}
+
+.card1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    color: #239cdf;
+    border-radius: 10px;
+    width: 25%;
+    height: 8rem;
+    padding: 2rem;
+}
+
+.card1 h1{
+    color: #239cdf;
+}
+
 /* Container do cadastro de pedido */
 .cadastro_Pedido {
     display: flex;
@@ -902,6 +932,11 @@ h1 {
 
 /*Style de cadastro do usuario*/
 
+.tituloFuncionarios{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /*Container do cadastro*/
 .Container_usuariosCadastrados{
     display: flex;
@@ -910,20 +945,42 @@ h1 {
     border-radius: 8px;
     align-items: center;
     justify-content: center;
-    width: 90%;
+    width: 40%;
     margin: 0 auto;
     margin-top: 3rem;
 }
 
-.UsuariosCadastrados{
+.usuariosCadastrados{
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    background-color: rgb(222, 240, 255);
+    color: #101e44;
+    border-radius: 8px;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-flow: column nowrap ;
     margin: 0 auto;
-    margin-top: 3rem;
+
+}
+
+.usuariosCadastrados .Itens{
+    margin-left: 3rem;
+}
+
+.usuariosCadastrados .botao1{
+    border-radius: 15px;
+    padding: 6px;
+    color: #ffffff;
+    background-color: #0b64da;
+    border-style: none;
+}
+
+.usuariosCadastrados .botao2{
+    border-radius: 15px;
+    padding: 6px;
+    color: #ffffff;
+    background-color: #092470;
+    border-style: none;
 }
 
 .cadastro_Usuario{
@@ -943,6 +1000,7 @@ h1 {
     box-sizing: border-box;
     font-size: 1rem;
     height: 1.5rem;
+    margin-left: 0.5rem;
 }
 
 .cadastro_Usuario label {
@@ -961,6 +1019,7 @@ h1 {
     background-color: #6890e6;
     color: white;
     cursor: pointer;
+    margin-left: 0.5rem;
     
 }
 
