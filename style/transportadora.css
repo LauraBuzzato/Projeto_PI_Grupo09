@@ -938,7 +938,7 @@ h1 {
     justify-content: center;
 }
 /*Container do cadastro*/
-.Container_usuariosCadastrados{
+.Container_usuariosCadastrados, .Container_veiculosCadastrados{
     display: flex;
     padding: 1.5rem;
     background-color: rgb(11, 5, 99);
@@ -950,7 +950,7 @@ h1 {
     margin-top: 3rem;
 }
 
-.usuariosCadastrados{
+.usuariosCadastrados, .veiculosCadastrados{
     width: 100%;
     display: flex;
     background-color: rgb(222, 240, 255);
