@@ -1029,3 +1029,7 @@ h1 {
     transition: 0.4s;
 }
 
+.fundoveiculoscadastrados, .fundocadastrousuarios{
+    height: 20vh;
+    width: 100%;
+}
