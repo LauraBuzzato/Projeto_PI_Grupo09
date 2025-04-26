@@ -196,14 +196,30 @@ insert into leiturasensor(idsensor, idpedido, valor, data_hora)
 desc endereco;
 
  -- Selects para o site
-select  p.idpedido as Idpedido, p.data_pedido as Dt_pedido, p.data_entrega_prevista as Dt_prevista, p.data_entrega_real as Dt_real, p.tipo_medicamento1 as 'Medicamento(1)', p.quantidade_medicamento1 as 'Qtd_med(1)', 
-		p.tipo_medicamento2 as 'Medicamento(2)', p.quantidade_medicamento2 as 'Qtd_med(2)', p.status as Status,
+select 
+ -- nome das colunas com apelidos (apelido.coluna)
+ p.idpedido as Idpedido, p.data_pedido as Dt_pedido, p.data_entrega_prevista as Dt_prevista, p.data_entrega_real as Dt_real, p.tipo_medicamento1 as 'Medicamento(1)', p.quantidade_medicamento1 as 'Qtd_med(1)', 
+		p.tipo_medicamento2 as 'Medicamento(2)', p.quantidade_medicamento2 as 'Qtd_med(2)', p.status as Status, 
 	v.tipo as Veículo, v.placa as Placa, c.nome as Cliente, c.telefone as Telefone, et.logradouro as Partida, et.numero as Nº_partida, et.cep as CEP_partida, ec.logradouro as Entrega, ec.numero as Nº_entrega, ec.cep as CEP_entrega
+
+-- tabela que estamos nos referindo 
 	from pedido as p
+    
+--  conexão entre a tabela pedido e tabela cliente - para isso citando a fk (p.idcliente) e qual pk ela se relaciona (c.idcliente)
 	inner join cliente as c on c.idcliente = p.idcliente
+    
+-- conexão entre a tabela cliente com a tabela endereco, essa conexão só é possível pq há um join cm a tabela cliente tbm. Nesse caso, ja que citamos a tabela endereco duas vezes nesse comando
+	-- o apelido (ec) não é opicional. Esse comando, por se relacionar com cliente, puxa os endereços dos clientes, nosso endereço de entrega - fk(c.idendereco) q se relaciona cm a pk(ec.idendereco)
     inner join endereco as ec on ec.idendereco = c.idendereco
+    
+-- conexão entre a tabela de veículo e pedido. fk (p.idveiculo) q se relaciona cm a pk(v.idveiculo)
     inner join veiculo as v on v.idveiculo = p.idveiculo 
+    
+-- essa conexão é feita apenas para traçar um caminho entre veiculo para endereco, pois precisamos do endereco da transportadora pois é o nosso local de partida. Se você notar, nenhuma coluna da transportadora é
+	-- citada na declaração das colunas na primeira parte do comando. fk(v.idtransportadora) com a pk(t.idtransportadora)
     inner join transportadora as t on t.idtransportadora = v.idtransportadora
+    
+-- Conexão entre a tabela transportadora com a tabela endereco. Essa parte do comando deixa possível a exibição do local de partida, pois se relaciona cm a tabela transportadora. fk(t.idendereco) com a pk(er.idendereco)
     inner join endereco as et on et.idendereco = t.idendereco;
     
 
