@@ -238,7 +238,7 @@ h1 {
 /* COMEÇO DO FOOTER */
 .fotter{
     display: block;
-    margin-top: 10.5rem;
+    margin-top: 12.5rem;
 }
 /* Redes sociais no footer */
 .redes_sociais {
@@ -1029,3 +1029,7 @@ h1 {
     transition: 0.4s;
 }
 
+.fundoveiculoscadastrados, .fundocadastrousuarios{
+    height: 20vh;
+    width: 100%;
+}
