@@ -756,7 +756,7 @@ h1 {
 .KPI_column {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 4rem;
     margin-top: 2%;
 }
 
@@ -764,30 +764,34 @@ h1 {
 .KPI_row {
     display: flex;
     flex-direction: row;
-    gap: 3rem;
+    gap: 4rem;
     margin-top: 2%; 
+    width: 100%;
 }
 
 /* Cards de KPI */
-.KPI_Alerta {
+.KPI_Alerta{
     display: flex;
     background-color: rgb(17, 74, 179);
     border-radius: 8px;
     align-items: center;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
-    padding: 1rem;
-    width: 15rem;
+    padding: 2.5rem;
+    width: 30rem;
     height: 9rem;
+    
 }
+
 
 /* Container de informações do pedido */
 .pedido_info_container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; 
-    margin-top: -4%;
+    gap: 3rem; 
+    
 }
 
 /* Informação do pedido */

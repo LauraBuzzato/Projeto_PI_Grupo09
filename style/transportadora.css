@@ -755,7 +755,7 @@ h1 {
 .KPI_column {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 4rem;
     margin-top: 2%;
 }
 
@@ -763,30 +763,34 @@ h1 {
 .KPI_row {
     display: flex;
     flex-direction: row;
-    gap: 3rem;
+    gap: 4rem;
     margin-top: 2%; 
+    width: 100%;
 }
 
 /* Cards de KPI */
-.KPI_Alerta {
+.KPI_Alerta{
     display: flex;
     background-color: rgb(17, 74, 179);
     border-radius: 8px;
     align-items: center;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
-    padding: 1rem;
-    width: 15rem;
+    padding: 2.5rem;
+    width: 30rem;
     height: 9rem;
+    
 }
+
 
 /* Container de informações do pedido */
 .pedido_info_container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; 
-    margin-top: -4%;
+    gap: 3rem; 
+    
 }
 
 /* Informação do pedido */
@@ -809,10 +813,8 @@ h1 {
     width: 90%;
 }
 
-
-
 /* Resumo do pedido */
-.resumo_pedido{
+.resumo_pedido {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -871,6 +873,7 @@ h1 {
     width: 100%;
     height: 400px; 
 }
+
 
 /* Canvas dos gráficos */
 .grafico1 canvas, .grafico2 canvas {
@@ -940,14 +943,15 @@ h1 {
 /*Container do cadastro*/
 .Container_usuariosCadastrados, .Container_veiculosCadastrados{
     display: flex;
-    padding: 1.5rem;
+    padding: 1rem;
     background-color: rgb(11, 5, 99);
     border-radius: 8px;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 50%;
     margin: 0 auto;
     margin-top: 3rem;
+    margin-bottom: 30rem;
 }
 
 .usuariosCadastrados, .veiculosCadastrados{
@@ -956,7 +960,7 @@ h1 {
     background-color: rgb(222, 240, 255);
     color: #101e44;
     border-radius: 8px;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     flex-flow: column nowrap ;
     margin: 0 auto;
@@ -967,7 +971,11 @@ h1 {
     margin-left: 3rem;
 }
 
-.usuariosCadastrados .botao1{
+.veiculosCadastrados .Itens{
+    margin-left: 1.5rem;
+}
+
+.usuariosCadastrados .botao1, .veiculosCadastrados .botao1{
     border-radius: 15px;
     padding: 6px;
     color: #ffffff;
@@ -975,7 +983,7 @@ h1 {
     border-style: none;
 }
 
-.usuariosCadastrados .botao2{
+.usuariosCadastrados .botao2, .veiculosCadastrados .botao2{
     border-radius: 15px;
     padding: 6px;
     color: #ffffff;
