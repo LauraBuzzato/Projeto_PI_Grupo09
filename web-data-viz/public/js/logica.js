@@ -51,7 +51,7 @@ function cadastrarEndereco(){
         return false;
     } else {
         alert("Endereço da transportadora cadastrado com sucesso!")
-        window.location.href = "../transportadora/cadastroPedido.html";
+        window.location.href = "../paginas-iniciais/login.html";
     }
 
 }
