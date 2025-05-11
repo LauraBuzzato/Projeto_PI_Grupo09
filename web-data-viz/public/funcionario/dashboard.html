@@ -7,13 +7,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
     <link rel="stylesheet" href="../style/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
     <div class="header">
         <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
-            
+
             <li>
                 <a href="cadastroPedido.html">Cadastro Pedidos</a>
             </li>
@@ -37,99 +39,94 @@
         <h2 class="tituloAlerta">Monitoramento em tempo Real</h2>
 
         <div class="containerPedido">
-            <select id="pedidos">
-                <option value="pedido1">Veículo-placa: CBG2M30</option>
-                <option value="pedido2">Veículo-placa: PJS6P39</option>
-                <option value="pedido3">Veículo-placa: LDS7W57</option>
-                <option value="pedido4">Veículo-placa: JHE0E19</option>
+            <label for="empresas">Selecione uma empresa:</label>
+            <select id="empresas">
+                <option value="">-- Escolha uma empresa --</option>
+                <option value="empresa1">MedCorp</option>
+                <option value="empresa2">BioSafe</option>
             </select>
         </div>
 
-        <div class="KPI">
+        <div class="containerPedido hidden" id="veiculoContainer">
+            <label for="veiculos">Selecione um veículo:</label>
+            <select id="veiculos" >
+              <option value="">-- Escolha um veículo --</option>
+            </select>
+          </div>
+
+        <div class="KPI hidden" id="dadosPedido">
             <div class="pedido_info_container">
                 <h2 class="tituloAlerta">Informações do Pedido:</h2>
                 <div class="resumo_pedido_container">
                     <div class="resumo_pedido">
-                        <div class="partes">
-                            <h3>N° do Pedido: 8756</h3>
-                            <h3>Tipo do Veículo: Automóvel</h3>
-                            <h3>N° do sensor: 182</h3>
-                            <h3>Endereço de destino: R.Rodrigues Alves 428</h3>
-                        </div>
-                        <div class="partes">
-                            <h3>Cliente: MedCorp</h3>
-                            <h3>Documento Cliente: 2312897</h3>
-                            <h3>Data de entrega prevista: 03/04/2025 11:30</h3>
-                            <h3>Tipo de medicamento: CoronaVac (200 unidades)</h3>
-                        </div>
+                        <div class="partes" id="parte1"></div>
+                        <div class="partes" id="parte2"></div>
                     </div>
                 </div>
             </div>
 
             <div class="ultimoAlerta">
-                <h3>Último alerta: 9</h3>
+                <h3>Último alerta: <span id="ultimoAlerta">-</span></h3>
                 <button>Encerrar pedido</button>
             </div>
 
             <div class="KPI_row">
                 <div class="KPI_Alerta">
-                    <h2> <b>Último alerta:</b> </h2>
-                    <h2> <b>12:00</b> </h2>
+                    <h2><b>Último alerta:</b></h2>
+                    <h2><b id="alertaHora">--:--</b></h2>
                 </div>
                 <div class="KPI_Alerta">
-                    <h2> <b>Duração:</b> </h2>
-                    <h2> <b>2min</b> </h2>
+                    <h2><b>Duração:</b></h2>
+                    <h2><b id="duracao">--</b></h2>
                 </div>
                 <div class="KPI_Alerta">
-                    <h2> <b>Temperatura:</b> </h2>
-                    <h2> <b>9°C</b> </h2>
+                    <h2><b>Temperatura:</b></h2>
+                    <h2><b id="temperatura">--°C</b></h2>
                 </div>
             </div>
         </div>
-      
 
-    </div>
-
-    <div class="graficos-gerais">
-        <div class="grafico-Principal">
-            <canvas id="myChart"></canvas>
-        </div>
-    </div>
-
-    <div class="mensagemAlerta">
-        <h2 class="tituloAlerta">Alertas</h2>
-        <img src="../img/alerta.png" alt="" class="tabelaAlerta">
-    </div>
-
-    <!-- Footer -->
-    <div class="fotter">
-        <div class="redes_sociais">
-            <a href="https://www.instagram.com/bio_logistics?igsh=Y3FyZHptY2lleDdx&utm_source=qr"><img src="../img/instagram-new.png" alt="" class="insta"></a>
-            <a href="https://x.com/Biologistics_"><img src="../img/X.png" alt="" class="x"></a>
-            <a href=""><img src="../img/image 22.png" alt="" class="linkedin"></a>
-        </div>
-        <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
-        <div class="telefone_e_mail">
-            <div class="telefone">
-                <img src="../img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
-                <a href="https://wa.me/5511985831860">
-                    <p>+55 11 98583-1860</p>
-                </a>
-            </div>
-            <div class="mail">
-                <img src="../img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
-                    alt="">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
-                    <p>medmonitoramento@gmail.com</p>
-                </a>
+        <div class="graficos-gerais hidden" id="grafico">
+            <div class="grafico-Principal">
+                <canvas id="myChart" width="400" height="150" style="background:#f4f4f4;"></canvas>
             </div>
         </div>
-        <img src="../img/logo-removebg-preview 1.png" alt="" class="logo_final">
-    </div>
+
+        <div class="mensagemAlerta hidden" id="alerta">
+            <h2 class="tituloAlerta">Alertas</h2>
+            <img src="../img/alerta.png" alt="" class="tabelaAlerta" width="100">
+        </div>
+
+
+        <div class="fotter">
+            <div class="redes_sociais">
+                <a href="https://www.instagram.com/bio_logistics?igsh=Y3FyZHptY2lleDdx&utm_source=qr"><img
+                        src="../img/instagram-new.png" alt="" class="insta"></a>
+                <a href="https://x.com/Biologistics_"><img src="../img/X.png" alt="" class="x"></a>
+                <a href=""><img src="../img/image 22.png" alt="" class="linkedin"></a>
+            </div>
+            <p class="endereco">R. Hadock Lobo 595 - São Paulo - Brasil</p>
+            <div class="telefone_e_mail">
+                <div class="telefone">
+                    <img src="../img/6ce562a5d2323a2d4e475eee13d7dd72-removebg-preview 1.png" alt="">
+                    <a href="https://wa.me/5511985831860">
+                        <p>+55 11 98583-1860</p>
+                    </a>
+                </div>
+                <div class="mail">
+                    <img src="../img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
+                        alt="">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
+                        <p>medmonitoramento@gmail.com</p>
+                    </a>
+                </div>
+            </div>
+            <img src="../img/logo-removebg-preview 1.png" alt="" class="logo_final">
+        </div>
     </div>
 
     <script>
-        
+
         const ctx = document.getElementById('myChart');
         new Chart(ctx, {
             type: 'line',
@@ -204,6 +201,128 @@
                 }
             }
         });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+    $('#empresas').select2();
+    $('#veiculos').select2();
+  });
+    </script>
+
+    <script>
+        // Pegando elementos do HTML
+        const empresas = document.getElementById('empresas')    // Select de empresas
+        const veiculos = document.getElementById('veiculos')     // Select de veículo
+        const veiculoContainer = document.getElementById('veiculoContainer')   // Div que envolve o select de veículos
+        const dadosPedido = document.getElementById('dadosPedido')   // Div com os dados do pedido
+        const grafico = document.getElementById('grafico')    // Div do gráfico
+        const alerta = document.getElementById('alerta')     // Div com os dados de alerta
+        const parte1 = document.getElementById('parte1')     // Parte 1 dos dados do pedido (ex: sensor, tipo)
+        const parte2 = document.getElementById('parte2')    // Parte 2 dos dados (cliente, medicamento etc.)
+        const ultimoAlerta = document.getElementById('ultimoAlerta')  // KPI Último alerta
+        const alertaHora = document.getElementById('alertaHora')       // Horário do alerta
+        const duracao = document.getElementById('duracao')    // Duração do alerta
+        const temperatura = document.getElementById('temperatura')   // Temperatura registrada
+
+
+        // Dados de exemplo que virão do BD
+        const dados = {
+            empresa1: {
+                'CBG2M30': {
+                    pedido: '8756',
+                    tipo: 'Automóvel',
+                    sensor: '182',
+                    endereco: 'R. Rodrigues Alves 428',
+                    cliente: 'MedCorp',
+                    documento: '2312897',
+                    entrega: '03/04/2025 11:30',
+                    medicamento: 'CoronaVac (200 unidades)',
+                    alerta: '9',
+                    hora: '12:00',
+                    duracao: '2min',
+                    temperatura: '9'
+                }
+            },
+            empresa2: {
+                'PJS6P39': {
+                    pedido: '9123',
+                    tipo: 'Van',
+                    sensor: '201',
+                    endereco: 'Av. Brasil 1000',
+                    cliente: 'BioSafe',
+                    documento: '998877',
+                    entrega: '05/04/2025 14:00',
+                    medicamento: 'Pfizer (100 unidades)',
+                    alerta: '3',
+                    hora: '13:20',
+                    duracao: '5min',
+                    temperatura: '7'
+                }
+            }
+        };
+
+
+
+        // Quando o usuário muda a empresa selecionada:
+        $('#empresas').on('change', function () {
+            const empresaSelecionada = $(this).val() // Valor da empresa escolhida
+
+            // Coloca o select de veiculos na opção inicial e esconde os dados
+            $('#veiculos').html('<option value="">-- Escolha um veículo --</option>')
+            $('#dadosPedido, #grafico, #alerta').addClass('hidden')
+
+            // Se houver uma empresa válida selecionada e ela existir nos dados
+            if (empresaSelecionada && dados[empresaSelecionada]) {
+                // Para cada veículo (placa) da empresa, cria uma opção no select de veículos
+                Object.keys(dados[empresaSelecionada]).forEach(placa => {
+                    const opt = new Option(`Veículo-placa: ${placa}`, placa)
+                    $('#veiculos').append(opt) // o append q joga isso como uma opção do select
+                })
+
+                // Atualiza visualmente o select pois estamos usando o modelo select2
+                $('#veiculos').trigger('change.select2')
+                // Mostra o container de veículos
+                $('#veiculoContainer').removeClass('hidden')
+            } else {
+                $('#veiculoContainer').addClass('hidden')  // Se não houver empresa selecionada ou não tiver dados, esconde o select de veículos
+            }
+        })
+
+
+        // Quando o usuário escolhe um veículo:
+        $('#veiculos').on('change', function () {
+            const placa = $(this).val()
+            const empresa = $('#empresas').val()
+            const info = dados[empresa][placa]   // Pega os dados do veículo selecionado
+
+            if (info) {
+                // Insere os dados do pedido na parte 1 (informações do veículo e entrega)
+                $('#parte1').html(`
+        <h3>N° do Pedido: ${info.pedido}</h3>
+        <h3>Tipo do Veículo: ${info.tipo}</h3>
+        <h3>N° do sensor: ${info.sensor}</h3>
+        <h3>Endereço de destino: ${info.endereco}</h3>
+      `)
+
+      // Insere os dados do cliente e medicamento na parte 2
+                $('#parte2').html(`
+        <h3>Cliente: ${info.cliente}</h3>
+        <h3>Documento Cliente: ${info.documento}</h3>
+        <h3>Data de entrega prevista: ${info.entrega}</h3>
+        <h3>Tipo de medicamento: ${info.medicamento}</h3>
+      `)
+
+      // Atualiza os dados de alerta na interface
+                $('#ultimoAlerta').text(info.alerta)
+                $('#alertaHora').text(info.hora)
+                $('#duracao').text(info.duracao)
+                $('#temperatura').text(`${info.temperatura}°C`)
+
+                // Mostra o que estava oculto de dados, gráfico e alerta
+                $('#dadosPedido, #grafico, #alerta').removeClass('hidden')
+            }
+        })
     </script>
 </body>
 

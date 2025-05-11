@@ -932,4 +932,110 @@ h1 {
     display: flex;
     justify-self: center;
 }
+/* alteracoes dashboard */
 
+.select2-container {
+    width: 100% !important;
+    max-width: 340px;
+
+  }
+  
+  /* Estiliza a seleção atual */
+  .select2-container--default .select2-selection--single {
+    cursor: pointer;
+  }
+  
+  /* Opções individuais */
+  .select2-results__option {
+    cursor: pointer;
+    list-style-type: none;
+  }
+  
+  /* Hover ou seleção de opção */
+  
+  .select2-search__field {
+    outline: none;
+  }
+
+  
+  .select2-container--default .select2-search--dropdown .select2-search__field {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .select2-container {
+    width: 100% !important;
+    max-width: 340px;
+  }
+  
+  .select2-container--default .select2-selection--single {
+    background-color: rgb(17, 74, 179) !important;
+    color: rgb(223, 240, 255) !important;
+    border: 2px solid rgb(124, 229, 255) !important;
+    border-radius: 8px !important;
+    padding: 0.6rem 1rem !important;
+    font-size: 1rem !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .select2-container--default .select2-dropdown {
+    border-radius: 0 0 8px 8px !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    background-color: rgb(17, 74, 179) !important;
+    padding: 0 !important;
+  }
+  
+  .select2-container--default .select2-search--dropdown {
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: rgb(17, 74, 179) !important;
+  }
+  
+  .select2-container--default .select2-search__field {
+    background-color: rgb(17, 74, 179) !important;
+    border: none !important;
+    color: rgb(223, 240, 255) !important;
+    padding: 0.4rem 1rem !important;
+    font-size: 1rem !important;
+  }
+  
+  .select2-results__option {
+    margin-top: -1rem;
+    margin-left: -2.5rem;
+    background-color: rgb(17, 74, 179) !important;
+    color: rgb(223, 240, 255) !important;
+    padding: 1.2rem 1rem !important;
+    font-size: 1rem !important;
+    border-bottom: 1px solid rgb(124, 229, 255) !important;
+  }
+  
+  .select2-results__option:last-child {
+    border-bottom: none !important;
+  }
+  
+  .select2-results__option--highlighted {
+    background-color: rgb(124, 229, 255) !important;
+    color: rgb(17, 74, 179) !important;
+  }
+  
+  .select2-hidden-accessible {
+    display: none !important;
+  }
+  
+  
+
+.hidden {
+    display: none;
+}
+
+.informacao {
+    margin: 20px;
+}
+
+.containerPedido {
+    margin: 10px 0;
+}

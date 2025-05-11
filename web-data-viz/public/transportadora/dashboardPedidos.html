@@ -2,11 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
-    <link rel="stylesheet" href="../style/transportadora.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 </head>
 
@@ -39,23 +42,20 @@
         <div class="mensagemAlerta">
             <h2 class="tituloAlerta">Resumo dos Pedidos</h2>
             <div class="containerPedido">
-                <select id="pedidos">
-                    <option value="pedido2">Pedido 2 - Veículo placa: GDI7J89</option>
-                    <option value="pedido3">Pedido 3 - Veículo placa: DRF4G56</option>
-                    <option value="pedido4">Pedido 4 - Veículo placa: GDI7J89</option>
-                    <option value="pedido4">Pedido 5 - Veículo placa: DRF4G56</option>
-                    <option value="pedido4">Pedido 6 - Veículo placa: GDI7J89</option>
-                    <option value="pedido4">Pedido 7 - Veículo placa: DRF4G56</option>
-                    <option value="pedido4">Pedido 8 - Veículo placa: GDI7J89</option>
-                    <option value="pedido4">Pedido 10 - Veículo placa: GDI7J89</option>
-                    <option value="pedido4">Pedido 11 - Veículo placa: DRF4G56</option>
-                    <option value="pedido4">Pedido 13 - Veículo placa: DRF4G56</option>
-                    <option value="pedido4">Pedido 14 - Veículo placa: GDI7J89</option>
-                    <option value="pedido4">Pedido 15 - Veículo placa: DRF4G56</option>
-                    <option value="pedido1">Visualização Mensal</option>
+                <label for="empresas">Selecione uma empresa:</label>
+                <select id="empresas">
+                    <option value="">-- Escolha uma empresa --</option>
+                    <option value="empresa1">MedCorp</option>
+                    <option value="empresa2">BioSafe</option>
                 </select>
             </div>
-            <div class="KPI_container">
+            <div class="containerPedido hidden" id="veiculoContainer">
+                <label for="pedidos">Selecione um veículo:</label>
+                <select id="pedidos">
+                    <option value="">Selecione o veículo</option>
+                </select>
+            </div>
+            <div class="KPI_container hidden" id="dadosPedido">
                 <div class="KPI_column">
                     <div class="KPI_Alerta">
                         <h2>Média de Alertas por hora:</h2>
@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    <div class="graficos-gerais">
+    <div class="graficos-gerais hidden" id="grafico">
         <div class="grafico">
             <div class="grafico1">
                 <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
@@ -103,11 +103,13 @@
             </div>
         </div>
     </div>
-    <h2 class="titulo">Alertas</h2>
-    <img src="../img/alerta.png" alt="" class="tabelaAlerta">
+    <div class="mensagemAlerta hidden" id="alerta">
+        <h2 class="titulo">Alertas</h2>
+        <img src="../img/alerta.png" alt="" class="tabelaAlerta">
 
-    <h2 class="titulo">Tabela de Pedidos</h2>
+        <h2 class="titulo">Tabela de Pedidos</h2>
         <img src="../img/novaTabelaPedidos.png" alt="" class="tabelaPedidos">
+    </div>
 
 
     <!--Iniciando footer-->
@@ -214,7 +216,7 @@
 
     const data2 = {
         labels: [
-            'Dentro dos Padrões',
+            'Dentro dos padrões',
             'Abaixo de 2ºC',
             'Acima de 8ºC'
         ],
@@ -248,6 +250,105 @@
         document.getElementById('myChart2'),
         config2
     )
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#empresas').select2();
+        $('#pedidos').select2();
+    });
+</script>
+
+<script>
+    const empresas = document.getElementById('empresas')
+    const pedidos = document.getElementById('pedidos')
+    const veiculoContainer = document.getElementById('veiculoContainer')
+    const dadosPedido = document.getElementById('dadosPedido')
+    const grafico = document.getElementById('grafico')
+    const alerta = document.getElementById('alerta')
+
+    const dados = {
+            empresa1: {
+                'GDI7J89': {
+                    '2':{
+                        
+                    },
+                    '6':{
+                        
+                    },
+                    '10':{
+                        
+                    }
+                },
+                'DRF4G56': {
+                    '5':{
+                        
+                    },
+                    '11':{
+                        
+                    },
+                    '15':{
+                        
+                    }
+                }
+            },
+            empresa2: {
+                'DRF4G56': {
+                    '3':{
+                        
+                    },
+                    '7':{
+                        
+                    },
+                    '13':{
+                        
+                    }
+                },
+                'GDI7J89': {
+                    '4':{
+                        
+                    },
+                    '8':{
+                        
+                    },
+                    '14':{
+                        
+                    }
+                }
+            }
+        };
+
+    $('#empresas').on('change', function () {
+    const empresaSelecionada = $(this).val()
+
+    $('#pedidos').html('<option value="">-- Escolha um veículo --</option>')
+    $('#dadosPedido, #grafico, #alerta').addClass('hidden')
+
+    if (empresaSelecionada && dados[empresaSelecionada]) {
+
+        Object.keys(dados[empresaSelecionada]).forEach(placa => {
+            Object.keys(dados[empresaSelecionada][placa]).forEach(numeroPedido => {
+                const texto = `Pedido ${numeroPedido} - Veículo placa: ${placa}`
+                const valor = `${placa}_${numeroPedido}` // Soma os dois dados que puxou pra colocar no option
+                const opt = new Option(texto, valor)
+                $('#pedidos').append(opt)
+            });
+        });
+
+        $('#pedidos').trigger('change.select2')
+        $('#veiculoContainer').removeClass('hidden')
+    } else {
+        $('#veiculoContainer').addClass('hidden')
+    }
+});
+
+$('#pedidos').on('change', function () {
+            
+                // Mostra o que estava oculto de dados, gráfico e alerta
+                $('#dadosPedido, #grafico, #alerta').removeClass('hidden')
+            
+        })
+
 </script>
 
 </html>
