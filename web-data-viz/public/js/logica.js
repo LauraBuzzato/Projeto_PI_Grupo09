@@ -7,7 +7,6 @@ function cadastrar() {
     senhaConfirmada = confirmar_senha.value;
 
 
-
     /*email já utilizado */
     emailUtilizados = ["email1@gmail.com", "email2@gmail.com", "email3@gmail.com", "email4@gmail.com"];
     
