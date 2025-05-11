@@ -51,7 +51,7 @@ function cadastrarEndereco(){
         return false;
     } else {
             // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
+    fetch("/enderecos/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,9 +63,9 @@ function cadastrarEndereco(){
         cepT: cepTransportadora,
         estadoT: estadoTransportadora,
         cidadeT: cidadeTransportadora,
-        bairroT: bairroTransportadorabairroTransportadora,
+        bairroT: bairroTransportadora,
         numeroT: numeroTransportadora,
-        complementoT: complementoTransportadora,
+        complementoT: complementoTransportadora
       }),
     })
       .then(function (resposta) {
@@ -77,51 +77,20 @@ function cadastrarEndereco(){
           mensagem_erro.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
           limparFormulario();
           finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
+    
 
     return false;
   }
+  
 
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
-</script>
 
         alert("Endereço da transportadora cadastrado com sucesso!")
         window.location.href = "../paginas-iniciais/login.html";
     }
 
-}
