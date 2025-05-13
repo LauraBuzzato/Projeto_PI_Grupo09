@@ -57,11 +57,10 @@
                         placeholder="Telefone com apenas números, sem espaço, com DDD">
                 </div>
 
-                
+
                 <div class="campo">
                     <label for="cepCliente">CEP:</label>
-                    <input type="text" id="cepCliente" name="cepCliente"
-                    placeholder="Inclua a pontuação">
+                    <input type="text" id="cepCliente" name="cepCliente" placeholder="Inclua a pontuação">
                 </div>
 
                 <div class="campo">
@@ -92,13 +91,13 @@
 
                 <div class="campo">
                     <label for="estadoCliente">Estado:<span style="color: red;">*</span></label>
-                    <input type="text" id="estadoCliente" name="estadoCliente"
-                    placeholder="sigla (2 dígitos)">
+                    <input type="text" id="estadoCliente" name="estadoCliente" placeholder="sigla (2 dígitos)">
                 </div>
 
                 <div class="box_botao">
-                    <button type="submit" onclick="cadastrarCliente()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                    <button type="submit" onclick="cadastrarCliente()"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle"
+                            viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
                         </svg></button>
@@ -145,5 +144,72 @@
 
 
 </body>
-<script src="../js/logicaCadastros.js"></script>
+<script src="../js/logicaCadastros.js">
+
+    function cadastrar() {
+        var nomeDoCliente = nomeCliente.value
+        var documendoDoCliente = docCliente.value
+        var TelefoneDoCliente = clienteTel.value
+        var cepDoCliente = cepCliente.value
+        var logradouroDoCliente = logradouroCliente.value
+        var numeroDoCliente = numeroCliente.value
+        var complementoDoCliente = complementoCliente.value
+        var bairroDoCliente = bairroCliente.value
+        var cidadeDoCliente = cidadeCliente.value
+        var estadoDoCliente = estadoCliente.value
+
+
+        if (logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null) {
+            alert("preencha todos os campos!")
+            return false;
+        } else {
+            // Enviando o valor da nova input
+            fetch("/clienteNaoCadastrado/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json", 
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeCliente: nomeDoCliente,
+                    documendoCliente: documendoDoCliente,
+                    TelefoneCliente: TelefoneDoCliente,
+                    cepCliente: cepDoCliente,
+                    logradouroCliente: logradouroDoCliente,
+                    numeroCliente: numeroDoCliente,
+                    complementoCliente: complementoDoCliente,
+                    bairroCliente: bairroDoCliente,
+                    cidadeCliente: cidadeDoCliente,
+                    estadoCliente: estadoDoCliente
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        cardErro.style.display = "block";
+
+                        mensagem_erro.innerHTML =
+                            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                        limparFormulario();
+                        finalizarAguardar();
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+
+
+            return false;
+        }
+
+
+
+        alert("Endereço da transportadora cadastrado com sucesso!")
+        window.location.href = "../paginas-iniciais/login.html";
+    }
+
+</script>
+
 </html>

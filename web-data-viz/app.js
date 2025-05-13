@@ -17,6 +17,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var enderecosRouter = require("./src/routes/enderecos");
+var clienteNaoCadastradoRouter = require("./src/routes/clienteNaoCadastrado");
 /*var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
@@ -30,6 +31,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/enderecos", enderecosRouter);
+app.use("/clienteNaoCadastrado", clienteNaoCadastradoRouter);
 /*
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
