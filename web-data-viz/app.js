@@ -17,6 +17,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var enderecosRouter = require("./src/routes/enderecos");
+var usuarioRouter = require("./src/routes/veiculo");
 /*var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
