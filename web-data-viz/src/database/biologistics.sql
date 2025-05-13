@@ -52,7 +52,7 @@ create table transportadora (
     cnpj varchar(18)  not null,
     telefone varchar(20) not null,
     ativo boolean default true,
-    idendereco int not null,
+    idendereco int,
     matrizTransportadora int,
     foreign key (idendereco) references endereco(idendereco),
     foreign key (matrizTransportadora) references transportadora(idTransportadora)
