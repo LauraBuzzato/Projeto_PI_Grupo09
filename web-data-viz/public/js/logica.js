@@ -53,18 +53,18 @@ function cadastrar2() {
           "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
         setTimeout(() => {
-          window.location = "login.html";
+          window.location = "cadastroEndereco.html";
         }, "2000");
 
         limparFormulario();
-        finalizarAguardar();
+       
       } else {
         throw "Houve um erro ao tentar realizar o cadastro!";
       }
     })
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
-      finalizarAguardar();
+      
     });
 
   return false;
@@ -125,18 +125,18 @@ function cadastrar() {
           "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
         setTimeout(() => {
-          window.location = "login.html";
+          window.location = "cadastroEndereco.html";
         }, "2000");
 
         limparFormulario();
-        finalizarAguardar();
+        
       } else {
         throw "Houve um erro ao tentar realizar o cadastro!";
       }
     })
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
-      finalizarAguardar();
+      
     });
 
   return false;
