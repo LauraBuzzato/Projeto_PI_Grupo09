@@ -25,6 +25,8 @@ function verificarVeiculo() {
     var tipoVec = tipo.value
     var placaVec = placa.value
     var anoVec = ano.value
+    var modeloVec = modelo.value
+    var fkTransportadoraVeiculo
 
     if (placaVec.length > 7 || placaVec.length < 5 || (placaVec.length != 7 && tipoVec == 'carro')) {
         alert('Insira uma placa válida')
@@ -35,6 +37,34 @@ function verificarVeiculo() {
     } else {
         alert('Veículo cadastrado com sucesso!')
     }
+
+    fetch("/veiculo/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tipoVecServer: tipoVec,
+        placaVecServer: placaVec,
+        anoVecServer: anoVec,
+        modeloVecServer: modeloVec,
+        fkTransportadoraVeiculoServer: fkTransportadoraVeiculo,
+      }),
+    })
+    .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+
+    return false;
 
 
 }

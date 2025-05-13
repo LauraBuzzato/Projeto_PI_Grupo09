@@ -36,13 +36,13 @@ function cadastrar() {
 }
 
 function cadastrarEndereco(){
-    logradouroTransportadora = logradouro.value;
-    cepTransportadora = cep.value;
-    estadoTransportadora = estado.value;
-    cidadeTransportadora = cidade.value;
-    bairroTransportadora = bairro.value;
-    numeroTransportadora = numero.value;
-    complementoTransportadora = complemento.value;
+    var logradouroTransportadora = logradouro.value;
+    var cepTransportadora = cep.value;
+    var estadoTransportadora = estado.value;
+    var cidadeTransportadora = cidade.value;
+    var bairroTransportadora = bairro.value;
+    var numeroTransportadora = numero.value;
+    var complementoTransportadora = complemento.value;
 
 
     if(logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null ){
@@ -72,9 +72,6 @@ function cadastrarEndereco(){
 
         if (resposta.ok) {
           cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           limparFormulario();
           finalizarAguardar();
