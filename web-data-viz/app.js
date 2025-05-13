@@ -17,11 +17,11 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var enderecosRouter = require("./src/routes/enderecos");
-<<<<<<< HEAD
+
 var clienteNaoCadastradoRouter = require("./src/routes/clienteNaoCadastrado");
-=======
+
 var usuarioRouter = require("./src/routes/veiculo");
->>>>>>> 995674557a730cb6f08db06d25ee59106175c09b
+
 /*var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
