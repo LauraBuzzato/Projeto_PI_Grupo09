@@ -1,203 +1,131 @@
-
-
-
-
-
-function cadastrar2() {
-  var nome = nome.value;
-  var cnpjVar = cnpj.value;
-  var telefoneVar = _telefone.value;
-  
-
-
-  // Verificando se há algum campo em branco
-  if (
-    nomeVar == "" ||
-    cnpjVar == "" ||
-    telefoneVar == ""
-    
-   
-  ) {
-
-    alert("Preencha todos os campos");
-
-
-    return false;
-  } else {
-
-  }
-
-
-  // Enviando o valor da nova input
-  fetch("/usuarios/cadastrar", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      // crie um atributo que recebe o valor recuperado aqui
-      // Agora vá para o arquivo routes/usuario.js
-      nomeServer: nomeVar,
-      cnpjServer: cnpjVar,
-      telefoneserver: telefoneVar,
-
-    })
-  })
-    .then(function (resposta) {
-      console.log("resposta: ", resposta);
-
-      if (resposta.ok) {
-        cardErro.style.display = "block";
-
-        mensagem_erro.innerHTML =
-          "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-        setTimeout(() => {
-          window.location = "cadastroEndereco.html";
-        }, "2000");
-
-        limparFormulario();
-       
-      } else {
-        throw "Houve um erro ao tentar realizar o cadastro!";
-      }
-    })
-    .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-      
-    });
-
-  return false;
-}
-
-
-
-
 function cadastrar() {
-  // aguardar();
+var nome = document.getElementById("nome").value;
+var cnpj = document.getElementById("cnpj").value;
+var telefone = document.getElementById("telefone").value;
+var email = document.getElementById("email").value;
+var senha = document.getElementById("senha").value;
+var confirmarSenha = document.getElementById("confirmar_senha").value;
 
-  //Recupere o valor da nova input pelo nome do id
-  // Agora vá para o método fetch logo abaixo
- 
-  var emailVar = email.value;
-  var senhaVar = senha.value;
-  var confirmar_senhaVar = confirmar_senha.value
-
-
-  // Verificando se há algum campo em branco
-  if (
-    emailVar == "" ||
-    senhaVar == "" ||
-    confirmar_senhaVar == ""
-  ) {
-
-    alert("Preencha todos os campos");
-
-
-    return false;
-  } else {
-
-  }
-
-
-  // Enviando o valor da nova input
-  fetch("/usuarios/cadastrar", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      // crie um atributo que recebe o valor recuperado aqui
-      // Agora vá para o arquivo routes/usuario.js
-      emailServer: emailVar,
-      senhaServer: senhaVar,
-      confirmar_senhaserver: confirmar_senhaVar,
-
-    })
-  })
-    .then(function (resposta) {
-      console.log("resposta: ", resposta);
-
-      if (resposta.ok) {
-        cardErro.style.display = "block";
-
-        mensagem_erro.innerHTML =
-          "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-        setTimeout(() => {
-          window.location = "cadastroEndereco.html";
-        }, "2000");
-
-        limparFormulario();
-        
-      } else {
-        throw "Houve um erro ao tentar realizar o cadastro!";
-      }
-    })
-    .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-      
-    });
-
-  return false;
+if (!nome || !cnpj || !telefone || !email || !senha || !confirmarSenha) {
+alert("Preencha todos os campos.");
+return;
 }
+
+if (senha != confirmarSenha) {
+alert("As senhas não coincidem.");
+return;
+}
+
+//Cadastrar transportadora
+fetch("/usuarios/cadastrar2", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+nomeServer: nome,
+cnpjServer: cnpj,
+telefoneserver: telefone,
+}),
+})
+.then((resposta1) => {
+if (!resposta1.ok) {
+throw new Error("Erro ao cadastrar transportadora");
+}
+
+//Buscar ID da transportadora
+return fetch(`/usuarios/buscar-id-transportadora/${nome}`);
+})
+.then((resposta2) => {
+if (!resposta2.ok) {
+throw new Error("Erro ao buscar ID da transportadora");
+}
+return resposta2.json();
+})
+.then((dados) => {
+const idTransportadora = dados.idtransportadora;
+
+//Cadastrar usuário com o ID da transportadora
+return fetch("/usuarios/cadastrar", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+emailServer: email,
+senhaServer: senha,
+idTransportadora: idTransportadora
+}),
+});
+})
+.then((resposta3) => {
+if (!resposta3.ok) {
+throw new Error("Erro ao cadastrar usuário");
+}
+
+alert("Cadastro realizado com sucesso!");
+window.location.href = "cadastroEndereco.html";
+})
+.catch((erro) => {
+console.error("Erro:", erro);
+alert("Erro no cadastro. Verifique os campos e tente novamente.");
+});
+}
+
 
 
 
 
 
 function cadastrarEndereco() {
-  var logradouroTransportadora = logradouro.value;
-  var cepTransportadora = cep.value;
-  var estadoTransportadora = estado.value;
-  var cidadeTransportadora = cidade.value;
-  var bairroTransportadora = bairro.value;
-  var numeroTransportadora = numero.value;
-  var complementoTransportadora = complemento.value;
+var logradouroTransportadora = logradouro.value;
+var cepTransportadora = cep.value;
+var estadoTransportadora = estado.value;
+var cidadeTransportadora = cidade.value;
+var bairroTransportadora = bairro.value;
+var numeroTransportadora = numero.value;
+var complementoTransportadora = complemento.value;
 
 
-  if (logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null) {
-    alert("preencha todos os campos!")
-    return false;
-  } else {
-    // Enviando o valor da nova input
-    fetch("/enderecos/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        logradouroT: logradouroTransportadora,
-        cepT: cepTransportadora,
-        estadoT: estadoTransportadora,
-        cidadeT: cidadeTransportadora,
-        bairroT: bairroTransportadora,
-        numeroT: numeroTransportadora,
-        complementoT: complementoTransportadora
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+if (logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null) {
+alert("preencha todos os campos!")
+return false;
+} else {
+// Enviando o valor da nova input
+fetch("/enderecos/cadastrar", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({
+// crie um atributo que recebe o valor recuperado aqui
+// Agora vá para o arquivo routes/usuario.js
+logradouroT: logradouroTransportadora,
+cepT: cepTransportadora,
+estadoT: estadoTransportadora,
+cidadeT: cidadeTransportadora,
+bairroT: bairroTransportadora,
+numeroT: numeroTransportadora,
+complementoT: complementoTransportadora
+}),
+})
+.then(function (resposta) {
+console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
-          cardErro.style.display = "block";
+if (resposta.ok) {
+cardErro.style.display = "block";
 
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-
-
-    return false;
-  }
-
-
-
-  alert("Endereço da transportadora cadastrado com sucesso!")
-  window.location.href = "../paginas-iniciais/login.html";
+limparFormulario();
+finalizarAguardar();
+} else {
+throw "Houve um erro ao tentar realizar o cadastro!";
 }
+})
+
+
+return false;
+}
+
+
+
+alert("Endereço da transportadora cadastrado com sucesso!")
+window.location.href = "../paginas-iniciais/login.html";
+}
+
 
