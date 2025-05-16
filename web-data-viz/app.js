@@ -22,6 +22,7 @@ var clienteNaoCadastradoRouter = require("./src/routes/clienteNaoCadastrado");
 
 var veiculoRouter = require("./src/routes/veiculo");
 var usuarioRouter = require("./src/routes/usuarios");
+var pedidoRouter = require("./src/routes/pedido")
 
 /*var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
@@ -38,6 +39,8 @@ app.use("/", indexRouter);
 app.use("/enderecos", enderecosRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/clienteNaoCadastrado", clienteNaoCadastradoRouter);
+app.use("/veiculo", veiculoRouter)
+
 /*
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);

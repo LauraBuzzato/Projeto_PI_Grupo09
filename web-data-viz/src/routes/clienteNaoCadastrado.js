@@ -4,6 +4,14 @@ var router = express.Router();
 var clienteNaoCadastradoController = require("../controllers/clienteNaoCadastradoController");
 
 //Recebendo os dados do html Endereço e direcionando para a função cadastrar de clienteNaoCadastradoController.js
+router.post("/cadastrar2", function (req, res){
+    clienteNaoCadastradoController.cadastrar2(req, res)
+})
+
+router.post("/buscar-id-endereco/:nome", function (req, res){
+    clienteNaoCadastradoController.buscarIdEndereco(req, res)
+})
+
 router.post("/cadastrar", function (req, res) {
     clienteNaoCadastradoController.cadastrar(req, res);
 });
