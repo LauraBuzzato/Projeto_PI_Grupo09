@@ -38,6 +38,7 @@ app.use("/", indexRouter);
 app.use("/enderecos", enderecosRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/clienteNaoCadastrado", clienteNaoCadastradoRouter);
+app.use("/veiculo", veiculoRouter)
 /*
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
