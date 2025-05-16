@@ -36,9 +36,11 @@ function cadastrar2(req, res) {
 }
 
 function buscarEnderecoPorNome(req, res) {
+    const cep = req.params.cep
+    const logradouro = req.params.logradouro
     const numero = req.params.numero;
 
-    usuarioModel.buscarEnderecoPorNome(numero)
+    usuarioModel.buscarEnderecoPorNome(cep, logradouro, numero)
         .then(resultado => {
             if (resultado.length === 0) {
                 res.status(404).send("Transportadora não encontrada!");

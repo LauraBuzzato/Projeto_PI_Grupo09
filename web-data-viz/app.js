@@ -43,20 +43,15 @@ app.use("/", indexRouter);
 app.use("/enderecos", enderecosRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/clienteNaoCadastrado", clienteNaoCadastradoRouter);
-<<<<<<< HEAD
 
-app.use("/veiculo", veiculoRouter)
+
+
 
 
 app.use("/pedidos", pedidosRouter);
-
-=======
-<<<<<<< HEAD
 app.use("/veiculo", veiculoRouter)
-=======
 app.use("/pedidos", pedidosRouter);
->>>>>>> 2aeafee9b07decf8a0f2310fda5e4c7ef8264d78
->>>>>>> 8ff21d29a629cfbf185e5949bd755847c19aaf12
+
 /*
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
