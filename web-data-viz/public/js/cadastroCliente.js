@@ -13,8 +13,9 @@ function cadastrar() {
 
         if (logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null) {
             alert("preencha todos os campos!")
-            return false;
-        } else {
+            return ;
+        } 
+        
             // Enviando o valor da nova input
             fetch("/clienteNaoCadastrado/cadastrar2", {
                 method: "POST",
@@ -33,15 +34,15 @@ function cadastrar() {
             })
                 then((resposta1) => {
             if (!resposta1.ok) {
-                throw new Error("Erro ao cadastrar transportadora");
+                throw new Error("Erro ao cadastrar cliente");
             }
 
             //Buscar ID da enderecoCliente
-            return fetch(`/usuarios/buscar-id-endereco/${nome}`);
+            return fetch(`/usuarios/buscar-id-endereco/${cep},${logradouro},${numero}`);
         })
         .then((resposta2) => {
             if (!resposta2.ok) {
-                throw new Error("Erro ao buscar ID da transportadora");
+                throw new Error("Erro ao buscar ID do Endereço");
             }
             return resposta2.json();
         })
@@ -56,13 +57,13 @@ function cadastrar() {
                     nomeCliente: nomeDoCliente,
                     documendoCliente: documendoDoCliente,
                     TelefoneCliente: TelefoneDoCliente,
-                    idendereco: idEndereco
+                    idEndereco: idEndereco
                 }),
             });
         })
         .then((resposta3) => {
             if (!resposta3.ok) {
-                throw new Error("Erro ao cadastrar usuário");
+                throw new Error("Erro ao cadastrar cliente");
             }
 
             alert("Cadastro realizado com sucesso!");
@@ -73,7 +74,7 @@ function cadastrar() {
             alert("Erro no cadastro. Verifique os campos e tente novamente.");
         });
             
-        }
+
 
 
 

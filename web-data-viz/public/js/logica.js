@@ -1,6 +1,6 @@
 
 function cadastrar() {
-<<<<<<< HEAD
+
     var nome = document.getElementById("nome").value;
     var cnpj = document.getElementById("cnpj").value;
     var telefone = document.getElementById("telefone").value;
@@ -69,7 +69,7 @@ function cadastrar() {
             alert("Erro no cadastro. Verifique os campos e tente novamente.");
         });
 }
-=======
+
   var nome = document.getElementById("nome").value;
   var cnpj = document.getElementById("cnpj").value;
   var telefone = document.getElementById("telefone").value;
@@ -139,10 +139,10 @@ function cadastrar() {
     console.error("Erro:", erro);
     alert("Erro no cadastro. Verifique os campos e tente novamente.");
   });
-}
 
 
->>>>>>> 2aeafee9b07decf8a0f2310fda5e4c7ef8264d78
+
+
 
 
 
@@ -150,7 +150,7 @@ function cadastrar() {
 
 
 function cadastrarEndereco() {
-<<<<<<< HEAD
+
     var logradouroTransportadora = logradouro.value;
     var cepTransportadora = cep.value;
     var estadoTransportadora = estado.value;
@@ -158,7 +158,7 @@ function cadastrarEndereco() {
     var bairroTransportadora = bairro.value;
     var numeroTransportadora = numero.value;
     var complementoTransportadora = complemento.value;
-=======
+
   var logradouroTransportadora = logradouro.value;
   var cepTransportadora = cep.value;
   var estadoTransportadora = estado.value;
@@ -166,14 +166,14 @@ function cadastrarEndereco() {
   var bairroTransportadora = bairro.value;
   var numeroTransportadora = numero.value;
   var complementoTransportadora = complemento.value;
->>>>>>> 2aeafee9b07decf8a0f2310fda5e4c7ef8264d78
+
 
   // Recuperar ID salvo no localStorage AGORA
   var idTransportadora = localStorage.getItem("idTransportadora");
   
   
 
-<<<<<<< HEAD
+
     if (logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null) {
         alert("preencha todos os campos!")
         return false;
@@ -220,7 +220,7 @@ function cadastrarEndereco() {
 }
 
 
-=======
+
   if (!logradouroTransportadora || !cepTransportadora || !estadoTransportadora ||
       !cidadeTransportadora || !bairroTransportadora || !numeroTransportadora ) { // tirar o complemento da verificacao
     alert("Preencha todos os campos!");
@@ -283,5 +283,5 @@ function cadastrarEndereco() {
   });
 
   
-}
->>>>>>> 2aeafee9b07decf8a0f2310fda5e4c7ef8264d78
+
+
