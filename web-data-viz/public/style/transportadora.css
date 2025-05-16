@@ -1147,3 +1147,97 @@ h1 {
 .containerPedido {
     margin: 10px 0;
 }
+
+.alertas {
+    width: 85%;
+    margin: 2rem auto;
+    border-radius: 20px; /* Bordas mais arredondadas */
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.alertas:hover {
+    transform: translateY(-3px);
+}
+
+/* Estilo para alertas de PERIGO - Versão Gordinha */
+.perigo {
+    background: linear-gradient(135deg, #ff4444, #cc0000); /* Gradiente para mais volume */
+    color: white;
+    padding: 2.5rem 2rem; /* Mais padding para "engordar" */
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-bottom: 8px solid #990000; /* Borda inferior mais grossa */
+    
+    /* Efeito de pulsação gordinha */
+    animation: pulse-danger-fat 1.3s infinite;
+}
+
+@keyframes pulse-danger-fat {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7), 
+                    0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
+    }
+    50% {
+        transform: scale(1.03); /* Cresce um pouco mais */
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 68, 68, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
+    }
+}
+
+/* Estilo para alertas de ATENÇÃO - Versão Gordinha */
+.atencao {
+    background: linear-gradient(135deg, #ffbb33, #ff8800); /* Gradiente para mais volume */
+    color: #333;
+    padding: 2.5rem 2rem; /* Mais padding */
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-bottom: 8px solid #e67300; /* Borda inferior mais grossa */
+    
+    /* Efeito de pulsação gordinha */
+    animation: pulse-warning-fat 3.5s infinite;
+}
+
+@keyframes pulse-warning-fat {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        transform: scale(1.05); /* Cresce mais que a versão anterior */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Responsividade para os cards gordinhos */
+@media (max-width: 768px) {
+    .alertas {
+        width: 92%;
+    }
+    
+    .perigo, .atencao {
+        font-size: 1.2rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    @keyframes pulse-danger-fat {
+        70% {
+            box-shadow: 0 0 0 15px rgba(255, 68, 68, 0);
+        }
+    }
+}
