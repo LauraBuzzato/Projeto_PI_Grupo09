@@ -226,69 +226,35 @@
         const temperatura = document.getElementById('temperatura')   // Temperatura registrada
 
 
-        // Dados de exemplo que virão do BD
-        const dados = {
-            empresa1: {
-                'CBG2M30': {
-                    pedido: '8756',
-                    tipo: 'Automóvel',
-                    sensor: '182',
-                    endereco: 'R. Rodrigues Alves 428',
-                    cliente: 'MedCorp',
-                    documento: '2312897',
-                    entrega: '03/04/2025 11:30',
-                    medicamento: 'CoronaVac (200 unidades)',
-                    alerta: '9',
-                    hora: '12:00',
-                    duracao: '2min',
-                    temperatura: '9'
-                }
-            },
-            empresa2: {
-                'PJS6P39': {
-                    pedido: '9123',
-                    tipo: 'Van',
-                    sensor: '201',
-                    endereco: 'Av. Brasil 1000',
-                    cliente: 'BioSafe',
-                    documento: '998877',
-                    entrega: '05/04/2025 14:00',
-                    medicamento: 'Pfizer (100 unidades)',
-                    alerta: '3',
-                    hora: '13:20',
-                    duracao: '5min',
-                    temperatura: '7'
-                }
-            }
-        };
+        // Pega os nomes das empresas no BD
+       fetch(`/pedidos/buscarCliente`)
+            .then(res => res.json())
+            .then(empresas => {
+                empresas.forEach(empresa => {
+                    const option = new Option(empresa.nome, empresa.idcliente);
+                    $('#empresas').append(option);
+                });
+                $('#empresas').trigger('change.select2');
+            });
 
-
-
-        // Quando o usuário muda a empresa selecionada:
         $('#empresas').on('change', function () {
-            const empresaSelecionada = $(this).val() // Valor da empresa escolhida
+            const idEmpresa = $(this).val();
 
-            // Coloca o select de veiculos na opção inicial e esconde os dados
-            $('#veiculos').html('<option value="">-- Escolha um veículo --</option>')
-            $('#dadosPedido, #grafico, #alerta').addClass('hidden')
-
-            // Se houver uma empresa válida selecionada e ela existir nos dados
-            if (empresaSelecionada && dados[empresaSelecionada]) {
-                // Para cada veículo (placa) da empresa, cria uma opção no select de veículos
-                Object.keys(dados[empresaSelecionada]).forEach(placa => {
-                    const opt = new Option(`Veículo-placa: ${placa}`, placa)
-                    $('#veiculos').append(opt) // o append q joga isso como uma opção do select
-                })
-
-                // Atualiza visualmente o select pois estamos usando o modelo select2
-                $('#veiculos').trigger('change.select2')
-                // Mostra o container de veículos
-                $('#veiculoContainer').removeClass('hidden')
-            } else {
-                $('#veiculoContainer').addClass('hidden')  // Se não houver empresa selecionada ou não tiver dados, esconde o select de veículos
+            $('#veiculos').html('<option value="">-- Escolha um veículo --</option>');
+            if (idEmpresa) {
+                fetch(`/pedidos/buscarVeiculo/${idEmpresa}`)
+                    .then(res => res.json())
+                    .then(veiculos => {
+                        veiculos.forEach(veiculo => {
+                            const option = new Option(veiculo.placa, veiculo.idveiculo);
+                            $('#veiculos').append(option);
+                        });
+                        $('#veiculos').trigger('change.select2');
+                        $('#veiculoContainer').removeClass('hidden');
+                    });
             }
-        })
-
+        });
+        // ta criando as opçoes em veiculos so n ta atualizando quando escolhe a placa pra mostrar os dados
 
         // Quando o usuário escolhe um veículo:
         $('#veiculos').on('change', function () {
