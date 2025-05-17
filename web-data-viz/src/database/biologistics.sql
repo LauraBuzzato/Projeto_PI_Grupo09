@@ -15,6 +15,8 @@ create table endereco (
     cep varchar(9) not null
 );
 
+
+
 -- insert endereco 
 insert into endereco (logradouro, numero, complemento, bairro, cidade, estado, cep) values
 ('Rua das Acácias', 125, 'Galpão 2', 'Jardim Primavera', 'São Paulo', 'SP', '01234-567'),
@@ -85,7 +87,7 @@ foreign key (idTransportadora) references transportadora(idTransportadora)
 -- insert usuarios
 insert into usuario (nome,email, senha, administrador, idTransportadora) values 
 (null,'gloria.souza@pharmaexpress.com','senha123',  true,  4), 
-('Fernando Lima','Fernando Lima''fernando.lima@healthcargo.com', 'hc2023@',   false, 2), 
+('Fernando Lima','fernando.lima@healthcargo.com', 'hc2023@',   false, 2), 
 (null,'ana.moreira@biotrans.com','bio321!',   true,  6), 
 ('Carlos Silva','carlos.silva@hc-campinas.com','campi@22',  false, 7), 
 ('Natan Alves','natan.alves@hc-curitiba.com','curi@001',  false, 5), 
@@ -145,6 +147,7 @@ create table pedido (
     quantidade_medicamento1 int,
     tipo_medicamento2 varchar(100),
     quantidade_medicamento2 int,
+    concluido boolean default false,
     status varchar(20) default 'pendente',
     foreign key (idveiculo) references veiculo(idveiculo),
     foreign key (idcliente) references cliente(idcliente)
