@@ -74,7 +74,8 @@ insert into transportadora (nome, cnpj, telefone, idendereco, matrizTransportado
 
 create table usuario(
 idUsuario int not null primary key auto_increment,
-email varchar(100) not null,
+nome varchar(100) null, 
+email varchar(100) not null unique,
 senha varchar(20) not null,
 administrador boolean,
 ativo boolean default true,
@@ -82,14 +83,14 @@ idTransportadora int not null,
 foreign key (idTransportadora) references transportadora(idTransportadora)
 );
 -- insert usuarios
-insert into usuario (email, senha, administrador, idTransportadora) values 
-('gloria.souza@pharmaexpress.com','senha123',  true,  4), 
-('fernando.lima@healthcargo.com', 'hc2023@',   false, 2), 
-('ana.moreira@biotrans.com','bio321!',   true,  6), 
-('carlos.silva@hc-campinas.com','campi@22',  false, 7), 
-('natan.alves@hc-curitiba.com','curi@001',  false, 5), 
-('luana.torres@pharma-bh.com','pharmabh#', false, 1),
-('juliana.peres@biofort.com','fort#987',  false, 3); 
+insert into usuario (nome,email, senha, administrador, idTransportadora) values 
+(null,'gloria.souza@pharmaexpress.com','senha123',  true,  4), 
+('Fernando Lima','Fernando Lima''fernando.lima@healthcargo.com', 'hc2023@',   false, 2), 
+(null,'ana.moreira@biotrans.com','bio321!',   true,  6), 
+('Carlos Silva','carlos.silva@hc-campinas.com','campi@22',  false, 7), 
+('Natan Alves','natan.alves@hc-curitiba.com','curi@001',  false, 5), 
+('Luana Torres','luana.torres@pharma-bh.com','pharmabh#', false, 1),
+('Juliana Peres','juliana.peres@biofort.com','fort#987',  false, 3); 
 
 
 create table veiculo (
