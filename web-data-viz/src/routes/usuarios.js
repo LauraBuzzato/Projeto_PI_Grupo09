@@ -21,4 +21,17 @@ router.post("/autenticar", function (req, res){
     usuarioController.autenticar(req, res);
 })
 
+router.post("/buscarIdParaCadastro", function (req, res) {
+usuarioController.buscarIdParaCadastro(req, res);
+});
+
+router.post("/inserirNovoUsuario", function (req, res) {
+usuarioController.inserirNovoUsuario(req, res)
+})
+
+router.post("/procurarNovoUsuario/:idTransportadora", function (req, res) {
+usuarioController.procurarNovoUsuario(req, res)
+})
+
+
 module.exports = router;

@@ -102,9 +102,70 @@ function autenticar(req, res) {
     }
 }
 
+function buscarIdParaCadastro(req, res){
+var idUsuario = req.body.idUsuario;
+
+usuarioModel.buscarIdParaCadastro(idUsuario)
+.then(resultado => {
+if (resultado.length === 0) {
+res.status(404).send("Transportadora não encontrada!");
+} else {
+res.json(resultado[0]); // Retorna o objeto com idtransportadora
+}
+})
+.catch(erro => {
+console.error("Erro ao buscar transportadora:", erro);
+res.status(500).json(erro.sqlMessage);
+});
+}
+
+function inserirNovoUsuario(req, res) {
+var email = req.body.emailFuncionarioServer
+var senha = req.body.senhaFuncionarioServer
+var idTransportadora = req.body.idTransportadoraServer
+var nome = req.body.nomeFuncionarioServer
+
+if (!email || !senha || !idTransportadora || !nome) {
+res.status(400).send("Dados obrigatórios faltando")
+return
+}
+
+usuarioModel.inserirNovoUsuario(nome, email, senha, idTransportadora)
+.then(function (resultado) {
+res.status(201).json({
+mensagem: "Usuário cadastrado com sucesso!",
+resultado: resultado
+})
+})
+.catch(function (erro) {
+console.error("Erro ao cadastrar usuário:", erro)
+res.status(500).json(erro.sqlMessage)
+})
+}
+
+function procurarNovoUsuario(req, res) {
+var idTransportadora = req.params.idTransportadora;
+
+usuarioModel.procurarNovoUsuario(idTransportadora)
+.then(function (resultado) {
+if (resultado.length === 0) {
+res.status(404).send("Nenhum usuário encontrado");
+} else {
+res.json(resultado);
+}
+})
+.catch(function (erro) {
+console.error("Erro ao procurar usuário:", erro);
+res.status(500).json(erro.sqlMessage);
+});
+}
+
 module.exports = {
-    cadastrar,
-    cadastrar2,
-    buscarIdTransportadora,
-    autenticar
+cadastrar,
+cadastrar2,
+buscarIdTransportadora,
+autenticar,
+buscarIdParaCadastro,
+inserirNovoUsuario,
+procurarNovoUsuario
 }
