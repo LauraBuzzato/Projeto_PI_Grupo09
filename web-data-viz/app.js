@@ -23,7 +23,7 @@ var clienteNaoCadastradoRouter = require("./src/routes/clienteNaoCadastrado");
 var veiculoRouter = require("./src/routes/veiculo");
 var usuarioRouter = require("./src/routes/usuarios");
 
-var pedidoRouter = require("./src/routes/pedido")
+// var pedidoRouter = require("./src/routes/pedido")
 
 var pedidosRouter = require("./src/routes/pedidos");
 
@@ -46,9 +46,7 @@ app.use("/clienteNaoCadastrado", clienteNaoCadastradoRouter);
 
 
 
-
-
-app.use("/pedidos", pedidosRouter);
+// app.use("/pedido", pedidoRouter)
 app.use("/veiculo", veiculoRouter)
 app.use("/pedidos", pedidosRouter);
 
