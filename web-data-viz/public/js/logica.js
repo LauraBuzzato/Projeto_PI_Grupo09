@@ -99,60 +99,12 @@ function cadastrarEndereco() {
   // Recuperar ID salvo no localStorage AGORA
   var idTransportadora = localStorage.getItem("idTransportadora");
   
-  
-
-
-    if (logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null) {
-        alert("preencha todos os campos!")
-        return false;
-    } else {
-        // Enviando o valor da nova input
-        fetch("/enderecos/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                logradouroT: logradouroTransportadora,
-                cepT: cepTransportadora,
-                estadoT: estadoTransportadora,
-                cidadeT: cidadeTransportadora,
-                bairroT: bairroTransportadora,
-                numeroT: numeroTransportadora,
-                complementoT: complementoTransportadora
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    cardErro.style.display = "block";
-
-                    limparFormulario();
-                    finalizarAguardar();
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-
-
-        return false;
-    }
-
-
-
-    alert("Endereço da transportadora cadastrado com sucesso!")
-    window.location.href = "../paginas-iniciais/login.html";
-}
-
 
 
   if (!logradouroTransportadora || !cepTransportadora || !estadoTransportadora ||
       !cidadeTransportadora || !bairroTransportadora || !numeroTransportadora ) { // tirar o complemento da verificacao
     alert("Preencha todos os campos!");
-    return false;
+    return ;
   }
 
   fetch("/enderecos/cadastrar", {
@@ -211,5 +163,5 @@ function cadastrarEndereco() {
   });
 
   
-
+}
 
