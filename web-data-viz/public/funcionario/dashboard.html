@@ -7,7 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
     <link rel="stylesheet" href="../style/style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
@@ -42,17 +43,16 @@
             <label for="empresas">Selecione uma empresa:</label>
             <select id="empresas">
                 <option value="">-- Escolha uma empresa --</option>
-                <option value="empresa1">MedCorp</option>
-                <option value="empresa2">BioSafe</option>
+
             </select>
         </div>
 
         <div class="containerPedido hidden" id="veiculoContainer">
             <label for="veiculos">Selecione um veículo:</label>
-            <select id="veiculos" >
-              <option value="">-- Escolha um veículo --</option>
+            <select id="veiculos">
+                <option value="">-- Escolha um veículo --</option>
             </select>
-          </div>
+        </div>
 
         <div class="KPI hidden" id="dadosPedido">
             <div class="pedido_info_container">
@@ -205,9 +205,9 @@
 
     <script>
         $(document).ready(function () {
-    $('#empresas').select2();
-    $('#veiculos').select2();
-  });
+            $('#empresas').select2();
+            $('#veiculos').select2();
+        });
     </script>
 
     <script>
@@ -226,67 +226,94 @@
         const temperatura = document.getElementById('temperatura')   // Temperatura registrada
 
 
-        // Pega os nomes das empresas no BD
-       fetch(`/pedidos/buscarCliente`)
+        var idUsuario = sessionStorage.ID_USUARIO
+        fetch("/usuarios/buscarIdParaCadastro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuario
+            }),
+        })
             .then(res => res.json())
-            .then(empresas => {
-                empresas.forEach(empresa => {
-                    const option = new Option(empresa.nome, empresa.idcliente);
-                    $('#empresas').append(option);
+            .then(data => {
+                const idTransportadora = data.idtransportadora
+
+                // Pega os nomes das empresas no BD
+                fetch(`/pedidos/buscarCliente/${idTransportadora}`)
+                    .then(res => res.json())
+                    .then(empresas => {
+                        empresas.forEach(empresa => {
+                            const option = new Option(empresa.nome, empresa.idcliente);
+                            $('#empresas').append(option);
+                        });
+                        $('#empresas').trigger('change.select2');
+                    });
+
+                $('#empresas').on('change', function () {
+                    const idEmpresa = $(this).val();
+
+                    $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+
+                    $('#veiculos').html('<option value="">-- Escolha um veículo --</option>');
+                    if (idEmpresa) {
+                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}`)
+                            .then(res => res.json())
+                            .then(veiculos => {
+                                veiculos.forEach(veiculo => {
+                                    const option = new Option(veiculo.placa, veiculo.idveiculo);
+                                    $('#veiculos').append(option);
+                                });
+                                $('#veiculos').trigger('change.select2');
+                                $('#veiculoContainer').removeClass('hidden');
+                            });
+                    }
                 });
-                $('#empresas').trigger('change.select2');
+                // ta criando as opçoes em veiculos so n ta atualizando quando escolhe a placa pra mostrar os dados
             });
 
-        $('#empresas').on('change', function () {
-            const idEmpresa = $(this).val();
 
-            $('#veiculos').html('<option value="">-- Escolha um veículo --</option>');
-            if (idEmpresa) {
-                fetch(`/pedidos/buscarVeiculo/${idEmpresa}`)
-                    .then(res => res.json())
-                    .then(veiculos => {
-                        veiculos.forEach(veiculo => {
-                            const option = new Option(veiculo.placa, veiculo.idveiculo);
-                            $('#veiculos').append(option);
-                        });
-                        $('#veiculos').trigger('change.select2');
-                        $('#veiculoContainer').removeClass('hidden');
-                    });
-            }
-        });
-        // ta criando as opçoes em veiculos so n ta atualizando quando escolhe a placa pra mostrar os dados
 
         // Quando o usuário escolhe um veículo:
         $('#veiculos').on('change', function () {
-            const placa = $(this).val()
-            const empresa = $('#empresas').val()
-            const info = dados[empresa][placa]   // Pega os dados do veículo selecionado
+            const idVeiculo = $(this).val()
+            const idEmpresa = $('#empresas').val()
 
-            if (info) {
-                // Insere os dados do pedido na parte 1 (informações do veículo e entrega)
-                $('#parte1').html(`
-        <h3>N° do Pedido: ${info.pedido}</h3>
-        <h3>Tipo do Veículo: ${info.tipo}</h3>
-        <h3>N° do sensor: ${info.sensor}</h3>
-        <h3>Endereço de destino: ${info.endereco}</h3>
-      `)
+            if (idVeiculo && idEmpresa) {
+                fetch(`/pedidos/buscarDadosPedido/${idEmpresa}/${idVeiculo}`)
+                    .then(res => res.json())
+                    .then(info => {
+                        if (info.length > 0) {
+                            const pedido = info[0];
 
-      // Insere os dados do cliente e medicamento na parte 2
-                $('#parte2').html(`
-        <h3>Cliente: ${info.cliente}</h3>
-        <h3>Documento Cliente: ${info.documento}</h3>
-        <h3>Data de entrega prevista: ${info.entrega}</h3>
-        <h3>Tipo de medicamento: ${info.medicamento}</h3>
-      `)
+                            $('#parte1').html(`
+            <h3>N° do Pedido: ${pedido.idpedido}</h3>
+            <h3>Tipo do Veículo: ${pedido.tipo}</h3>
+            <h3>N° do sensor: ${pedido.idsensor}</h3>
+            <h3>Endereço de destino: ${pedido.endereco}</h3>
+        `);
 
-      // Atualiza os dados de alerta na interface
-                $('#ultimoAlerta').text(info.alerta)
-                $('#alertaHora').text(info.hora)
-                $('#duracao').text(info.duracao)
-                $('#temperatura').text(`${info.temperatura}°C`)
+                            $('#parte2').html(`
+            <h3>Cliente: ${pedido.nome}</h3>
+            <h3>CNPJ Cliente: ${pedido.cnpj}</h3>
+            <h3>Data de entrega prevista: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h3>
+            <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
+        `);
 
-                // Mostra o que estava oculto de dados, gráfico e alerta
-                $('#dadosPedido, #grafico, #alerta').removeClass('hidden')
+                            $('#ultimoAlerta').text(pedido.alerta || 'Sem alerta');
+                            $('#alertaHora').text(pedido.hora || '-');
+                            $('#duracao').text(pedido.duracao || '-');
+                            $('#temperatura').text(pedido.temperatura ? `${pedido.temperatura}°C` : '-');
+
+                            $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                        } else {
+                            $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                        }
+                    })
+                    .catch(erro => {
+                        console.error('Erro ao buscar dados do veículo:', erro)
+                    })
             }
         })
     </script>

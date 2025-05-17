@@ -2,9 +2,9 @@ var pedidoModel = require("../models/pedidoModel");
 
 
 function buscarCliente(req, res) {
+    const idTransportadora = req.params.idTransportadora
 
-
-    pedidoModel.buscarCliente()
+    pedidoModel.buscarCliente(idTransportadora)
         .then((resultado) => {
             res.json(resultado);
         })
@@ -29,8 +29,9 @@ function buscarVeiculo(req, res){
 
 function buscarDadosPedido(req, res){
     const idVeiculo = req.params.idVeiculo
+    const idCliente = req.params.idCliente
 
-    pedidoModel.buscarDadosPedido(idVeiculo)
+    pedidoModel.buscarDadosPedido(idCliente, idVeiculo)
         .then((resultado) => {
             res.json(resultado);
         })

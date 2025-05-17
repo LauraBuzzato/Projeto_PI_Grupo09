@@ -36,7 +36,7 @@ function login(){
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.idUsuario;
-
+                    
                     
                        window.location.href = "transportadora/alertas.html";
                  

@@ -103,7 +103,7 @@ function autenticar(req, res) {
 }
 
 function buscarIdParaCadastro(req, res){
-var idUsuario = req.body.idUsuario;
+var idUsuario = req.body.idUsuarioServer;
 
 usuarioModel.buscarIdParaCadastro(idUsuario)
 .then(resultado => {

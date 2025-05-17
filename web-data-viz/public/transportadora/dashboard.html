@@ -44,8 +44,7 @@
             <label for="empresas">Selecione uma empresa:</label>
             <select id="empresas">
                 <option value="">-- Escolha uma empresa --</option>
-                <option value="empresa1">MedCorp</option>
-                <option value="empresa2">BioSafe</option>
+                
             </select>
         </div>
 
@@ -213,7 +212,7 @@
     </script>
 
     <script>
-        // Pegando elementos do HTML
+         // Pegando elementos do HTML
         const empresas = document.getElementById('empresas')    // Select de empresas
         const veiculos = document.getElementById('veiculos')     // Select de veículo
         const veiculoContainer = document.getElementById('veiculoContainer')   // Div que envolve o select de veículos
@@ -228,103 +227,97 @@
         const temperatura = document.getElementById('temperatura')   // Temperatura registrada
 
 
-        // Dados de exemplo que virão do BD
-        const dados = {
-            empresa1: {
-                'CBG2M30': {
-                    pedido: '8756',
-                    tipo: 'Automóvel',
-                    sensor: '182',
-                    endereco: 'R. Rodrigues Alves 428',
-                    cliente: 'MedCorp',
-                    documento: '2312897',
-                    entrega: '03/04/2025 11:30',
-                    medicamento: 'CoronaVac (200 unidades)',
-                    alerta: '9',
-                    hora: '12:00',
-                    duracao: '2min',
-                    temperatura: '9'
-                }
+        var idUsuario = sessionStorage.ID_USUARIO
+        fetch("/usuarios/buscarIdParaCadastro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
             },
-            empresa2: {
-                'PJS6P39': {
-                    pedido: '9123',
-                    tipo: 'Van',
-                    sensor: '201',
-                    endereco: 'Av. Brasil 1000',
-                    cliente: 'BioSafe',
-                    documento: '998877',
-                    entrega: '05/04/2025 14:00',
-                    medicamento: 'Pfizer (100 unidades)',
-                    alerta: '3',
-                    hora: '13:20',
-                    duracao: '5min',
-                    temperatura: '7'
-                }
-            }
-        };
-
-
-
-        // Quando o usuário muda a empresa selecionada:
-        $('#empresas').on('change', function () {
-            const empresaSelecionada = $(this).val() // Valor da empresa escolhida
-
-            // Coloca o select de veiculos na opção inicial e esconde os dados
-            $('#veiculos').html('<option value="">-- Escolha um veículo --</option>')
-            $('#dadosPedido, #grafico, #alerta').addClass('hidden')
-
-            // Se houver uma empresa válida selecionada e ela existir nos dados
-            if (empresaSelecionada && dados[empresaSelecionada]) {
-                // Para cada veículo (placa) da empresa, cria uma opção no select de veículos
-                Object.keys(dados[empresaSelecionada]).forEach(placa => {
-                    const opt = new Option(`Veículo-placa: ${placa}`, placa)
-                    $('#veiculos').append(opt) // o append q joga isso como uma opção do select
-                })
-
-                // Atualiza visualmente o select pois estamos usando o modelo select2
-                $('#veiculos').trigger('change.select2')
-                // Mostra o container de veículos
-                $('#veiculoContainer').removeClass('hidden')
-            } else {
-                $('#veiculoContainer').addClass('hidden')  // Se não houver empresa selecionada ou não tiver dados, esconde o select de veículos
-            }
+            body: JSON.stringify({
+                idUsuarioServer: idUsuario
+            }),
         })
+            .then(res => res.json())
+            .then(data => {
+                const idTransportadora = data.idtransportadora
+
+                // Pega os nomes das empresas no BD
+                fetch(`/pedidos/buscarCliente/${idTransportadora}`)
+                    .then(res => res.json())
+                    .then(empresas => {
+                        empresas.forEach(empresa => {
+                            const option = new Option(empresa.nome, empresa.idcliente);
+                            $('#empresas').append(option);
+                        });
+                        $('#empresas').trigger('change.select2');
+                    });
+
+                $('#empresas').on('change', function () {
+                    const idEmpresa = $(this).val();
+
+                    $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+
+                    $('#veiculos').html('<option value="">-- Escolha um veículo --</option>');
+                    if (idEmpresa) {
+                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}`)
+                            .then(res => res.json())
+                            .then(veiculos => {
+                                veiculos.forEach(veiculo => {
+                                    const option = new Option(veiculo.placa, veiculo.idveiculo);
+                                    $('#veiculos').append(option);
+                                });
+                                $('#veiculos').trigger('change.select2');
+                                $('#veiculoContainer').removeClass('hidden');
+                            });
+                    }
+                });
+                // ta criando as opçoes em veiculos so n ta atualizando quando escolhe a placa pra mostrar os dados
+            });
+
 
 
         // Quando o usuário escolhe um veículo:
         $('#veiculos').on('change', function () {
-            const placa = $(this).val()
-            const empresa = $('#empresas').val()
-            const info = dados[empresa][placa]   // Pega os dados do veículo selecionado
+            const idVeiculo = $(this).val()
+            const idEmpresa = $('#empresas').val()
 
-            if (info) {
-                // Insere os dados do pedido na parte 1 (informações do veículo e entrega)
-                $('#parte1').html(`
-        <h3>N° do Pedido: ${info.pedido}</h3>
-        <h3>Tipo do Veículo: ${info.tipo}</h3>
-        <h3>N° do sensor: ${info.sensor}</h3>
-        <h3>Endereço de destino: ${info.endereco}</h3>
-      `)
+            if (idVeiculo && idEmpresa) {
+                fetch(`/pedidos/buscarDadosPedido/${idEmpresa}/${idVeiculo}`)
+                    .then(res => res.json())
+                    .then(info => {
+                        if (info.length > 0) {
+                            const pedido = info[0];
 
-      // Insere os dados do cliente e medicamento na parte 2
-                $('#parte2').html(`
-        <h3>Cliente: ${info.cliente}</h3>
-        <h3>Documento Cliente: ${info.documento}</h3>
-        <h3>Data de entrega prevista: ${info.entrega}</h3>
-        <h3>Tipo de medicamento: ${info.medicamento}</h3>
-      `)
+                            $('#parte1').html(`
+            <h3>N° do Pedido: ${pedido.idpedido}</h3>
+            <h3>Tipo do Veículo: ${pedido.tipo}</h3>
+            <h3>N° do sensor: ${pedido.idsensor}</h3>
+            <h3>Endereço de destino: ${pedido.endereco}</h3>
+        `);
 
-      // Atualiza os dados de alerta na interface
-                $('#ultimoAlerta').text(info.alerta)
-                $('#alertaHora').text(info.hora)
-                $('#duracao').text(info.duracao)
-                $('#temperatura').text(`${info.temperatura}°C`)
+                            $('#parte2').html(`
+            <h3>Cliente: ${pedido.nome}</h3>
+            <h3>CNPJ Cliente: ${pedido.cnpj}</h3>
+            <h3>Data de entrega prevista: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h3>
+            <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
+        `);
 
-                // Mostra o que estava oculto de dados, gráfico e alerta
-                $('#dadosPedido, #grafico, #alerta').removeClass('hidden')
+                            $('#ultimoAlerta').text(pedido.alerta || 'Sem alerta');
+                            $('#alertaHora').text(pedido.hora || '-');
+                            $('#duracao').text(pedido.duracao || '-');
+                            $('#temperatura').text(pedido.temperatura ? `${pedido.temperatura}°C` : '-');
+
+                            $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                        } else {
+                            $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                        }
+                    })
+                    .catch(erro => {
+                        console.error('Erro ao buscar dados do veículo:', erro)
+                    })
             }
         })
+        
     </script>
 </body>
 
