@@ -38,7 +38,7 @@ function login(){
                     sessionStorage.ID_USUARIO = json.idUsuario;
 
                     
-                       window.location.href = "simulador_financeiro.html";
+                       window.location.href = "transportadora/alertas.html";
                  
 
                 });
