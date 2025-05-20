@@ -7,16 +7,27 @@ function cadastrar() {
     var email = document.getElementById("email").value;
     var senha = document.getElementById("senha").value;
     var confirmarSenha = document.getElementById("confirmar_senha").value;
+    
 
     if (!nome || !cnpj || !telefone || !email || !senha || !confirmarSenha) {
         alert("Preencha todos os campos.");
         return;
     }
 
-    if (senha != confirmarSenha) {
-        alert("As senhas não coincidem.");
-        return;
-    }
+    if (senha !== confirmarSenha) {
+    alert("As senhas não coincidem.");
+    return;
+}
+const cnpjCerto = cnpj.replace(/\D/g, '');
+if (cnpjCerto.length !== 14) {
+  alert("CNPJ inválido! Deve conter 14 números.");
+  return;
+}
+const telefoneCerto= telefone.replace(/\D/g, '');
+if (telefoneCerto.length < 10 || telefoneLimpo.length > 11) {
+    alert("Telefone inválido! Deve conter DDD e número (com ou sem 9).");
+    return;
+}
 
     //Cadastrar transportadora
     fetch("/usuarios/cadastrar2", {
@@ -98,7 +109,7 @@ function cadastrarEndereco() {
 
   // Recuperar ID salvo no localStorage AGORA
   var idTransportadora = localStorage.getItem("idTransportadora");
-  
+   var cepLimpo = cepTransportadora.replace(/\D/g, '');
 
 
   if (!logradouroTransportadora || !cepTransportadora || !estadoTransportadora ||
@@ -107,6 +118,11 @@ function cadastrarEndereco() {
     return ;
   }
 
+
+   if (cepLimpo.length !== 8) {
+    alert("CEP inválido! Insira um CEP com 8 dígitos.");
+    return;
+  }
   fetch("/enderecos/cadastrar", {
     method: "POST",
     headers: {
