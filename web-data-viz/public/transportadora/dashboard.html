@@ -7,7 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
     <link rel="stylesheet" href="../style/transportadora.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
@@ -44,16 +45,16 @@
             <label for="empresas">Selecione uma empresa:</label>
             <select id="empresas">
                 <option value="">-- Escolha uma empresa --</option>
-                
+
             </select>
         </div>
 
         <div class="containerPedido hidden" id="veiculoContainer">
             <label for="veiculos">Selecione um veículo:</label>
-            <select id="veiculos" >
-              <option value="">-- Escolha um veículo --</option>
+            <select id="veiculos">
+                <option value="">-- Escolha um veículo --</option>
             </select>
-          </div>
+        </div>
 
         <div class="KPI hidden" id="dadosPedido">
             <div class="pedido_info_container">
@@ -206,13 +207,13 @@
 
     <script>
         $(document).ready(function () {
-    $('#empresas').select2();
-    $('#veiculos').select2();
-  });
+            $('#empresas').select2();
+            $('#veiculos').select2();
+        });
     </script>
 
     <script>
-         // Pegando elementos do HTML
+        // Pegando elementos do HTML
         const empresas = document.getElementById('empresas')    // Select de empresas
         const veiculos = document.getElementById('veiculos')     // Select de veículo
         const veiculoContainer = document.getElementById('veiculoContainer')   // Div que envolve o select de veículos
@@ -271,7 +272,7 @@
                             });
                     }
                 });
-                // ta criando as opçoes em veiculos so n ta atualizando quando escolhe a placa pra mostrar os dados
+
             });
 
 
@@ -317,7 +318,7 @@
                     })
             }
         })
-        
+
     </script>
 </body>
 
