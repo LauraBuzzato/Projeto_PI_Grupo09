@@ -26,10 +26,11 @@ var usuarioRouter = require("./src/routes/usuarios");
 // var pedidoRouter = require("./src/routes/pedido")
 
 var pedidosRouter = require("./src/routes/pedidos");
+var medidasRouter = require("./src/routes/medidas");
 
 
 /*var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
+
 var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");*/
 
@@ -49,10 +50,10 @@ app.use("/clienteNaoCadastrado", clienteNaoCadastradoRouter);
 // app.use("/pedido", pedidoRouter)
 app.use("/veiculo", veiculoRouter)
 app.use("/pedidos", pedidosRouter);
+app.use("/medidas", medidasRouter);
 
 /*
 app.use("/avisos", avisosRouter);
-app.use("/medidas", medidasRouter);
 app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter); */
 

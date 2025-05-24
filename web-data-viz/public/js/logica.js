@@ -55,6 +55,7 @@ if (telefoneCerto.length < 10 || telefoneLimpo.length > 11) {
         })
         .then((dados) => {
             const idTransportadora = dados.idtransportadora;
+            localStorage.ID_TRANSPORTADORA = idTransportadora
 
             //Cadastrar usuário com o ID da transportadora
             return fetch("/usuarios/cadastrar", {
@@ -108,7 +109,7 @@ function cadastrarEndereco() {
 
 
   // Recuperar ID salvo no localStorage AGORA
-  var idTransportadora = localStorage.getItem("idTransportadora");
+  var idTransportadora = localStorage.ID_TRANSPORTADORA;
    var cepLimpo = cepTransportadora.replace(/\D/g, '');
 
 
