@@ -95,6 +95,14 @@ insert into usuario (nome,email, senha, administrador, idTransportadora) values
 ('Juliana Peres','juliana.peres@biofort.com','fort#987',  false, 3); 
 
 
+create table chamado(
+idchamado int primary key,
+idusuario int,
+mensagem varchar(500),
+classificacao varchar(80),
+foreign key (idusuario) references usuario(idUsuario)
+);
+
 create table veiculo (
     idveiculo int primary key auto_increment,
     idtransportadora int not null,
@@ -133,6 +141,15 @@ insert into sensor (idveiculo, faixa_min, faixa_max) values
 (5, 2.00, 8.00),
 (6, 2.00, 8.00),
 (7, 2.00, 8.00);
+
+create table alerta(
+idalerta int primary key,
+idsensor int,
+duracao int,
+limite int,
+constraint chk_limite check (limite in (2, 8)),
+foreign key (idsensor) references sensor(idsensor)
+);
 
 
 

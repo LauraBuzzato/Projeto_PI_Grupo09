@@ -262,7 +262,8 @@
                     resposta.reverse();
 
                     plotarGrafico(resposta, idSensorVar);
-
+                    
+                   avaliarMedidas(resposta, idSensorVar);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -385,6 +386,17 @@
 
         setTimeout(() => atualizarGrafico(idSensorVar, dados, myChart), 2000);
     }
+    var contagem8 = 0
+    var contagem2 = 0
+
+    function avaliarMedidas(resposta, idSensorVar){
+
+        if(resposta > 8 ){
+            contagem8++
+        }else if(resposta < 2){
+            contagem2++
+        }
+    }
 
 
     function atualizarGrafico(idSensorVar, dados, myChart) {
@@ -395,7 +407,7 @@
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-
+                    avaliarMedidas(resposta, idSensorVar);
                     // alertar(novoRegistro, idSensorVar);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
