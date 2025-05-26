@@ -144,11 +144,12 @@ insert into sensor (idveiculo, faixa_min, faixa_max) values
 
 create table alerta(
 idalerta int primary key,
-idsensor int,
+idpedido int,
 duracao int,
 limite int,
+inicio datetime default current_timestamp,
 constraint chk_limite check (limite in (2, 8)),
-foreign key (idsensor) references sensor(idsensor)
+foreign key (idpedido) references pedido(idpedido)
 );
 
 
