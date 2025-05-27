@@ -14,20 +14,32 @@ function cadastrar() {
         return;
     }
 
-    if (senha !== confirmarSenha) {
-    alert("As senhas não coincidem.");
-    return;
-}
-const cnpjCerto = cnpj.replace(/\D/g, '');
-if (cnpjCerto.length !== 14) {
+    if (cnpj.length != 14) {
   alert("CNPJ inválido! Deve conter 14 números.");
   return;
 }
-const telefoneCerto= telefone.replace(/\D/g, '');
-if (telefoneCerto.length < 10 || telefoneLimpo.length > 11) {
-    alert("Telefone inválido! Deve conter DDD e número (com ou sem 9).");
+
+if (telefone.length < 10 || telefone.length > 11) {
+    alert("Telefone inválido! Não se esqueça de colocar o DDD antes!");
     return;
 }
+
+    if (!email.includes("@")) {
+    alert("O e-mail deve conter @");
+    return;
+}
+
+    if(senha.length<8){
+      alert("A senha precisa ter pelo menos 8 dígitos");
+    return;
+    }
+
+    if (senha != confirmarSenha) {
+    alert("As senhas não coincidem.");
+    return;
+}
+
+
 
     //Cadastrar transportadora
     fetch("/usuarios/cadastrar2", {
@@ -70,7 +82,7 @@ if (telefoneCerto.length < 10 || telefoneLimpo.length > 11) {
         })
         .then((resposta3) => {
             if (!resposta3.ok) {
-                throw new Error("Erro ao cadastrar usuário");
+                throw new Error("Erro no cadastro!");
             }
 
             alert("Cadastro realizado com sucesso!");
@@ -78,7 +90,7 @@ if (telefoneCerto.length < 10 || telefoneLimpo.length > 11) {
         })
         .catch((erro) => {
             console.error("Erro:", erro);
-            alert("Erro no cadastro. Verifique os campos e tente novamente.");
+            alert("E-mail já cadastrado!");
         });
 }
 
@@ -91,14 +103,6 @@ if (telefoneCerto.length < 10 || telefoneLimpo.length > 11) {
 
 function cadastrarEndereco() {
 
-    var logradouroTransportadora = logradouro.value;
-    var cepTransportadora = cep.value;
-    var estadoTransportadora = estado.value;
-    var cidadeTransportadora = cidade.value;
-    var bairroTransportadora = bairro.value;
-    var numeroTransportadora = numero.value;
-    var complementoTransportadora = complemento.value;
-
   var logradouroTransportadora = logradouro.value;
   var cepTransportadora = cep.value;
   var estadoTransportadora = estado.value;
@@ -108,19 +112,18 @@ function cadastrarEndereco() {
   var complementoTransportadora = complemento.value;
 
 
-  // Recuperar ID salvo no localStorage AGORA
+
   var idTransportadora = localStorage.ID_TRANSPORTADORA;
-   var cepLimpo = cepTransportadora.replace(/\D/g, '');
 
 
   if (!logradouroTransportadora || !cepTransportadora || !estadoTransportadora ||
-      !cidadeTransportadora || !bairroTransportadora || !numeroTransportadora ) { // tirar o complemento da verificacao
+      !cidadeTransportadora || !bairroTransportadora || !numeroTransportadora ) { 
     alert("Preencha todos os campos!");
     return ;
   }
 
 
-   if (cepLimpo.length !== 8) {
+   if (cepTransportadora.length != 8) {
     alert("CEP inválido! Insira um CEP com 8 dígitos.");
     return;
   }
@@ -137,7 +140,7 @@ function cadastrarEndereco() {
       bairroT: bairroTransportadora,
       numeroT: numeroTransportadora,
       complementoT: complementoTransportadora,
-       // Enviar o ID aqui AGORA
+       
     }),
   })
   .then((resposta1) => {
