@@ -9,6 +9,8 @@ const SERVIDOR_PORTA = 3300;
 
 // habilita ou desabilita a inserção de dados no banco de dados
 const HABILITAR_OPERACAO_INSERIR = true;
+let habilitar_insert = true
+let contagem = 0
 
 // função para comunicação serial
 const serial = async (
@@ -56,22 +58,62 @@ const serial = async (
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
-
+            
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO leiturasensor (idsensor, idpedido, valor) VALUES (2, 7, ?)',
+
+            'INSERT INTO leiturasensor (idsensor, idpedido, valor) VALUES (2, 7, ?)',
                 [sensorTemperatura]
+
+             
             );
-            console.log("valores inseridos no banco: ", sensorTemperatura);
 
-        }
+              if (sensorTemperatura > 8) {
+                
+                if (habilitar_insert) {
+                    await poolBancoDados.execute(
+                        'INSERT INTO alerta (idpedido,limite) VALUES (7, 8)'
+                    );
+
+                    habilitar_insert = false
+                }
+
+                contagem++                
+            }else if(sensorTemperatura < 2){
+
+                if(habilitar_insert){
+                    await poolBancoDados.execute(
+                        'INSERT INTO alerta (idpedido,limite) VALUES (7, 2)'
+                    );
+
+                    habilitar_insert = false
+                }
+
+                contagem++
+            }else{
+                
+                if(!habilitar_insert){
+                    var contagemFinal = (contagem - 1) * 5
+
+                    await poolBancoDados.execute(
+                        `UPDATE alerta SET duracao = ? WHERE idpedido = 7 AND duracao IS NULL`, [contagemFinal]
+                    );
+
+                    habilitar_insert = true
+                    contagem = 0
+                }
+            }
+
+    console.log("valores inseridos no banco: ", sensorTemperatura);
+
+}
 
     });
 
-    // evento para lidar com erros na comunicação serial
-    arduino.on('error', (mensagem) => {
-        console.error(`Erro no arduino (Mensagem: ${mensagem}`)
-    });
+// evento para lidar com erros na comunicação serial
+arduino.on('error', (mensagem) => {
+    console.error(`Erro no arduino (Mensagem: ${mensagem}`)
+});
 }
 
 // função para criar e configurar o servidor web
