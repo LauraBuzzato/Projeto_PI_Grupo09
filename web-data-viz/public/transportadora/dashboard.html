@@ -245,7 +245,22 @@
             }
         })
 
-        let proximaAtualizacao;
+        function obterDadosAlerta() {
+            const idpedido = localStorage.ID_PEDIDO;
+
+            fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
+                .then(res => res.json())
+                .then(dados => {
+                   kpiUltimoAlerta(dados[0].idAlerta)
+                   kpiDuracao(dados[0].duracao)
+                   kpiTemperatura(dados[0].limite)
+                   kpiHorario(dados[0].inicio)
+                })
+                .catch(err => console.error("Erro ao obter dados pra KPI:", err));
+
+        }
+
+        let proximaAtualizacao; 
 
 
         function obterDadosGrafico() {
@@ -390,8 +405,6 @@
 
 
         function atualizarGrafico(idSensorVar, dados, myChart) {
-            var disparo = true
-            const idpedido = localStorage.ID_PEDIDO
 
             fetch(`/medidas/tempo-real/${idSensorVar}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {

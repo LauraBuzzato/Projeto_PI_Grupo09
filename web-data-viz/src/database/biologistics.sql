@@ -142,15 +142,7 @@ insert into sensor (idveiculo, faixa_min, faixa_max) values
 (6, 2.00, 8.00),
 (7, 2.00, 8.00);
 
-create table alerta(
-idalerta int primary key,
-idpedido int,
-duracao int,
-limite int,
-inicio datetime default current_timestamp,
-constraint chk_limite check (limite in (2, 8)),
-foreign key (idpedido) references pedido(idpedido)
-);
+
 
 
 
@@ -214,6 +206,15 @@ insert into leiturasensor(idsensor, idpedido, valor, data_hora)
             (1,5, 9, '2025-04-25 11:11:20'),
             (1,5, 8, '2025-04-25 11:11:25');
 
+create table alerta(
+idalerta int primary key auto_increment,
+idpedido int,
+duracao int,
+limite int,
+inicio datetime default current_timestamp,
+constraint chk_limite check (limite in (2, 8)),
+foreign key (idpedido) references pedido(idpedido)
+);
 
 desc endereco;
 
