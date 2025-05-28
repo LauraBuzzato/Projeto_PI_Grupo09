@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
@@ -45,8 +45,6 @@
                 <label for="empresas">Selecione uma empresa:</label>
                 <select id="empresas">
                     <option value="">-- Escolha uma empresa --</option>
-                    <option value="empresa1">MedCorp</option>
-                    <option value="empresa2">BioSafe</option>
                 </select>
             </div>
             <div class="containerPedido hidden" id="veiculoContainer">
@@ -70,7 +68,7 @@
                     <h2 class="informacao_pedido">Informações do Pedido:</h2>
                     <div class="resumo_pedido_container">
                         <div class="resumo_pedido">
-                            <div class="partes">
+                            <div class="partes" id="parte1">
                                 <h4>Tipo de veículo: Automóvel</h4>
                                 <h4>Cliente: MedCorp</h4>
                                 <h4>Documento do cliente: 123214</h4>
@@ -78,7 +76,7 @@
                                 <h4>Endereço remetente: R. Patinhos 222</h4>
                                 <h4>Endereço destinatário: R.Fagundez Lima 748</h4>
                             </div>
-                            <div class="partes">
+                            <div class="partes" id="parte2">
                                 <h4>Data prevista da entrega: 11/08/2024 12:00</h4>
                                 <h4>Data real da entrega: 11/08/2024 11:00</h4>
                                 <h4>Tipo de medicamento: CoronaVac</h4>
@@ -267,87 +265,97 @@
     const grafico = document.getElementById('grafico')
     const alerta = document.getElementById('alerta')
 
-    const dados = {
-            empresa1: {
-                'GDI7J89': {
-                    '2':{
-                        
-                    },
-                    '6':{
-                        
-                    },
-                    '10':{
-                        
-                    }
-                },
-                'DRF4G56': {
-                    '5':{
-                        
-                    },
-                    '11':{
-                        
-                    },
-                    '15':{
-                        
-                    }
+    var idUsuario = sessionStorage.ID_USUARIO
+    fetch("/usuarios/buscarIdParaCadastro", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idUsuarioServer: idUsuario
+        }),
+    })
+        .then(res => res.json())
+        .then(data => {
+            const idTransportadora = data.idtransportadora
+
+            // Pega os nomes das empresas no BD
+            fetch(`/pedidos/buscarClienteFinalizado/${idTransportadora}`)
+                .then(res => res.json())
+                .then(empresas => {
+                    empresas.forEach(empresa => {
+                        const option = new Option(empresa.nome, empresa.idcliente);
+                        $('#empresas').append(option);
+                    });
+                    $('#empresas').trigger('change.select2');
+                });
+
+            $('#empresas').on('change', function () {
+                const idEmpresa = $(this).val();
+
+                $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+
+                $('#pedidos').html('<option value="">-- Escolha um veículo --</option>');
+                if (idEmpresa) {
+                    fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
+                        .then(res => res.json())
+                        .then(pedidos => {
+                            pedidos.forEach(veiculopedido => {
+                                const texto = `Pedido ${veiculopedido.idpedido} - Veículo placa: ${veiculopedido.placa}`
+                                const valor = `${veiculopedido.idpedido}`
+                                const opt = new Option(texto, valor)
+                                $('#pedidos').append(opt);
+                            });
+                            $('#pedidos').trigger('change.select2');
+                            $('#veiculoContainer').removeClass('hidden');
+                        });
                 }
-            },
-            empresa2: {
-                'DRF4G56': {
-                    '3':{
-                        
-                    },
-                    '7':{
-                        
-                    },
-                    '13':{
-                        
-                    }
-                },
-                'GDI7J89': {
-                    '4':{
-                        
-                    },
-                    '8':{
-                        
-                    },
-                    '14':{
-                        
-                    }
-                }
-            }
-        };
-
-    $('#empresas').on('change', function () {
-    const empresaSelecionada = $(this).val()
-
-    $('#pedidos').html('<option value="">-- Escolha um veículo --</option>')
-    $('#dadosPedido, #grafico, #alerta').addClass('hidden')
-
-    if (empresaSelecionada && dados[empresaSelecionada]) {
-
-        Object.keys(dados[empresaSelecionada]).forEach(placa => {
-            Object.keys(dados[empresaSelecionada][placa]).forEach(numeroPedido => {
-                const texto = `Pedido ${numeroPedido} - Veículo placa: ${placa}`
-                const valor = `${placa}_${numeroPedido}` // Soma os dois dados que puxou pra colocar no option
-                const opt = new Option(texto, valor)
-                $('#pedidos').append(opt)
             });
+
         });
 
-        $('#pedidos').trigger('change.select2')
-        $('#veiculoContainer').removeClass('hidden')
-    } else {
-        $('#veiculoContainer').addClass('hidden')
-    }
-});
+        $('#pedidos').on('change', function () {
+            const idPedido = $(this).val()
+            const idEmpresa = $('#empresas').val()
 
-$('#pedidos').on('change', function () {
-            
-                // Mostra o que estava oculto de dados, gráfico e alerta
-                $('#dadosPedido, #grafico, #alerta').removeClass('hidden')
-            
+            if (idPedido && idEmpresa) {
+                fetch(`/pedidos/buscarDadosPedidoConcluido/${idEmpresa}/${idPedido}`)
+                    .then(res => res.json())
+                    .then(info => {
+                        if (info.length > 0) {
+                            const pedido = info[0];
+                            localStorage.ID_SENSOR = pedido.idsensor
+                            localStorage.ID_PEDIDO = pedido.idpedido
+
+                            var idpedido = pedido.idpedido
+
+                            $('#parte1').html(`
+            <h3>N° do Pedido: ${pedido.idpedido}</h3>
+            <h3>Tipo do Veículo: ${pedido.tipo}</h3>
+            <h3>N° do sensor: ${pedido.idsensor}</h3>
+            <h3>Endereço de destino: ${pedido.endereco}</h3>
+        `);
+
+                            $('#parte2').html(`
+            <h3>Cliente: ${pedido.nome}</h3>
+            <h3>CNPJ Cliente: ${pedido.cnpj}</h3>
+            <h3>Data de entrega prevista: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h3>
+            <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
+        `);
+
+                            
+                        } else {
+                            $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                        }
+                    })
+                    .catch(erro => {
+                        console.error('Erro ao buscar dados do veículo:', erro)
+                    })
+            }
         })
+
+
+
 
 </script>
 

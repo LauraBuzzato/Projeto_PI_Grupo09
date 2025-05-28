@@ -10,12 +10,22 @@ function buscarCliente(idTransportadora) {
     return database.executar(instrucao);
 }
 
+function buscarClienteFinalizado(idTransportadora) {
+    var instrucao = `
+        select c.idcliente, nome from cliente c
+        inner join pedido p on c.idcliente=p.idcliente
+        inner join veiculo v on p.idveiculo=v.idveiculo
+        where idtransportadora = ${idTransportadora} and p.concluido = true;
+    `;
+    return database.executar(instrucao);
+}
 
-function buscarVeiculo(idCliente) {
+
+function buscarVeiculo(idCliente, idTransportadora) {
     var instrucao = `
         select v.idveiculo, placa from veiculo v
         inner join pedido p on v.idveiculo = p.idveiculo
-        where idcliente = ${idCliente} and p.concluido = false;
+        where idtransportadora = ${idTransportadora} and idcliente = ${idCliente} and p.concluido = false;
     `;
     return database.executar(instrucao);
 }
@@ -33,8 +43,27 @@ function buscarDadosPedido(idCliente, idVeiculo) {
     return database.executar(instrucao);
 }
 
+function buscarPedidoConcluido(idCliente, idTransportadora) {
+    var instrucao = `
+        select p.idpedido, placa from veiculo v
+        inner join pedido p on v.idveiculo = p.idveiculo
+        where idtransportadora = ${idTransportadora} and idcliente = ${idCliente} and p.concluido = true;
+    `;
+    return database.executar(instrucao);
+}
+
+function buscarDadosPedidoConcluido(idCliente, idPedido) {
+    var instrucao = `
+        
+    `;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarCliente,
     buscarVeiculo,
-    buscarDadosPedido
+    buscarDadosPedido,
+    buscarClienteFinalizado,
+    buscarPedidoConcluido,
+    buscarDadosPedidoConcluido
 };

@@ -22,9 +22,9 @@ const serial = async (
         {
             host: '127.0.0.1',
             user: 'aluno',
-            password: 'Sptech#2024',
+            password: 'sptech',
             database: 'biologistics',
-            port: 3307
+            port: 3306
         }
     ).promise();
 
@@ -93,7 +93,7 @@ const serial = async (
             }else{
                 
                 if(!habilitar_insert){
-                    var contagemFinal = (contagem - 1) * 5
+                    var contagemFinal = contagem * 5
 
                     await poolBancoDados.execute(
                         `UPDATE alerta SET duracao = ? WHERE idpedido = 7 AND duracao IS NULL`, [contagemFinal]

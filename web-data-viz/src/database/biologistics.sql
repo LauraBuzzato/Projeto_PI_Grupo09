@@ -209,7 +209,7 @@ insert into leiturasensor(idsensor, idpedido, valor, data_hora)
 create table alerta(
 idalerta int primary key auto_increment,
 idpedido int,
-duracao int,
+duracao varchar(10),
 limite int,
 inicio datetime default current_timestamp,
 constraint chk_limite check (limite in (2, 8)),
@@ -250,9 +250,7 @@ select  idleitura_sensor as Id, idsensor as Sensor, idpedido as Pedido, valor as
 	from leiturasensor where valor > 8 or valor < 2;
  
 
-
-
-
+ 
 
 
 

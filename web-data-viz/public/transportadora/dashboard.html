@@ -183,7 +183,7 @@
 
                     $('#veiculos').html('<option value="">-- Escolha um veículo --</option>');
                     if (idEmpresa) {
-                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}`)
+                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}/${idTransportadora}`)
                             .then(res => res.json())
                             .then(veiculos => {
                                 veiculos.forEach(veiculo => {
@@ -212,20 +212,10 @@
                         if (info.length > 0) {
                             const pedido = info[0];
                             localStorage.ID_SENSOR = pedido.idsensor
+                            localStorage.ID_PEDIDO = pedido.idpedido
 
                             var idpedido = pedido.idpedido
-                            
-                            fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
-                                .then(res => res.json())
-                                .then(dados => {
-                                    
-                                    var idAlertaVar =  dados[0].idalerta
-                                    var duracaoVar = dados[0].duracao
-                                    var limiteVar = dados[0].limite
-                                    var inicioVar = dados[0].inicio
 
-                                    
-                                })
                             $('#parte1').html(`
             <h3>N° do Pedido: ${pedido.idpedido}</h3>
             <h3>Tipo do Veículo: ${pedido.tipo}</h3>
@@ -240,13 +230,38 @@
             <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
         `);
 
-                            $('#ultimoAlerta').text(idAlertaVar || 'Sem Alerta');
-                            $('#alertaHora').text(inicioVar || '-');
-                            $('#duracao').text(duracaoVar || '-');
-                            $('#temperatura').text(`${limiteVar}°C` || '-');
+                            fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
+                                .then(res => res.json())
+                                .then(dados => {
+                                    if (dados.length > 0) {
 
-                            $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
-                            obterDadosGrafico()
+                                        var idAlertaVar = dados[0].idalerta
+                                        var duracaoVar = dados[0].duracao
+                                        var limiteVar = dados[0].limite
+                                        var inicioVar = dados[0].inicio
+
+                                        console.log(dados[0].duracao)
+
+                                        $('#ultimoAlerta').text(idAlertaVar);
+                                        $('#alertaHora').text(inicioVar);
+                                        if (duracaoVar == null) {
+                                        $('#duracao').text('Alerta em Andamento!');
+                                        }else{
+                                        $('#duracao').text(duracaoVar);
+                                        }
+                                        $('#temperatura').text(`${limiteVar}°C`);
+
+                                    } else {
+                                        $('#ultimoAlerta').text('Sem alerta');
+                                        $('#alertaHora').text('-');
+                                        $('#duracao').text('-');
+                                        $('#temperatura').text('-');
+                                    }
+
+
+                                    $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                                    obterDadosGrafico()
+                                })
                         } else {
                             $('#dadosPedido, #grafico, #alerta').addClass('hidden');
                         }
@@ -404,6 +419,7 @@
 
 
         function atualizarGrafico(idSensorVar, dados, myChart) {
+            const idpedido = localStorage.ID_PEDIDO
 
             fetch(`/medidas/tempo-real/${idSensorVar}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
@@ -437,6 +453,36 @@
 
                             myChart.update();
                         }
+
+                        fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
+                                .then(res => res.json())
+                                .then(dados => {
+                                    if (dados.length > 0) {
+
+                                        var idAlertaVar = dados[0].idalerta
+                                        var duracaoVar = dados[0].duracao
+                                        var limiteVar = dados[0].limite
+                                        var inicioVar = dados[0].inicio
+
+                                        console.log(dados[0].duracao)
+
+                                        $('#ultimoAlerta').text(idAlertaVar);
+                                        $('#alertaHora').text(inicioVar);
+                                        if (duracaoVar == null) {
+                                        $('#duracao').text('Alerta em Andamento!');
+                                        }else{
+                                        $('#duracao').text(duracaoVar);
+                                        }
+                                        $('#temperatura').text(`${limiteVar}°C`);
+
+                                    } else {
+                                        $('#ultimoAlerta').text('Sem alerta');
+                                        $('#alertaHora').text('-');
+                                        $('#duracao').text('-');
+                                        $('#temperatura').text('-');
+                                    }
+
+                                })
 
                         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                         proximaAtualizacao = setTimeout(() => atualizarGrafico(idSensorVar, dados, myChart), 2000);
