@@ -13,6 +13,15 @@ function cadastrar(tipo, placa, ano, modelo, fkTransportadora) {
     return database.executar(instrucaoSql);
 }
 
+function listar(fkTransportadora) {
+    var instrucaoSql = `
+        SELECT tipo,placa,ano,modelo,idveiculo FROM veiculo where idtransportadora = ${fkTransportadora};
+    `;
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    listar
 };

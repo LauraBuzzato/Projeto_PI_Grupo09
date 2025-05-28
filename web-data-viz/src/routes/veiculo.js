@@ -7,5 +7,9 @@ router.post("/cadastrar", function (req, res) {
     veiculoController.cadastrar(req, res);
 })
 
+router.get("/atualizar", function (req, res) {
+    veiculoController.atualizar(req, res);
+})
+
 
 module.exports = router;

@@ -33,6 +33,28 @@ function cadastrar(req, res) {
     }
 }
 
+function atualizar(req,res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var fkTransportadora = 2
+        usuarioModel.listar(fkTransportadora)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao buscar veiculos! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    atualizar
 }
