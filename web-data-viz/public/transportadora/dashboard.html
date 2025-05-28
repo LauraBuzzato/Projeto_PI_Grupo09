@@ -183,7 +183,7 @@
 
                     $('#veiculos').html('<option value="">-- Escolha um veículo --</option>');
                     if (idEmpresa) {
-                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}`)
+                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}/${idTransportadora}`)
                             .then(res => res.json())
                             .then(veiculos => {
                                 veiculos.forEach(veiculo => {
