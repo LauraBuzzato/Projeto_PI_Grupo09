@@ -212,8 +212,15 @@
                         if (info.length > 0) {
                             const pedido = info[0];
                             localStorage.ID_SENSOR = pedido.idsensor
-                            localStorage.ID_PEDIDO = pedido.idpedido
 
+                            fetch(`/alertas/buscar-dados-alerta/${pedido.idpedido}`)
+                                .then(res => res.json())
+                                .then(dados => {
+                                    var idAlertaVar =  dados[0].idAlerta
+                                    var duracaoVar = dados[0].duracao
+                                    var limiteVar = dados[0].limite
+                                    var inicioVar = dados[0].inicio
+                                })
                             $('#parte1').html(`
             <h3>N° do Pedido: ${pedido.idpedido}</h3>
             <h3>Tipo do Veículo: ${pedido.tipo}</h3>
@@ -228,10 +235,10 @@
             <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
         `);
 
-                            $('#ultimoAlerta').text(pedido.alerta || 'Sem alerta');
-                            $('#alertaHora').text(pedido.hora || '-');
-                            $('#duracao').text(pedido.duracao || '-');
-                            $('#temperatura').text(pedido.temperatura ? `${pedido.temperatura}°C` : '-');
+                            $('#ultimoAlerta').text(idAlertaVar || 'Sem Alerta');
+                            $('#alertaHora').text(inicioVar || '-');
+                            $('#duracao').text(duracaoVar || '-');
+                            $('#temperatura').text(`${limiteVar}°C` || '-');
 
                             $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
                             obterDadosGrafico()
@@ -245,22 +252,9 @@
             }
         })
 
-        function obterDadosAlerta() {
-            const idpedido = localStorage.ID_PEDIDO;
 
-            fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
-                .then(res => res.json())
-                .then(dados => {
-                   kpiUltimoAlerta(dados[0].idAlerta)
-                   kpiDuracao(dados[0].duracao)
-                   kpiTemperatura(dados[0].limite)
-                   kpiHorario(dados[0].inicio)
-                })
-                .catch(err => console.error("Erro ao obter dados pra KPI:", err));
 
-        }
-
-        let proximaAtualizacao; 
+        let proximaAtualizacao;
 
 
         function obterDadosGrafico() {

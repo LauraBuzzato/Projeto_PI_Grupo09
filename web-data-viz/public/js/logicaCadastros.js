@@ -35,10 +35,7 @@ function verificarVeiculo() {
         alert('Insira um ano válido')
         return;
     } else {
-        alert('Veículo cadastrado com sucesso!')
-    }
-
-    fetch("/veiculo/cadastrar", {
+       fetch("/veiculo/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,6 +62,9 @@ function verificarVeiculo() {
       })
 
     return false;
+    }
+
+    
 
 
 }
