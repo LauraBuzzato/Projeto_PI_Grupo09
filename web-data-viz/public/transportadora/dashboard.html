@@ -213,13 +213,18 @@
                             const pedido = info[0];
                             localStorage.ID_SENSOR = pedido.idsensor
 
-                            fetch(`/alertas/buscar-dados-alerta/${pedido.idpedido}`)
+                            var idpedido = pedido.idpedido
+                            
+                            fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
                                 .then(res => res.json())
                                 .then(dados => {
-                                    var idAlertaVar =  dados[0].idAlerta
+                                    
+                                    var idAlertaVar =  dados[0].idalerta
                                     var duracaoVar = dados[0].duracao
                                     var limiteVar = dados[0].limite
                                     var inicioVar = dados[0].inicio
+
+                                    
                                 })
                             $('#parte1').html(`
             <h3>N° do Pedido: ${pedido.idpedido}</h3>
