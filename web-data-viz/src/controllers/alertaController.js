@@ -5,11 +5,9 @@ function buscarDadosAlerta(req, res) {
 
     alertaModel.buscarDadosAlerta(idpedido)
         .then(resultado => {
-            if (resultado.length === 0) {
-                res.status(404).send("Dados do Alerta não encontrados!");
-            } else {
-                res.json(resultado[0]); 
-            }
+         
+                res.json(resultado); 
+            
         })
          .catch(erro => {
             console.error("Erro ao buscar dados alerta:", erro);
