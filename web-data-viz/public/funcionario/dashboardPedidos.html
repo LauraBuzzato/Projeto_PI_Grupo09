@@ -68,21 +68,11 @@
                     <h2 class="informacao_pedido">Informações do Pedido:</h2>
                     <div class="resumo_pedido_container">
                         <div class="resumo_pedido">
-                            <div class="partes">
-                                <h4>Tipo de veículo: Automóvel</h4>
-                                <h4>Cliente: MedCorp</h4>
-                                <h4>Documento do cliente: 123214</h4>
-                                <h4>Duração do pedido: 5 horas</h4>
-                                <h4>Endereço remetente: R. Patinhos 222</h4>
-                                <h4>Endereço destinatário: R.Fagundez Lima 748</h4>
+                            <div class="partes" id="parte1">
+                                
                             </div>
-                            <div class="partes">
-                                <h4>Data prevista da entrega: 11/08/2024 12:00</h4>
-                                <h4>Data real da entrega: 11/08/2024 11:00</h4>
-                                <h4>Tipo de medicamento: CoronaVac</h4>
-                                <h4>Quantidade de medicamento: 500</h4>
-                                <h4>Tipo de medicamento: none</h4>
-                                <h4>Quantidade de medicamento: none</h4>
+                            <div class="partes" id="parte2">
+                                
                             </div>
                         </div>
                     </div>
@@ -264,88 +254,100 @@
     const dadosPedido = document.getElementById('dadosPedido')
     const grafico = document.getElementById('grafico')
     const alerta = document.getElementById('alerta')
+    const parte1 = document.getElementById('parte1')
+    const parte2 = document.getElementById('parte2')
 
-    const dados = {
-            empresa1: {
-                'GDI7J89': {
-                    '2':{
-                        
-                    },
-                    '6':{
-                        
-                    },
-                    '10':{
-                        
-                    }
-                },
-                'DRF4G56': {
-                    '5':{
-                        
-                    },
-                    '11':{
-                        
-                    },
-                    '15':{
-                        
-                    }
+    var idUsuario = sessionStorage.ID_USUARIO
+    fetch("/usuarios/buscarIdParaCadastro", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idUsuarioServer: idUsuario
+        }),
+    })
+        .then(res => res.json())
+        .then(data => {
+            const idTransportadora = data.idtransportadora
+
+            // Pega os nomes das empresas no BD
+            fetch(`/pedidos/buscarClienteFinalizado/${idTransportadora}`)
+                .then(res => res.json())
+                .then(empresas => {
+                    empresas.forEach(empresa => {
+                        const option = new Option(empresa.nome, empresa.idcliente);
+                        $('#empresas').append(option);
+                    });
+                    $('#empresas').trigger('change.select2');
+                });
+
+            $('#empresas').on('change', function () {
+                const idEmpresa = $(this).val();
+
+                $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+
+                $('#pedidos').html('<option value="">-- Escolha um veículo --</option>');
+                if (idEmpresa) {
+                    fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
+                        .then(res => res.json())
+                        .then(pedidos => {
+                            pedidos.forEach(veiculopedido => {
+                                const texto = `Pedido ${veiculopedido.idpedido} - Veículo placa: ${veiculopedido.placa}`
+                                const valor = `${veiculopedido.idpedido}`
+                                const opt = new Option(texto, valor)
+                                $('#pedidos').append(opt);
+                            });
+                            $('#pedidos').trigger('change.select2');
+                            $('#veiculoContainer').removeClass('hidden');
+                        });
                 }
-            },
-            empresa2: {
-                'DRF4G56': {
-                    '3':{
-                        
-                    },
-                    '7':{
-                        
-                    },
-                    '13':{
-                        
-                    }
-                },
-                'GDI7J89': {
-                    '4':{
-                        
-                    },
-                    '8':{
-                        
-                    },
-                    '14':{
-                        
-                    }
-                }
-            }
-        };
-
-    $('#empresas').on('change', function () {
-    const empresaSelecionada = $(this).val()
-
-    $('#pedidos').html('<option value="">-- Escolha um veículo --</option>')
-    $('#dadosPedido, #grafico, #alerta').addClass('hidden')
-
-    if (empresaSelecionada && dados[empresaSelecionada]) {
-
-        Object.keys(dados[empresaSelecionada]).forEach(placa => {
-            Object.keys(dados[empresaSelecionada][placa]).forEach(numeroPedido => {
-                const texto = `Pedido ${numeroPedido} - Veículo placa: ${placa}`
-                const valor = `${placa}_${numeroPedido}` // Soma os dois dados que puxou pra colocar no option
-                const opt = new Option(texto, valor)
-                $('#pedidos').append(opt)
             });
+
         });
 
-        $('#pedidos').trigger('change.select2')
-        $('#veiculoContainer').removeClass('hidden')
-    } else {
-        $('#veiculoContainer').addClass('hidden')
-    }
-});
+    $('#pedidos').on('change', function () {
+        const idPedido = $(this).val()
 
-$('#pedidos').on('change', function () {
-            
-                // Mostra o que estava oculto de dados, gráfico e alerta
-                $('#dadosPedido, #grafico, #alerta').removeClass('hidden')
-            
-        })
+        if (idPedido) {
+            fetch(`/pedidos/buscarDadosPedidoConcluido/${idPedido}`)
+                .then(res => res.json())
+                .then(info => {
+                    if (info.length > 0) {
+                        const pedido = info[0];
+
+                        $('#parte1').html(`
+                                <h4>Tipo de veículo: ${pedido.tipo}</h4>
+                                <h4>Cliente: ${pedido.nome}</h4>
+                                <h4>CNPJ Cliente: ${pedido.cnpj}</h4>
+                                <h4>Duração do pedido: ${pedido.tempo_total} horas</h4>
+                                <h4>Endereço remetente: ${pedido.enderecoT}</h4>
+                                <h4>Endereço destinatário: ${pedido.endereco}</h4>
+        `);
+
+                        $('#parte2').html(`
+                                <h4>Data prevista da entrega: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h4>
+                                <h4>Data real da entrega: ${new Date(pedido.data_entrega_real).toLocaleDateString()}</h4>
+                                <h4>Tipo de medicamento: ${pedido.tipo_medicamento1}</h4>
+                                <h4>Quantidade de medicamento: ${pedido.quantidade_medicamento1}</h4>
+                                <h4>Tipo de medicamento (caso tenha mais de um): ${pedido.tipo_medicamento2}</h4>
+                                <h4>Quantidade de medicamento: ${pedido.quantidade_medicamento2}</h4>
+        `);
+
+        $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+
+                        
+
+
+                    } else {
+                        $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                    }
+                })
+                .catch(erro => {
+                    console.error('Erro ao buscar dados do veículo:', erro)
+                })
+        }
+    })
 
 </script>
 

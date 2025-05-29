@@ -69,20 +69,10 @@
                     <div class="resumo_pedido_container">
                         <div class="resumo_pedido">
                             <div class="partes" id="parte1">
-                                <h4>Tipo de veículo: Automóvel</h4>
-                                <h4>Cliente: MedCorp</h4>
-                                <h4>Documento do cliente: 123214</h4>
-                                <h4>Duração do pedido: 5 horas</h4>
-                                <h4>Endereço remetente: R. Patinhos 222</h4>
-                                <h4>Endereço destinatário: R.Fagundez Lima 748</h4>
+                                
                             </div>
                             <div class="partes" id="parte2">
-                                <h4>Data prevista da entrega: 11/08/2024 12:00</h4>
-                                <h4>Data real da entrega: 11/08/2024 11:00</h4>
-                                <h4>Tipo de medicamento: CoronaVac</h4>
-                                <h4>Quantidade de medicamento: 500</h4>
-                                <h4>Tipo de medicamento: none</h4>
-                                <h4>Quantidade de medicamento: none</h4>
+                                
                             </div>
                         </div>
                     </div>
@@ -264,6 +254,8 @@
     const dadosPedido = document.getElementById('dadosPedido')
     const grafico = document.getElementById('grafico')
     const alerta = document.getElementById('alerta')
+    const parte1 = document.getElementById('parte1')
+    const parte2 = document.getElementById('parte2')
 
     var idUsuario = sessionStorage.ID_USUARIO
     fetch("/usuarios/buscarIdParaCadastro", {
@@ -314,45 +306,48 @@
 
         });
 
-        $('#pedidos').on('change', function () {
-            const idPedido = $(this).val()
-            const idEmpresa = $('#empresas').val()
+    $('#pedidos').on('change', function () {
+        const idPedido = $(this).val()
 
-            if (idPedido && idEmpresa) {
-                fetch(`/pedidos/buscarDadosPedidoConcluido/${idEmpresa}/${idPedido}`)
-                    .then(res => res.json())
-                    .then(info => {
-                        if (info.length > 0) {
-                            const pedido = info[0];
-                            localStorage.ID_SENSOR = pedido.idsensor
-                            localStorage.ID_PEDIDO = pedido.idpedido
+        if (idPedido) {
+            fetch(`/pedidos/buscarDadosPedidoConcluido/${idPedido}`)
+                .then(res => res.json())
+                .then(info => {
+                    if (info.length > 0) {
+                        const pedido = info[0];
 
-                            var idpedido = pedido.idpedido
-
-                            $('#parte1').html(`
-            <h3>N° do Pedido: ${pedido.idpedido}</h3>
-            <h3>Tipo do Veículo: ${pedido.tipo}</h3>
-            <h3>N° do sensor: ${pedido.idsensor}</h3>
-            <h3>Endereço de destino: ${pedido.endereco}</h3>
+                        $('#parte1').html(`
+                                <h4>Tipo de veículo: ${pedido.tipo}</h4>
+                                <h4>Cliente: ${pedido.nome}</h4>
+                                <h4>CNPJ Cliente: ${pedido.cnpj}</h4>
+                                <h4>Duração do pedido: ${pedido.tempo_total} horas</h4>
+                                <h4>Endereço remetente: ${pedido.enderecoT}</h4>
+                                <h4>Endereço destinatário: ${pedido.endereco}</h4>
         `);
 
-                            $('#parte2').html(`
-            <h3>Cliente: ${pedido.nome}</h3>
-            <h3>CNPJ Cliente: ${pedido.cnpj}</h3>
-            <h3>Data de entrega prevista: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h3>
-            <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
+                        $('#parte2').html(`
+                                <h4>Data prevista da entrega: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h4>
+                                <h4>Data real da entrega: ${new Date(pedido.data_entrega_real).toLocaleDateString()}</h4>
+                                <h4>Tipo de medicamento: ${pedido.tipo_medicamento1}</h4>
+                                <h4>Quantidade de medicamento: ${pedido.quantidade_medicamento1}</h4>
+                                <h4>Tipo de medicamento (caso tenha mais de um): ${pedido.tipo_medicamento2}</h4>
+                                <h4>Quantidade de medicamento: ${pedido.quantidade_medicamento2}</h4>
         `);
 
-                            
-                        } else {
-                            $('#dadosPedido, #grafico, #alerta').addClass('hidden');
-                        }
-                    })
-                    .catch(erro => {
-                        console.error('Erro ao buscar dados do veículo:', erro)
-                    })
-            }
-        })
+        $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+
+                        
+
+
+                    } else {
+                        $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                    }
+                })
+                .catch(erro => {
+                    console.error('Erro ao buscar dados do veículo:', erro)
+                })
+        }
+    })
 
 
 

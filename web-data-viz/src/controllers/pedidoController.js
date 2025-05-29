@@ -71,9 +71,8 @@ function buscarPedidoConcluido(req, res){
 
 function buscarDadosPedidoConcluido(req, res){
     const idPedido = req.params.idPedido
-    const idCliente = req.params.idCliente
 
-    pedidoModel.buscarDadosPedido(idCliente, idPedido)
+    pedidoModel.buscarDadosPedidoConcluido(idPedido)
         .then((resultado) => {
             res.json(resultado);
         })

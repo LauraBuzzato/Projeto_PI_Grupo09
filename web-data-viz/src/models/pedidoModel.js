@@ -52,9 +52,21 @@ function buscarPedidoConcluido(idCliente, idTransportadora) {
     return database.executar(instrucao);
 }
 
-function buscarDadosPedidoConcluido(idCliente, idPedido) {
+function buscarDadosPedidoConcluido(idPedido) {
     var instrucao = `
-        
+        select c.nome, c.cnpj, concat(e.logradouro,', ', e.numero) endereco, p.data_entrega_prevista, p.data_entrega_real, p.tipo_medicamento1, p.quantidade_medicamento1, 
+        p.tipo_medicamento2, p.quantidade_medicamento2, p.idpedido, v.tipo, s.idsensor, (select  
+timestampdiff(second, (select data_hora from leiturasensor where idpedido = ${idPedido} limit 1), 
+(select data_hora from leiturasensor where idpedido = ${idPedido} order by data_hora desc limit 1)) / 3600 duracao_em_horas
+from leiturasensor
+limit 1) as tempo_total, concat(et.logradouro,', ', et.numero) enderecoT from cliente c
+		inner join endereco e on c.idendereco = e.idendereco
+        inner join pedido p on c.idcliente=p.idcliente
+        inner join veiculo v on p.idveiculo=v.idveiculo
+        inner join sensor s on v.idveiculo=s.idveiculo
+        inner join transportadora t on t.idtransportadora = v.idtransportadora
+        inner join endereco et on et.idendereco = t.idendereco
+        where p.idpedido = ${idPedido} and p.concluido = true;
     `;
     return database.executar(instrucao);
 }
