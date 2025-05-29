@@ -1,4 +1,4 @@
-var enderecoModel = require("../models/clienteNaoCadastradoModel");
+var clienteModel = require("../models/clienteNaoCadastradoModel");
 
 function cadastrar2(req, res) {
     var cep = req.body.cepCliente;
@@ -24,9 +24,9 @@ function cadastrar2(req, res) {
     }else if (!estado) {
         res.status(400).send("O estado está indefinido!");
     } else {
-        usuarioModel.cadastrar2(cep, logradouro, numero, complemento, bairro, cidade, estado)
+        clienteModel.cadastrar2(cep, logradouro, numero, complemento, bairro, cidade, estado)
             .then(resultado => {
-                res.json({ idTransportadora: resultado.insertId }); // retorna o ID do Endereco
+                res.json({ idEndereco: resultado.insertId }); // retorna o ID do Endereco
             })
             .catch(erro => {
                 console.error("Erro ao cadastrar transportadora:", erro.sqlMessage);
@@ -40,7 +40,7 @@ function buscarEnderecoPorNome(req, res) {
     const logradouro = req.params.logradouro
     const numero = req.params.numero;
 
-    usuarioModel.buscarEnderecoPorNome(cep, logradouro, numero)
+    clienteModel.buscarEnderecoPorNome(cep, logradouro, numero)
         .then(resultado => {
             if (resultado.length === 0) {
                 res.status(404).send("Transportadora não encontrada!");
@@ -59,7 +59,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeCliente;
     var CNPJ = req.body.documendoCliente;
     var telefone = req.body.TelefoneCliente;
-    var idEndereco = req.body.idEndereco
+    var idEndereco = req.params.idEndereco
     
 
     // Faça as validações dos valores
@@ -72,7 +72,7 @@ function cadastrar(req, res) {
     } else if (idEndereco == undefined) {
         res.status(400).send("Erro idEndereco undefined!");
     } else {
-        usuarioModel.cadastrar(nome, CNPJ, telefone, idEndereco)
+        clienteModel.cadastrar(nome, CNPJ, telefone, idEndereco)
             .then(resultadoCadastro => {
                 res.json({ idUsuario: resultadoCadastro.insertId });
             })
@@ -87,6 +87,6 @@ function cadastrar(req, res) {
 
 module.exports = {
     cadastrar2,
-buscarEnderecoPorNome,
+    buscarEnderecoPorNome,
     cadastrar
 }

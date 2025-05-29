@@ -1,17 +1,17 @@
 function cadastrar() {
-        var nomeDoCliente = nomeCliente.value
+        var nomeDoCliente =  document.getElementById("nomeCliente").value
         var documendoDoCliente = docCliente.value
-        var TelefoneDoCliente = clienteTel.value
-        var cepDoCliente = cepCliente.value
-        var logradouroDoCliente = logradouroCliente.value
-        var numeroDoCliente = numeroCliente.value
-        var complementoDoCliente = complementoCliente.value
-        var bairroDoCliente = bairroCliente.value
-        var cidadeDoCliente = cidadeCliente.value
-        var estadoDoCliente = estadoCliente.value
+        var TelefoneDoCliente =document.getElementById("clienteTel").value
+        var cepDoCliente =document.getElementById("cepCliente").value
+        var logradouroDoCliente =document.getElementById("logradouroCliente").value
+        var numeroDoCliente =document.getElementById("numeroCliente").value
+        var complementoDoCliente =document.getElementById("complementoCliente").value
+        var bairroDoCliente =document.getElementById("bairroCliente").value
+        var cidadeDoCliente =document.getElementById("cidadeCliente").value
+        var estadoDoCliente =document.getElementById("estadoCliente").value
 
 
-        if (logradouroTransportadora == null || cepTransportadora == null || estadoTransportadora == null || cidadeTransportadora == null || bairroTransportadora == null || numeroTransportadora == null || complementoTransportadora == null) {
+        if (nomeDoCliente == null || documendoDoCliente == null || TelefoneDoCliente == null || cepDoCliente == null || logradouroDoCliente == null || numeroDoCliente == null || complementoDoCliente == null || bairroDoCliente == null || cidadeDoCliente == null || estadoDoCliente == null) {
             alert("preencha todos os campos!")
             return ;
         } 
@@ -32,7 +32,7 @@ function cadastrar() {
                     estadoCliente: estadoDoCliente
                 }),
             })
-                then((resposta1) => {
+                .then((resposta1) => {
             if (!resposta1.ok) {
                 throw new Error("Erro ao cadastrar cliente");
             }
@@ -50,7 +50,7 @@ function cadastrar() {
             const idEndereco = dados.idendereco;
 
             //Cadastrar usuário com o ID da transportadora
-            return fetch("/clienteNaoCadastrado/cadastrar", {
+            return fetch(`/clienteNaoCadastrado/cadastrar/${idEndereco}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
