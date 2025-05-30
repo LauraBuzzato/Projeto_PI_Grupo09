@@ -58,7 +58,7 @@ app.use("/avisos", avisosRouter);
 app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter); */
 
-app.listen(PORTA_APP, HOST_APP, function () {
+app.listen(PORTA_APP,  function () {
     console.log(`
     ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
     ##   ##  ##       ##  ##            ## ##     ####      ##      ####             ##  ##     ##         ##  
