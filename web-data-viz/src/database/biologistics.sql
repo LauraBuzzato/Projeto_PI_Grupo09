@@ -87,7 +87,7 @@ foreign key (idTransportadora) references transportadora(idTransportadora)
 -- insert usuarios
 insert into usuario (nome,email, senha, administrador, idTransportadora) values 
 (null,'gloria.souza@pharmaexpress.com','senha123',  true,  4), 
-('Fernando Lima','fernando.lima@healthcargo.com', 'hc2023@',   false, 2), 
+('Fernando Lima','fernando.lima@healthcargo.com', 'hc2023@',   true, 2), 
 (null,'ana.moreira@biotrans.com','bio321!',   true,  6), 
 ('Carlos Silva','carlos.silva@hc-campinas.com','campi@22',  false, 7), 
 ('Natan Alves','natan.alves@hc-curitiba.com','curi@001',  false, 5), 
@@ -249,20 +249,3 @@ select
 select  idleitura_sensor as Id, idsensor as Sensor, idpedido as Pedido, valor as Temperatura, data_hora as Horário
 	from leiturasensor where valor > 8 or valor < 2;
  
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

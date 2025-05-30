@@ -36,9 +36,14 @@ function login(){
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.ID_TRANSPORTADORA = json.idTransportadora;
                     
+                  
+                        window.location.href = "transportadora/alertas.html";
+                   
+                        
                     
-                       window.location.href = "transportadora/alertas.html";
+                       
                  
 
                 });
