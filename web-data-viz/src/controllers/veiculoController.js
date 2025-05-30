@@ -1,3 +1,5 @@
+var veiculoModel = require("../models/veiculoModel");
+
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var tipo = req.body.tipoVecServer;
@@ -54,7 +56,22 @@ function atualizar(req,res) {
     
 }
 
+function buscarVeiculos(req, res){
+    const idCliente = req.params.idCliente
+    const idTransportadora = req.params.idTransportadora
+
+    veiculoModel.buscarVeiculos(idCliente, idTransportadora)
+        .then((resultado) => {
+            res.json(resultado);
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar veiculos:", erro);
+            res.status(500).json({ erro: erro.sqlMessage });
+        });
+}
+
 module.exports = {
     cadastrar,
-    atualizar
+    atualizar,
+    buscarVeiculos
 }

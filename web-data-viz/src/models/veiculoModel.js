@@ -20,8 +20,18 @@ function listar(fkTransportadora) {
     return database.executar(instrucaoSql);
 }
 
+function buscarVeiculos(idCliente, idTransportadora) {
+    var instrucao = `
+        select placa, tipo, v.idveiculo from veiculo v
+        inner join pedido p on v.idveiculo = p.idveiculo
+        where idtransportadora = ${idTransportadora} and idcliente = ${idCliente};
+    `;
+    return database.executar(instrucao);
+}
+
 
 module.exports = {
     cadastrar,
-    listar
+    listar,
+    buscarVeiculos
 };

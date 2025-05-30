@@ -11,5 +11,9 @@ router.get("/atualizar", function (req, res) {
     veiculoController.atualizar(req, res);
 })
 
+router.get("/buscarVeiculos/:idCliente/:idTransportadora", function (req, res) {
+    veiculoController.buscarVeiculos(req, res);
+})
+
 
 module.exports = router;

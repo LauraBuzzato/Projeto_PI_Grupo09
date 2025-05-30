@@ -48,10 +48,9 @@
                 <div class="campo">
                     <label for="Cliente">Selecione seu cliente:<span style="color: red;">*</span></label>
                     <div class="cssSelectClienteJaCadastrado">
-                    <select name="Cliente" id="Cliente">
-                        <option value="MedCorp">MedCorp</option>
-                        <option value="HelthCorp">HealthCorp</option>
-                    </select>
+                        <select name="Cliente" id="Cliente">
+                            <option value="">-- Escolha um cliente --</option>
+                        </select>
                     </div>
                 </div>
 
@@ -68,11 +67,9 @@
                 <div class="campo">
                     <label for="veiculoPedido">Escolha o veículo:<span style="color: red;">*</span></label>
                     <div class="cssSelectClienteJaCadastrado">
-                    <select name="veiculoPedido" id="veiculoPedido">
-                        <option value="um">Automóvel -placa: BRW9O02</option>
-                        <option value="um">Aéreo -placa: SP-EKN </option>
-                        <option value="um">Automóvel -plca: KDW2W02</option>
-                    </select>
+                        <select name="veiculoPedido" id="veiculoPedido">
+                            <option value="">-- Escolha um veículo --</option>
+                        </select>
                     </div>
                 </div>
 
@@ -97,8 +94,9 @@
                 </div>
 
                 <div class="box_botao">
-                    <button type="submit" onclick="verificarPedidoJa()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                    <button type="submit" onclick="verificarPedidoJa()"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle"
+                            viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
                         </svg></button>
@@ -146,10 +144,44 @@
 
 </body>
 <script>
-        $(document).ready(function () {
-            $('#Cliente').select2();
-            $('#veiculoPedido').select2();
-        });
-    </script>
+    $(document).ready(function () {
+        $('#Cliente').select2();
+        $('#veiculoPedido').select2();
+    });
+</script>
 <script src="../js/logicaCadastros.js"></script>
+<script>
+    var idTransportadora = sessionStorage.ID_TRANSPORTADORA
+    fetch(`/pedidos/buscarCliente/${idTransportadora}`)
+        .then(res => res.json())
+        .then(cliente => {
+            cliente.forEach(cliente => {
+                const option = new Option(cliente.nome, cliente.idcliente);
+                $('#Cliente').append(option);
+            });
+            $('#Cliente').trigger('change.select2');
+        });
+
+    $('#Cliente').on('change', function () {
+        const idCliente = $(this).val();
+        $('#veiculoPedido').html('<option value="">-- Escolha um veículo --</option>');
+
+        if (idCliente) {
+            fetch(`/veiculo/buscarVeiculos/${idCliente}/${idTransportadora}`)
+                .then(res => res.json())
+                .then(pedidos => {
+                    pedidos.forEach(veiculopedido => {
+                        const texto = `${veiculopedido.tipo} - Veículo placa: ${veiculopedido.placa}`
+                        const valor = `${veiculopedido.idveiculo}`
+                        const opt = new Option(texto, valor)
+                        $('#veiculoPedido').append(opt);
+                    });
+                    $('#veiculoPedido').trigger('change.select2');
+                });
+        }
+
+
+    });
+</script>
+
 </html>
