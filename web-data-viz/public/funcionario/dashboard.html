@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="../js/logicaLogin.js"></script>
 </head>
 
 <body>
@@ -17,13 +18,13 @@
         <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
             <li>
-                <a href="cadastroUsuario.html">Cadastro Usuários</a>
-            </li>
-            <li>
                 <a href="cadastroPedido.html">Cadastro Pedidos</a>
             </li>
             <li>
-                <a href="gerenciarVeiculos.html">Cadastro Veiculos</a>
+                <a href="cadastroVeiculo.html">Cadastro Veiculos</a>
+            </li>
+            <li>
+                <a href="alertas.html">Alertas</a>
             </li>
             <li>
                 <a href="dashboard.html"><b>Monitoramento</b></a>
@@ -31,8 +32,8 @@
             <li>
                 <a href="dashboardPedidos.html">Pedidos</a>
             </li>
-            <li>
-                <a href="../paginas-Iniciais/pag_inicial.html">Sair</a>
+            <li class="sair"> 
+                <a onclick="limparSessao()">Sair</a>
             </li>
 
         </ul>
@@ -118,8 +119,8 @@
                 <div class="mail">
                     <img src="../img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
                         alt="">
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=medmonitoramento@gmail.com">
-                        <p>medmonitoramento@gmail.com</p>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@biologistics.atlassian.net">
+                    <p>support@biologistics.atlassian.net</p>
                     </a>
                 </div>
             </div>

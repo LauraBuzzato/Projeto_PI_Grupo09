@@ -1242,3 +1242,6 @@ h1 {
     }
 }
 
+.sair{
+    cursor: pointer;
+}
