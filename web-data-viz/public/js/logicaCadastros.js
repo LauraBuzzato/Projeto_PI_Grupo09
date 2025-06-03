@@ -66,7 +66,7 @@ function cadastrarVeiculo() {
 
 }
 
-var fkTransportadoraVeiculo
+/*var fkTransportadoraVeiculo
 //atualizando o gerenciamento
 window.onload = function () {
   fetch("/veiculo/atualizar",{
@@ -104,7 +104,7 @@ window.onload = function () {
       .catch(erro => {
           console.error("Erro ao carregar veículos:", erro);
       });
-};
+}; */
 
 
 
