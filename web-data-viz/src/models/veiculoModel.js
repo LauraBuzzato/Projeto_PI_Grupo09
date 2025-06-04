@@ -13,11 +13,13 @@ function cadastrandoVeiculo(tipo, placa, ano, modelo, idTransportadora) {
     return database.executar(instrucaoSql);
 }
 
-function listar(idTransportadora) {
-    var instrucaoSql = `
-        SELECT tipo,placa,ano,modelo,idveiculo FROM veiculo where idtransportadora = ${idTransportadora};
+function listarVeiculos(idTransportadora) {
+    var retornoVeiculos = `
+        select v.tipo as tipo, v.placa as placa, v.modelo as modelo, v.ano as ano, v.ativo as v_status from veiculo as v
+where idtransportadora = ${idTransportadora}
+and v.ativo = true;
     `;
-    return database.executar(instrucaoSql);
+    return database.executar(retornoVeiculos);
 }
 
 function buscarVeiculos(idCliente, idTransportadora) {
@@ -32,6 +34,6 @@ function buscarVeiculos(idCliente, idTransportadora) {
 
 module.exports = {
     cadastrandoVeiculo,
-    listar,
+    listarVeiculos,
     buscarVeiculos
 };
