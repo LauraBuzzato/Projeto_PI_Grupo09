@@ -9,7 +9,7 @@
     <script src="../js/logicaLogin.js"></script>
 </head>
 
-<body>
+<body onload="atualizarVeiculos()">
     <div class="header">
         <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
@@ -43,7 +43,7 @@
 
     <div id="div_exibir" class="fundoveiculoscadastrados">
         <div class="Container_veiculosCadastrados">
-         <!-- <div id="veiculosCadastrados" class="veiculosCadastrados">
+            <!-- <div id="veiculosCadastrados" class="veiculosCadastrados">
                 <h4><span class="Itens">placa: GDI7J89</span> <span class="Itens">Veiculo: Automóvel</span> <span
                         class="Itens">modelo: Fiat Doblò</span> <span class="Itens">Ano: 2010</span> <span
                         class="Itens"><button onclick="Excluir()" class="botao1"><svg xmlns="http://www.w3.org/2000/svg"
@@ -69,14 +69,13 @@
                                 <path
                                     d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
                             </svg></button></span></h4>
-                            -->  
-                            <tbody id="tabela-veiculos">
-                                <!-- Veículos serão inseridos aqui via JS -->
-                              </tbody>
-            </div>
+                            -->
+            <tbody id="tabela_veiculos" onload="">
+                <!-- Veículos serão inseridos aqui via JS -->
+            </tbody>
         </div>
     </div>
-
+    </div>
 
     <div class="fotter">
         <div class="redes_sociais">
@@ -111,4 +110,30 @@
 </body>
 <script src="../js/logicaCadastros.js"></script>
 
+<script>
+    var veiculos = []
+    function atualizarVeiculos(){
+    var veiculo = ipt_veiculo.value
+    var placa = ipt_placa.value
+    var modelo = ipt_modelo.value
+    var ano = ipt_ano.value
+
+    
+    fetch("/veiculo/atualizar", {
+        method: 'get',
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+    .then(res => res.json ()
+    .then(veiculos =>{
+        for(var i = 0; i < veiculos.length;i++){
+        tabela_veiculos.innerHTML += `
+        <span class="Itens" id="span_infoVeiculos">Tipo: ${veiculos[i].tipo}</span> <span class="Itens">Placa: ${veiculos[i].placa}</span>
+        <span class="Itens" id="span_infoVeiculos">Modelo: ${veiculos[i].modelo}</span> <span class="Itens">Placa: ${veiculos[i].ano}</span>    `
+    }
+    })
+)
+}
+</script>
 </html>
