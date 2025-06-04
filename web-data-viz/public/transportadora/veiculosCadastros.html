@@ -71,6 +71,7 @@
                             </svg></button></span></h4>
                             -->
             <tbody id="tabela_veiculos">
+                <div id="div_resultado"></div>
                 <!-- Veículos serão inseridos aqui via JS -->
             </tbody>
         </div>
@@ -112,6 +113,7 @@
 
 <script>
     function atualizarVeiculos() {
+        div_resultado.innerHTML = ''
         var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
 
         console.log('id transportadora', idTransportadora)
@@ -121,13 +123,13 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                idTransportadoraServer: ididTransportadora
+                idTransportadoraServer: idTransportadora
             }),
         })
             .then(res => res.json()
                 .then(veiculos => { //armazenando os dados de resposta em veiculos
                     for (var i = 0; i < veiculos.length; i++) {
-                        tabela_veiculos.innerHTML += `
+                        div_resultado.innerHTML += `
         <span class="Itens" id="span_infoVeiculos">Tipo: ${veiculos[i].tipo}</span> <span class="Itens">Placa: ${veiculos[i].placa}</span>
         <span class="Itens" id="span_infoVeiculos">Modelo: ${veiculos[i].modelo}</span> <span class="Itens">Placa: ${veiculos[i].ano}</span> <br>
         `

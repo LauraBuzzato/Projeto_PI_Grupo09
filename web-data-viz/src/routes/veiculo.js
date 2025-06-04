@@ -7,7 +7,7 @@ router.post("/cadastrar", function (req, res) {
     veiculoController.cadastrarVeiculo(req, res);
 })
 
-router.get("/atualizar", function (req, res) {
+router.post("/atualizar", function (req, res) {
     veiculoController.puxandoVeiculos(req, res);
 })
 
