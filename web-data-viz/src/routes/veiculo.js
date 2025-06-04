@@ -8,7 +8,7 @@ router.post("/cadastrar", function (req, res) {
 })
 
 router.get("/atualizar", function (req, res) {
-    veiculoController.atualizar(req, res);
+    veiculoController.puxandoVeiculos(req, res);
 })
 
 router.get("/buscarVeiculos/:idCliente/:idTransportadora", function (req, res) {

@@ -35,10 +35,11 @@ function cadastrarVeiculo(req, res) {
     }
 }
 
-function atualizar(req,res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var idTransportadora = req.body.idTransportadoraVeiculoServer;
-        veiculoModel.listar(idTransportadora)
+// atualizando o gerenciamento
+function puxandoVeiculos(req,res) {
+
+    var idTransportadora = req.body.idTransportadoraServer;
+        veiculoModel.listarVeiculos(idTransportadora)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -70,8 +71,10 @@ function buscarVeiculos(req, res){
         });
 }
 
+
 module.exports = {
     cadastrarVeiculo,
-    atualizar,
+    puxandoVeiculos,
     buscarVeiculos
+  
 }
