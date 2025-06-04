@@ -127,6 +127,11 @@ function cadastrarEndereco() {
     alert("CEP inválido! Insira um CEP com 8 dígitos.");
     return;
   }
+
+  if(estadoTransportadora.length != 2){
+    alert("Insira apenas a sigla do estado.")
+    return
+  }
   fetch("/enderecos/cadastrar", {
     method: "POST",
     headers: {

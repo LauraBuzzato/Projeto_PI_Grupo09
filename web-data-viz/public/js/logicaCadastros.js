@@ -49,20 +49,21 @@ function cadastrarVeiculo() {
         anoVecServer: anoVec,
         modeloVecServer: modeloVec,
         idTransportadoraVeiculoServer: idTransportadora,
-      }),
-    })
-    .then(function (resposta) {
-        console.log("resposta: ", resposta);
+      }
+    
+    ), 
+    } )
+    .then((resposta3) => {
+            if (!resposta3.ok) {
+                throw new Error("Erro no cadastro!");
+            }
 
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-          alert('veiculo cadastrado com sucesso')
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
+            alert("Cadastro realizado com sucesso!");
+            
+        })
+        .catch((erro) => {
+            console.error("Erro:", erro);
+        });
 
     return false;
     }
