@@ -17,17 +17,25 @@ function cadastrar() {
             alert("preencha todos os campos!")
             return ;
         } 
-        if(documendoDoCliente.length != 14){
+        if(documendoDoCliente.length != 18){
              alert("CNPJ inválido! Deve conter 14 números.");
              return;
         }
-        if(cepDoCliente.length != 8){
+        if(cepDoCliente.length != 9){
              alert("CEP inválido! Insira um CEP com 8 dígitos.");
              return;
         }
         if(estadoDoCliente.length != 2){
             alert("Insira apenas a sigla do estado! (2 dígitos)");
             return;
+        }
+        if(TelefoneDoCliente.length != 20){
+            alert("Telefone inválido.")
+            return
+        }
+        if(nomeDoCliente.length > 80){
+            alert("Nome muito grande. No máximo 80 dígitos.")
+            return
         }
         
             // Enviando o valor da nova input

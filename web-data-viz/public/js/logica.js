@@ -14,29 +14,39 @@ function cadastrar() {
         return;
     }
 
-    if (cnpj.length != 14) {
+    if (cnpj.length != 18) {
   alert("CNPJ inválido! Deve conter 14 números.");
   return;
 }
 
-if (telefone.length < 10 || telefone.length > 11) {
+if (telefone.length != 14) {
     alert("Telefone inválido! Não se esqueça de colocar o DDD antes!");
     return;
 }
 
     if (!email.includes("@")) {
-    alert("O e-mail deve conter @");
+    alert("O e-mail deve conter @.");
     return;
 }
 
     if(senha.length<8){
-      alert("A senha precisa ter pelo menos 8 dígitos");
+      alert("A senha precisa ter pelo menos 8 dígitos.");
     return;
+    }
+
+    if(senha.length > 20){
+      alert("A senha não pode ter mais de 20 dígitos.");
+      return
     }
 
     if (senha != confirmarSenha) {
     alert("As senhas não coincidem.");
     return;
+}
+
+if(nome.length > 100){
+  alert("Nome muito grande.");
+  return
 }
 
 
@@ -123,13 +133,13 @@ function cadastrarEndereco() {
   }
 
 
-   if (cepTransportadora.length != 8) {
+   if (cepTransportadora.length != 9) {
     alert("CEP inválido! Insira um CEP com 8 dígitos.");
     return;
   }
 
   if(estadoTransportadora.length != 2){
-    alert("Insira apenas a sigla do estado.")
+    alert("Insira apenas a sigla do estado (Dois dígitos).")
     return
   }
   fetch("/enderecos/cadastrar", {
