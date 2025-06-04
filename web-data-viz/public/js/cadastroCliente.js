@@ -15,6 +15,18 @@ function cadastrar() {
             alert("preencha todos os campos!")
             return ;
         } 
+        if(documendoDoCliente.length != 14){
+             alert("CNPJ inválido! Deve conter 14 números.");
+             return;
+        }
+        if(cepDoCliente.length != 8){
+             alert("CEP inválido! Insira um CEP com 8 dígitos.");
+             return;
+        }
+        if(estadoDoCliente.length != 2){
+            alert("Insira apenas a sigla do estado! (2 dígitos)");
+            return;
+        }
         
             // Enviando o valor da nova input
             fetch("/clienteNaoCadastrado/cadastrar2", {
