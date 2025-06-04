@@ -26,7 +26,10 @@ function cadastrarVeiculo() {
     var placaVec = placa.value
     var anoVec = ano.value
     var modeloVec = modelo.value
-    var fkTransportadoraVeiculo
+    var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
+    console.log(idTransportadora)
+
+
 
     if (placaVec.length > 7 || placaVec.length < 5 || (placaVec.length != 7 && tipoVec == 'carro')) {
         alert('Insira uma placa válida')
@@ -45,7 +48,7 @@ function cadastrarVeiculo() {
         placaVecServer: placaVec,
         anoVecServer: anoVec,
         modeloVecServer: modeloVec,
-        fkTransportadoraVeiculoServer: fkTransportadoraVeiculo,
+        idTransportadoraVeiculoServer: idTransportadora,
       }),
     })
     .then(function (resposta) {
@@ -53,7 +56,7 @@ function cadastrarVeiculo() {
 
         if (resposta.ok) {
           cardErro.style.display = "block";
-
+          alert('veiculo cadastrado com sucesso')
           limparFormulario();
           finalizarAguardar();
         } else {

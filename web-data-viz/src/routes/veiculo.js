@@ -4,7 +4,7 @@ var router = express.Router();
 var veiculoController = require("../controllers/veiculoController");
 
 router.post("/cadastrar", function (req, res) {
-    veiculoController.cadastrar(req, res);
+    veiculoController.cadastrarVeiculo(req, res);
 })
 
 router.get("/atualizar", function (req, res) {

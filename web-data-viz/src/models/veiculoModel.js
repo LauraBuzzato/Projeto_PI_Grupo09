@@ -1,21 +1,21 @@
 var database = require("../database/config")
 
-function cadastrar(tipo, placa, ano, modelo, fkTransportadora) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
+function cadastrandoVeiculo(tipo, placa, ano, modelo, idTransportadora) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", tipo, placa, ano, modelo, idTransportadora);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO veiculo (tipo, placa, ano, modelo, idtransportadora) VALUES ('${tipo}', '${placa}', 
-        '${ano}','${modelo}', '${fkTransportadora}');
+        INSERT INTO veiculo (idtransportadora, tipo, placa, modelo, ano, ativo) VALUES ('${idTransportadora}','${tipo}', '${placa}', 
+        '${modelo}', '${ano}', true);
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function listar(fkTransportadora) {
+function listar(idTransportadora) {
     var instrucaoSql = `
-        SELECT tipo,placa,ano,modelo,idveiculo FROM veiculo where idtransportadora = ${fkTransportadora};
+        SELECT tipo,placa,ano,modelo,idveiculo FROM veiculo where idtransportadora = ${idTransportadora};
     `;
     return database.executar(instrucaoSql);
 }
@@ -31,7 +31,7 @@ function buscarVeiculos(idCliente, idTransportadora) {
 
 
 module.exports = {
-    cadastrar,
+    cadastrandoVeiculo,
     listar,
     buscarVeiculos
 };
