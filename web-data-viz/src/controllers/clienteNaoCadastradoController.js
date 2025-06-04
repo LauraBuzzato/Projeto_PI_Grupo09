@@ -26,7 +26,7 @@ function cadastrar2(req, res) {
     } else {
         clienteModel.cadastrar2(cep, logradouro, numero, complemento, bairro, cidade, estado)
             .then(resultado => {
-                res.json({ idEndereco: resultado.insertId }); // retorna o ID do Endereco
+                res.json({ idEndereco: resultado.insertId }); 
             })
             .catch(erro => {
                 console.error("Erro ao cadastrar transportadora:", erro.sqlMessage);
@@ -35,12 +35,12 @@ function cadastrar2(req, res) {
     }
 }
 
-function buscarEnderecoPorNome(req, res) {
+function buscarIdEndereco(req, res) {
     const cep = req.params.cep
     const logradouro = req.params.logradouro
     const numero = req.params.numero;
 
-    clienteModel.buscarEnderecoPorNome(cep, logradouro, numero)
+    clienteModel.buscarIdEndereco(cep, logradouro, numero)
         .then(resultado => {
             if (resultado.length === 0) {
                 res.status(404).send("Transportadora não encontrada!");
@@ -74,7 +74,7 @@ function cadastrar(req, res) {
     } else {
         clienteModel.cadastrar(nome, CNPJ, telefone, idEndereco)
             .then(resultadoCadastro => {
-                res.json({ idUsuario: resultadoCadastro.insertId });
+                res.json({ idEndereco: resultadoCadastro.insertId });
             })
             .catch(erro => {
                 console.error("Erro ao cadastrar usuário:", erro.sqlMessage);
@@ -87,6 +87,6 @@ function cadastrar(req, res) {
 
 module.exports = {
     cadastrar2,
-    buscarEnderecoPorNome,
+    buscarIdEndereco,
     cadastrar
 }

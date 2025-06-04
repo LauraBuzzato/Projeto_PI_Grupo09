@@ -8,7 +8,7 @@ router.post("/cadastrar2", function (req, res){
     clienteNaoCadastradoController.cadastrar2(req, res)
 })
 
-router.get("/buscar-id-endereco/:cep/:logradouro/:numero", function (req, res){
+router.get("/buscarIdEndereco/:cep/:logradouro/:numero", function (req, res){
     clienteNaoCadastradoController.buscarIdEndereco(req, res)
 })
 

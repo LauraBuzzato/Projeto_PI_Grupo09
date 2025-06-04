@@ -1,6 +1,6 @@
 function cadastrar() {
         var nomeDoCliente =  document.getElementById("nomeCliente").value
-        var documendoDoCliente = docCliente.value
+        var documendoDoCliente = document.getElementById("docCliente").value
         var TelefoneDoCliente =document.getElementById("clienteTel").value
         var cepDoCliente =document.getElementById("cepCliente").value
         var logradouroDoCliente =document.getElementById("logradouroCliente").value
@@ -11,7 +11,9 @@ function cadastrar() {
         var estadoDoCliente =document.getElementById("estadoCliente").value
 
 
-        if (nomeDoCliente == null || documendoDoCliente == null || TelefoneDoCliente == null || cepDoCliente == null || logradouroDoCliente == null || numeroDoCliente == null || complementoDoCliente == null || bairroDoCliente == null || cidadeDoCliente == null || estadoDoCliente == null) {
+        if (!nomeDoCliente || !documendoDoCliente || !TelefoneDoCliente || !cepDoCliente || 
+            !logradouroDoCliente || !numeroDoCliente  || !complementoDoCliente  || 
+            !bairroDoCliente  || !cidadeDoCliente  || !estadoDoCliente ) {
             alert("preencha todos os campos!")
             return ;
         } 
@@ -50,7 +52,7 @@ function cadastrar() {
             }
 
             //Buscar ID da enderecoCliente
-            return fetch(`/usuarios/buscar-id-endereco/${cep},${logradouro},${numero}`);
+            return fetch(`/clienteNaoCadastrado/buscarIdEndereco/${cepDoCliente}/${logradouroDoCliente}/${numeroDoCliente}`);
         })
         .then((resposta2) => {
             if (!resposta2.ok) {
@@ -59,6 +61,7 @@ function cadastrar() {
             return resposta2.json();
         })
         .then((dados) => {
+            console.log(dados.idendereco)
             const idEndereco = dados.idendereco;
 
             //Cadastrar usuário com o ID da transportadora
