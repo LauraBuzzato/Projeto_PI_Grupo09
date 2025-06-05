@@ -10,6 +10,33 @@ var instrucao = `
     return database.executar(instrucao);
 }
 
-module.exports = {
-    buscarDadosAlerta
+function buscarAlertasAtivos(idTransportadora) {
+    var instrucao = `
+        SELECT a.idalerta, a.duracao, a.limite, 
+        DATE_FORMAT(a.inicio, '%H:%i:%s') as inicio, p.idpedido, v.placa, c.nome as cliente,
+            CASE 
+                WHEN a.limite <= 2 THEN 'abaixo do mínimo'
+                WHEN a.limite >= 8 THEN 'acima do máximo'
+            END as tipo_alerta,
+            CASE 
+                WHEN ls.valor BETWEEN 1.5 AND 2.5 AND a.limite = 2 THEN 'atencao'
+                WHEN ls.valor BETWEEN 7.5 AND 8.5 AND a.limite = 8 THEN 'atencao'
+                ELSE 'perigo'
+            END as gravidade
+        FROM alerta a
+        JOIN pedido p ON a.idpedido = p.idpedido
+        JOIN veiculo v ON p.idveiculo = v.idveiculo
+        JOIN cliente c ON p.idcliente = c.idcliente
+        JOIN leiturasensor ls ON p.idpedido = ls.idpedido
+        WHERE v.idtransportadora = ${idTransportadora}
+        AND ls.data_hora = (SELECT MAX(data_hora) FROM leiturasensor WHERE idpedido = p.idpedido)
+        AND p.concluido = false
+        ORDER BY a.inicio DESC;
+    `;
+    return database.executar(instrucao);
 }
+
+module.exports = {
+    buscarDadosAlerta,
+    buscarAlertasAtivos
+};

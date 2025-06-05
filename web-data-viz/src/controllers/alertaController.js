@@ -15,6 +15,20 @@ function buscarDadosAlerta(req, res) {
         });
 }
 
-module.exports = {
-    buscarDadosAlerta
+function buscarAlertasAtivos(req, res) {
+    var idTransportadora = req.params.idTransportadora;
+
+    alertaModel.buscarAlertasAtivos(idTransportadora)
+        .then(function(resultado) {
+            res.json(resultado);
+        })
+        .catch(function(erro) {
+            console.error("Erro ao buscar alertas ativos:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
+
+module.exports = {
+    buscarDadosAlerta,
+    buscarAlertasAtivos
+};
