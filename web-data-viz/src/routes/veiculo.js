@@ -18,5 +18,5 @@ router.get("/buscarVeiculos/:idTransportadora", function (req, res) {
 router.put("/removerveiculo/:idveiculo", function (req, res) {
     veiculoController.removerVeiculo(req,res)
 })
-
+ 
 module.exports = router;

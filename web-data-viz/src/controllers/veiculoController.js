@@ -65,22 +65,25 @@ function buscarVeiculos(req, res){
             res.json(resultado);
         })
         .catch((erro) => {
-            console.error("Erro ao buscar veiculos:", erro);
             res.status(500).json({ erro: erro.sqlMessage });
         });
     }
 
-function veiculoController(req,res){
+function removerVeiculo(req,res){
     var idveiculo = req.params.idveiculo
-    console('veiculoid controller', idveiculo) 
+    console.log('veiculoid controller', idveiculo) 
+    veiculoModel.removerveiculo(idveiculo)
+    .then((resultado) => {
+        res.json(resultado)
+    })
 
 }
 
-
+ 
 module.exports = {
     cadastrarVeiculo,
     puxandoVeiculos,
-    veiculoController,
-    buscarVeiculos
+    buscarVeiculos,
+    removerVeiculo
   
 }

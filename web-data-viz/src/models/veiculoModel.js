@@ -33,9 +33,18 @@ function buscarVeiculos(idTransportadora) {
     return database.executar(instrucao);
 }
 
+function removerveiculo(idveiculo){
+    var instrucao = `
+        update veiculo
+    set ativo = false
+    where idveiculo = ${idveiculo};
+    `
+    return database.executar(instrucao)
+}
 
 module.exports = {
     cadastrandoVeiculo,
     listarVeiculos,
-    buscarVeiculos
+    buscarVeiculos,
+    removerveiculo
 };
