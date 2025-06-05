@@ -1043,3 +1043,52 @@ h1 {
 .sair{
     cursor: pointer;
 }
+
+#container{
+    min-height: 92vh;
+    text-align: center;
+}
+
+#resposta {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #D0D3D4;
+    border: 1px solid #63666A;
+    text-align: left;
+    display: none;
+    color: #1F2A44;
+    max-width: 60%;
+    text-align: center;
+    margin: 20px auto 0 auto;
+}
+
+.suporte h1{
+    color: #1F2A44;
+}
+
+.suporte textarea[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+.suporte select,
+.suporte button {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.suporte button {
+    background-color: rgb(17, 74, 179);
+    color: #FFFFFF;
+    border: none;
+}
+
+.suporte button:hover {
+    background-color: rgb(124, 229, 255);
+    color: rgb(17, 74, 179);
+}
