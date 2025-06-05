@@ -74,7 +74,8 @@ insert into usuario (nome,email, senha, administrador, idTransportadora) values
 ('Carlos Silva','carlos.silva@hc-campinas.com','campi@22',  false, 7), 
 ('Natan Alves','natan.alves@hc-curitiba.com','curi@001',  false, 5), 
 ('Luana Torres','luana.torres@pharma-bh.com','pharmabh#', false, 1),
-('Juliana Peres','juliana.peres@biofort.com','fort#987',  false, 3); 
+('Juliana Peres','juliana.peres@biofort.com','fort#987',  false, 3),
+(null, 'suporte@gmail.com', '123', true, 1); 
 
 
 create table cliente(
