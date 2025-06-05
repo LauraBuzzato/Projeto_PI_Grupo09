@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function cadastrandoVeiculo(tipo, placa, ano, modelo, idTransportadora) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", tipo, placa, ano, modelo, idTransportadora);
-    
+
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
@@ -22,11 +22,12 @@ and v.ativo = true;
     return database.executar(retornoVeiculos);
 }
 
-function buscarVeiculos(idCliente, idTransportadora) {
+function buscarVeiculos(idTransportadora) {
     var instrucao = `
-        select placa, tipo, v.idveiculo from veiculo v
-        inner join pedido p on v.idveiculo = p.idveiculo
-        where idtransportadora = ${idTransportadora} and idcliente = ${idCliente};
+        select  placa, tipo, v.idveiculo
+        from veiculo v
+        inner join transportadora as t on v.idtransportadora = t.idtransportadora
+        where v.idtransportadora = ${idTransportadora};
     `;
     return database.executar(instrucao);
 }

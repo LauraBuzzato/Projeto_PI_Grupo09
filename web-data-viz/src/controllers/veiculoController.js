@@ -58,10 +58,9 @@ function puxandoVeiculos(req,res) {
 }
 
 function buscarVeiculos(req, res){
-    const idCliente = req.params.idCliente
     const idTransportadora = req.params.idTransportadora
 
-    veiculoModel.buscarVeiculos(idCliente, idTransportadora)
+    veiculoModel.buscarVeiculos(idTransportadora)
         .then((resultado) => {
             res.json(resultado);
         })

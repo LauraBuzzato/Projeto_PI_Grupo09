@@ -156,6 +156,7 @@
 <script src="../js/logicaCadastros.js"></script>
 <script>
     var idTransportadora = sessionStorage.ID_TRANSPORTADORA
+    
     fetch(`/pedidos/buscarCliente/${idTransportadora}`)
         .then(res => res.json())
         .then(cliente => {
@@ -166,12 +167,10 @@
             $('#Cliente').trigger('change.select2');
         });
 
-    $('#Cliente').on('change', function () {
-        const idCliente = $(this).val();
         $('#veiculoPedido').html('<option value="">-- Escolha um veículo --</option>');
 
-        if (idCliente) {
-            fetch(`/veiculo/buscarVeiculos/${idCliente}/${idTransportadora}`)
+      
+            fetch(`/veiculo/buscarVeiculos/${idTransportadora}`)
                 .then(res => res.json())
                 .then(pedidos => {
                     pedidos.forEach(veiculopedido => {
@@ -182,10 +181,8 @@
                     });
                     $('#veiculoPedido').trigger('change.select2');
                 });
-        }
+        
 
-
-    });
 </script>
 
 </html>

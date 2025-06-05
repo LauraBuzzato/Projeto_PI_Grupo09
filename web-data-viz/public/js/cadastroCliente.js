@@ -29,7 +29,7 @@ function cadastrar() {
             alert("Insira apenas a sigla do estado! (2 dígitos)");
             return;
         }
-        if(TelefoneDoCliente.length != 20){
+        if(TelefoneDoCliente.length != 15){
             alert("Telefone inválido.")
             return
         }

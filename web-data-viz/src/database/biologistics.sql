@@ -95,13 +95,6 @@ insert into usuario (nome,email, senha, administrador, idTransportadora) values
 ('Juliana Peres','juliana.peres@biofort.com','fort#987',  false, 3); 
 
 
-create table chamado(
-idchamado int primary key,
-idusuario int,
-mensagem varchar(500),
-classificacao varchar(80),
-foreign key (idusuario) references usuario(idUsuario)
-);
 
 create table veiculo (
     idveiculo int primary key auto_increment,
@@ -150,8 +143,8 @@ create table pedido (
     idpedido int primary key auto_increment,
     idveiculo int,
     idcliente int,
-    data_pedido datetime,
-    data_entrega_prevista datetime,
+    data_pedido date,
+    data_entrega_prevista date,
     data_entrega_real datetime,
     tipo_medicamento1 varchar(100),
     quantidade_medicamento1 int,
@@ -165,12 +158,12 @@ create table pedido (
 );
 -- insert pedidos
 insert into pedido (idveiculo, idcliente, data_pedido, data_entrega_prevista, data_entrega_real, tipo_medicamento1, quantidade_medicamento1, tipo_medicamento2, quantidade_medicamento2, status) values 
-(5, 2, '2025-04-21 12:30:00', '2025-04-22 16:00:00', null, 'Vacina C', 150, 'Vacina D', 250, 'pendente'),
-(2, 6, '2025-04-20 10:00:00', '2025-04-21 14:00:00', '2025-04-21 15:00:00', 'Vacina A', 100, 'Vacina B', 200, 'entregue'),
-(7, 1, '2025-04-23 13:00:00', '2025-04-24 15:30:00', null, 'Vacina E', 200, null, null, 'pendente'),
-(3, 4, '2025-04-22 09:15:00', '2025-04-23 10:30:00', null, 'Medicamento X', 50, 'Medicamento Y', 120,  'em_transporte'),
-(1, 5, '2025-04-24 08:45:00', '2025-04-25 11:00:00', '2025-04-25 12:00:00', 'Medicamento Z', 75, 'Medicamento W', 180, 'entregue'),
-(4, 3, '2025-04-25 14:00:00', '2025-04-26 18:00:00', null, 'Vacina F', 300, 'Vacina G', 100, 'cancelado'),
+(5, 2, '2025-04-21', '2025-04-22', null, 'Vacina C', 150, 'Vacina D', 250, 'pendente'),
+(2, 6, '2025-04-20', '2025-04-21', '2025-04-21 15:00:00', 'Vacina A', 100, 'Vacina B', 200, 'entregue'),
+(7, 1, '2025-04-23', '2025-04-24', null, 'Vacina E', 200, null, null, 'pendente'),
+(3, 4, '2025-04-22', '2025-04-23', null, 'Medicamento X', 50, 'Medicamento Y', 120,  'em_transporte'),
+(1, 5, '2025-04-24', '2025-04-25', '2025-04-25 12:00:00', 'Medicamento Z', 75, 'Medicamento W', 180, 'entregue'),
+(4, 3, '2025-04-25', '2025-04-26', null, 'Vacina F', 300, 'Vacina G', 100, 'cancelado'),
 (2, 5, '2025-04-26', '2025-04-29', null, 'Vacina A', 300, null, null, 'em_transporte');
 
 
