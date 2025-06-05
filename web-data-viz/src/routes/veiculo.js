@@ -11,9 +11,8 @@ router.post("/atualizar", function (req, res) {
     veiculoController.puxandoVeiculos(req, res);
 })
 
-router.get("/buscarVeiculos/:idCliente/:idTransportadora", function (req, res) {
-    veiculoController.buscarVeiculos(req, res);
+router.put("/removerveiculo/:idveiculo", function (req, res) {
+    veiculoController.removerVeiculo(req,res)
 })
-
 
 module.exports = router;

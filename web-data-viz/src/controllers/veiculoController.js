@@ -57,24 +57,15 @@ function puxandoVeiculos(req,res) {
     
 }
 
-function buscarVeiculos(req, res){
-    const idCliente = req.params.idCliente
-    const idTransportadora = req.params.idTransportadora
-
-    veiculoModel.buscarVeiculos(idCliente, idTransportadora)
-        .then((resultado) => {
-            res.json(resultado);
-        })
-        .catch((erro) => {
-            console.error("Erro ao buscar veiculos:", erro);
-            res.status(500).json({ erro: erro.sqlMessage });
-        });
+function veiculoController(req,res){
+    var idveiculo = req.params.idveiculo
+    console('veiculoid controller', idveiculo) 
 }
 
 
 module.exports = {
     cadastrarVeiculo,
     puxandoVeiculos,
-    buscarVeiculos
+    veiculoController
   
 }

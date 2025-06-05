@@ -15,25 +15,15 @@ function cadastrandoVeiculo(tipo, placa, ano, modelo, idTransportadora) {
 
 function listarVeiculos(idTransportadora) {
     var retornoVeiculos = `
-        select v.tipo as tipo, v.placa as placa, v.modelo as modelo, v.ano as ano, v.ativo as v_status from veiculo as v
+        select v.idveiculo as idveiculo, v.tipo as tipo, v.placa as placa, v.modelo as modelo, v.ano as ano, v.ativo as v_status from veiculo as v
 where idtransportadora = ${idTransportadora}
 and v.ativo = true;
     `;
     return database.executar(retornoVeiculos);
 }
 
-function buscarVeiculos(idCliente, idTransportadora) {
-    var instrucao = `
-        select placa, tipo, v.idveiculo from veiculo v
-        inner join pedido p on v.idveiculo = p.idveiculo
-        where idtransportadora = ${idTransportadora} and idcliente = ${idCliente};
-    `;
-    return database.executar(instrucao);
-}
-
 
 module.exports = {
     cadastrandoVeiculo,
-    listarVeiculos,
-    buscarVeiculos
+    listarVeiculos
 };
