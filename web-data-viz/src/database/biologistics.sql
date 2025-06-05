@@ -29,23 +29,7 @@ insert into endereco (logradouro, numero, complemento, bairro, cidade, estado, c
 
 select * from endereco;
 
-create table cliente(
-    idcliente int not null primary key auto_increment,
-    idendereco int not null,
-    nome varchar(80),
-    CNPJ varchar(18),
-    telefone varchar(20),
-    foreign key (idendereco) references endereco(idendereco)
-    );
--- insert  cliente
-insert into cliente(idendereco, nome, CNPJ, telefone) values 
-(4, 'AstraZeneca do Brasil', '60.318.797/0001-06', '(19) 3721-8000'),
-(2, 'Fiocruz','00.394.544/0001-40', '(21) 3865-9500'),
-(7, 'Janssen-Cilag Farmacêutica', '59.748.514/0001-00', '(85) 3456-7890'),
-(1, 'Pfizer Brasil', '33.000.167/0001-10', '(11) 4002-8922'),
-(6, 'Bio-Manguinhos', '00.394.544/0015-00', '(31) 3224-1010'),
-(5, 'Moderna Brasil', '12.345.678/0001-99', '(41) 3304-1000'),
-(3, 'Butantan', '63.025.530/0001-38', '(11) 2627-9300');
+
 
 
 create table transportadora (
@@ -55,23 +39,21 @@ create table transportadora (
     telefone varchar(20) not null,
     ativo boolean default true,
     idendereco int,
-    matrizTransportadora int,
-    foreign key (idendereco) references endereco(idendereco),
-    foreign key (matrizTransportadora) references transportadora(idTransportadora)
+    foreign key (idendereco) references endereco(idendereco)
 );
 
 -- insert trasportadora
 
 -- insert transportadora
-insert into transportadora (nome, cnpj, telefone, idendereco, matrizTransportadora) values 
+insert into transportadora (nome, cnpj, telefone, idendereco) values 
 
-  ('HealthCargo Logística', '01.987.654/0001-01', '(11) 3456-7890', 3, null),
-  ('PharmaExpress','02.123.456/0001-02', '(21) 2345-6789', 1, null),
-  ('BioTransMedic','03.654.321/0001-03', '(31) 8765-4321', 2, null),
-  ('HealthCargo - Unidade Campinas', '01.987.654/0002-01', '(19) 4002-8922', 4, 3),
-  ('HealthCargo - Unidade Curitiba', '01.987.654/0003-01', '(41) 3222-3344', 5, 3),
-  ('PharmaExpress - Unidade BH',     '02.123.456/0002-02', '(31) 3555-6677', 6, 1),
-  ('BioTransMedic - Fortaleza',      '03.654.321/0002-03', '(85) 98877-1122', 7, 2);
+  ('HealthCargo Logística', '01.987.654/0001-01', '(11) 3456-7890', 3),
+  ('PharmaExpress','02.123.456/0001-02', '(21) 2345-6789', 1),
+  ('BioTransMedic','03.654.321/0001-03', '(31) 8765-4321', 2),
+  ('HealthCargo - Unidade Campinas', '01.987.654/0002-01', '(19) 4002-8922', 4),
+  ('HealthCargo - Unidade Curitiba', '01.987.654/0003-01', '(41) 3222-3344', 5),
+  ('PharmaExpress - Unidade BH',     '02.123.456/0002-02', '(31) 3555-6677', 6),
+  ('BioTransMedic - Fortaleza',      '03.654.321/0002-03', '(85) 98877-1122', 7);
 
 
 create table usuario(
@@ -95,6 +77,25 @@ insert into usuario (nome,email, senha, administrador, idTransportadora) values
 ('Juliana Peres','juliana.peres@biofort.com','fort#987',  false, 3); 
 
 
+create table cliente(
+    idcliente int not null primary key auto_increment,
+    idendereco int not null,
+    idtransportadora int,
+    nome varchar(80),
+    CNPJ varchar(18),
+    telefone varchar(20),
+    foreign key (idendereco) references endereco(idendereco),
+    foreign key (idtransportadora) references transportadora(idtransportadora)
+    );
+-- insert  cliente
+insert into cliente(idtransportadora, idendereco, nome, CNPJ, telefone) values 
+(7,4, 'AstraZeneca do Brasil', '60.318.797/0001-06', '(19) 3721-8000'),
+(5,2, 'Fiocruz','00.394.544/0001-40', '(21) 3865-9500'),
+(4,7, 'Janssen-Cilag Farmacêutica', '59.748.514/0001-00', '(85) 3456-7890'),
+(1,1, 'Pfizer Brasil', '33.000.167/0001-10', '(11) 4002-8922'),
+(2,6, 'Bio-Manguinhos', '00.394.544/0015-00', '(31) 3224-1010'),
+(2,5, 'Moderna Brasil', '12.345.678/0001-99', '(41) 3304-1000');
+
 
 create table veiculo (
     idveiculo int primary key auto_increment,
@@ -116,6 +117,11 @@ insert into veiculo (idtransportadora, tipo, placa, modelo, ano) values
 (3, 'Caminhão', 'HGF5T67', 'Ford Cargo 1119', 2019),
 (7, 'Avião',    'RTY8H76', 'Beechcraft King Air 350',2020);
 
+select c.*, t.* 
+from pedido as p
+inner join veiculo as v on v.idveiculo = p.idveiculo
+inner join transportadora as t on t.idtransportadora = v.idtransportadora
+inner join cliente as c on c.idcliente = p.idcliente;
 
 create table sensor (
     idsensor int primary key auto_increment,
