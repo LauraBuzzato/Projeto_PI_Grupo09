@@ -15,7 +15,7 @@ function cadastrar() {
     }
 
     if (cnpj.length != 18) {
-  alert("CNPJ inválido! Deve conter 14 números.");
+  alert("CNPJ inválido! Deve conter 18 números.");
   return;
 }
 
