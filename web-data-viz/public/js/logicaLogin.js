@@ -38,12 +38,18 @@ function login(){
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.ID_TRANSPORTADORA = json.idTransportadora;
                     
-                    if(json.administrador == 1){
+                    if(json.email=='suporte@gmail.com'){
+                        window.location.href = "suporte.html"
+                    }
+                    else{
+                        if(json.administrador == 1){
                         window.location.href = "transportadora/alertas.html";
                     }
                     else{
                         window.location.href = "funcionario/alertas.html";
                     }
+                    }
+                    
                         
                    
                         
