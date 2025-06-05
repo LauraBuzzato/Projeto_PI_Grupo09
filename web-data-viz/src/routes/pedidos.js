@@ -19,6 +19,10 @@ router.get("/buscarPedidoConcluido/:idCliente/:idTransportadora", function (req,
     pedidoController.buscarPedidoConcluido(req, res);
 })
 
+router.get("/buscarDadosPedidoConcluido/:idPedido", function (req, res) {
+    pedidoController.buscarDadosPedidoConcluido(req, res);
+})
+
 router.get("/buscarClienteFinalizado/:idTransportadora", function (req, res) {
     pedidoController.buscarClienteFinalizado(req, res);
 })
