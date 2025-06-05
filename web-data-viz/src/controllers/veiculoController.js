@@ -68,12 +68,18 @@ function buscarVeiculos(req, res){
             console.error("Erro ao buscar veiculos:", erro);
             res.status(500).json({ erro: erro.sqlMessage });
         });
+    }
+    
+function veiculoController(req,res){
+    var idveiculo = req.params.idveiculo
+    console('veiculoid controller', idveiculo) 
+
 }
 
 
 module.exports = {
     cadastrarVeiculo,
     puxandoVeiculos,
-    buscarVeiculos
+    veiculoController
   
 }

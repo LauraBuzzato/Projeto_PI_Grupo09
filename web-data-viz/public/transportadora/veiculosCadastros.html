@@ -70,9 +70,13 @@
                                     d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
                             </svg></button></span></h4>
                             -->
+
             <tbody id="tabela_veiculos">
-                <div id="div_resultado"></div>
-                <!-- Veículos serão inseridos aqui via JS -->
+                <div class="veiculosCadastrados">
+                    <div id="veiculosCadastrados" class="Itens"></div>
+                    <!-- Veículos serão inseridos aqui via JS -->
+
+                </div>
             </tbody>
         </div>
     </div>
@@ -109,12 +113,15 @@
     </div>
     <img src="../img/logo-removebg-preview 1.png" alt="" class="logo_final">
 </body>
+
 <script src="../js/logicaCadastros.js"></script>
 
 <script>
+    var idrecebido = 0
     function atualizarVeiculos() {
-        div_resultado.innerHTML = ''
+        veiculosCadastrados.innerHTML = ''
         var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
+
 
         console.log('id transportadora', idTransportadora)
         fetch("/veiculo/atualizar", {
@@ -129,13 +136,35 @@
             .then(res => res.json()
                 .then(veiculos => { //armazenando os dados de resposta em veiculos
                     for (var i = 0; i < veiculos.length; i++) {
-                        div_resultado.innerHTML += `
+                        idrecebido = veiculos[i].idveiculo
+                        veiculosCadastrados.innerHTML += `
         <span class="Itens" id="span_infoVeiculos">Tipo: ${veiculos[i].tipo}</span> <span class="Itens">Placa: ${veiculos[i].placa}</span>
-        <span class="Itens" id="span_infoVeiculos">Modelo: ${veiculos[i].modelo}</span> <span class="Itens">Placa: ${veiculos[i].ano}</span> <br>
+        <span class="Itens" id="span_infoVeiculos">Modelo: ${veiculos[i].modelo}</span> <span class="Itens">Placa: ${veiculos[i].ano}</span>
+        <button onclick="removerVeiculo(${idrecebido})" class="botao">EXCLUIR</button>  <br>
         `
                     }
                 })
             )
+
+    }
+
+
+    function removerVeiculo(idrecebido) {
+        idveiculo = idrecebido
+        console.log('id veiculo',idveiculo)
+
+        fetch(`veiculo/removerveiculo/${idveiculo}`,{
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                
+            },
+        })
+        .then((res) =>{
+            if(res.att){
+                atualizarVeiculos()
+            }
+        })
     }
 </script>
 

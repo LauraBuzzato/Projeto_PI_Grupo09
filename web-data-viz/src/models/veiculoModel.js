@@ -15,12 +15,13 @@ function cadastrandoVeiculo(tipo, placa, ano, modelo, idTransportadora) {
 
 function listarVeiculos(idTransportadora) {
     var retornoVeiculos = `
-        select v.tipo as tipo, v.placa as placa, v.modelo as modelo, v.ano as ano, v.ativo as v_status from veiculo as v
+        select v.idveiculo as idveiculo, v.tipo as tipo, v.placa as placa, v.modelo as modelo, v.ano as ano, v.ativo as v_status from veiculo as v
 where idtransportadora = ${idTransportadora}
 and v.ativo = true;
     `;
     return database.executar(retornoVeiculos);
 }
+
 
 function buscarVeiculos(idTransportadora) {
     var instrucao = `
