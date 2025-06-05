@@ -17,10 +17,10 @@ var instrucaoSql = `
 }
 
 
-function cadastrar(nome, CNPJ, telefone, idEndereco) {
+function cadastrar(nome, CNPJ, telefone, idEndereco, idTransportadora) {
     
     var instrucaoSql = `
-        INSERT INTO cliente (idendereco ,nome, CNPJ, telefone) VALUES ('${idEndereco}','${nome}', '${CNPJ}', '${telefone}');
+        INSERT INTO cliente (idendereco ,nome, CNPJ, telefone, idtransportadora) VALUES ('${idEndereco}','${nome}', '${CNPJ}', '${telefone}', '${idTransportadora}');
         `;
    
     return database.executar(instrucaoSql);

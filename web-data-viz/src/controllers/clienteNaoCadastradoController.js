@@ -8,6 +8,7 @@ function cadastrar2(req, res) {
     var bairro = req.body.bairroCliente;
     var cidade = req.body.cidadeCliente;
     var estado = req.body.estadoCliente;
+    
 
     if (!cep) {
         res.status(400).send("O cep está indefinido!");
@@ -60,6 +61,7 @@ function cadastrar(req, res) {
     var CNPJ = req.body.documendoCliente;
     var telefone = req.body.TelefoneCliente;
     var idEndereco = req.params.idEndereco
+    var idTransportadora = req.body.idTransportadoraClienteServer;
     
 
     // Faça as validações dos valores
@@ -71,8 +73,10 @@ function cadastrar(req, res) {
         res.status(400).send("Seu telefone está undefined!");
     } else if (idEndereco == undefined) {
         res.status(400).send("Erro idEndereco undefined!");
+    } else if (!idTransportadora) {
+        res.status(400).send("O idTransportadora está indefinido!");
     } else {
-        clienteModel.cadastrar(nome, CNPJ, telefone, idEndereco)
+        clienteModel.cadastrar(nome, CNPJ, telefone, idEndereco, idTransportadora)
             .then(resultadoCadastro => {
                 res.json({ idEndereco: resultadoCadastro.insertId });
             })

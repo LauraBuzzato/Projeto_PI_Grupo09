@@ -2,10 +2,9 @@ var database = require("../database/config")
 
 function buscarCliente(idTransportadora) {
     var instrucao = `
-        select c.idcliente, nome from cliente c
-        inner join pedido p on c.idcliente=p.idcliente
-        inner join veiculo v on p.idveiculo=v.idveiculo
-        where idtransportadora = ${idTransportadora} and p.concluido = false;
+        select c.idcliente, c.nome from cliente c
+        inner join transportadora as t on t.idtransportadora = c.idtransportadora
+        where c.idtransportadora = ${idTransportadora};
     `;
     return database.executar(instrucao);
 }

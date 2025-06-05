@@ -9,6 +9,7 @@ function cadastrar() {
         var bairroDoCliente =document.getElementById("bairroCliente").value
         var cidadeDoCliente =document.getElementById("cidadeCliente").value
         var estadoDoCliente =document.getElementById("estadoCliente").value
+        var idTransportadora = sessionStorage.ID_TRANSPORTADORA
 
 
         if (!nomeDoCliente || !documendoDoCliente || !TelefoneDoCliente || !cepDoCliente || 
@@ -38,6 +39,7 @@ function cadastrar() {
             return
         }
         
+        
             // Enviando o valor da nova input
             fetch("/clienteNaoCadastrado/cadastrar2", {
                 method: "POST",
@@ -52,6 +54,7 @@ function cadastrar() {
                     bairroCliente: bairroDoCliente,
                     cidadeCliente: cidadeDoCliente,
                     estadoCliente: estadoDoCliente
+                    
                 }),
             })
                 .then((resposta1) => {
@@ -80,7 +83,8 @@ function cadastrar() {
                     nomeCliente: nomeDoCliente,
                     documendoCliente: documendoDoCliente,
                     TelefoneCliente: TelefoneDoCliente,
-                    idEndereco: idEndereco
+                    idEndereco: idEndereco,
+                    idTransportadoraClienteServer : idTransportadora
                 }),
             });
         })
