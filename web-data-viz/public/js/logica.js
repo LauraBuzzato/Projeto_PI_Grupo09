@@ -19,7 +19,7 @@ function cadastrar() {
   return;
 }
 
-if (telefone.length != 14) {
+if (telefone.length != 15) {
     alert("Telefone inválido! Não se esqueça de colocar o DDD antes!");
     return;
 }
