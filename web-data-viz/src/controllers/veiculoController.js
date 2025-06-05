@@ -69,7 +69,7 @@ function buscarVeiculos(req, res){
             res.status(500).json({ erro: erro.sqlMessage });
         });
     }
-    
+
 function veiculoController(req,res){
     var idveiculo = req.params.idveiculo
     console('veiculoid controller', idveiculo) 
@@ -80,6 +80,7 @@ function veiculoController(req,res){
 module.exports = {
     cadastrarVeiculo,
     puxandoVeiculos,
-    veiculoController
+    veiculoController,
+    buscarVeiculos
   
 }

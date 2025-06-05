@@ -23,8 +23,11 @@ router.get("/buscarClienteFinalizado/:idTransportadora", function (req, res) {
     pedidoController.buscarClienteFinalizado(req, res);
 })
 
-router.get("/buscarDadosPedidoConcluido/:idPedido", function (req, res) {
-    pedidoController.buscarDadosPedidoConcluido(req, res);
+router.get("/cadastrarPedido", function (req, res) {
+    pedidoController.cadastrarPedido(req, res);
 })
 
+router.post("/buscarCliente/:idTransportadora", function (req, res) {
+    pedidoController.buscarCliente(req, res);
+})
 module.exports = router;

@@ -70,12 +70,23 @@ limit 1) as tempo_total, concat(et.logradouro,', ', et.numero) enderecoT from cl
     `;
     return database.executar(instrucao);
 }
-
+function cadastrarPedido(qtd1, qtd2, medicamento2, medicamento1, selectCliente, dataDoPedido,
+           dataEntregaPrevista, veiculoDoPedido){
+        var instrucaoSql = `
+            INSERT INTO pedido (quantidade_medicamento1, quantidade_medicamento2, tipo_medicamento1, 
+            tipo_medicamento2, idcliente, data_pedido, data_entrega_prevista, idveiculo) 
+            VALUES ('${qtd1}','${qtd2}','${medicamento2}','${medicamento1}','${selectCliente}','${dataDoPedido}',
+            '${dataEntregaPrevista}','${veiculoDoPedido}');
+        `;
+        console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+}
 module.exports = {
     buscarCliente,
     buscarVeiculo,
     buscarDadosPedido,
     buscarClienteFinalizado,
     buscarPedidoConcluido,
-    buscarDadosPedidoConcluido
+    buscarDadosPedidoConcluido,
+    cadastrarPedido
 };

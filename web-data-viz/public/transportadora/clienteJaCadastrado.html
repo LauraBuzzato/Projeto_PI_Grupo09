@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="box_botao">
-                    <button type="submit" onclick="verificarPedidoJa()"><svg xmlns="http://www.w3.org/2000/svg"
+                    <button type="button" onclick="verificarPedidoJa()"><svg xmlns="http://www.w3.org/2000/svg"
                             width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle"
                             viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -173,6 +173,7 @@
             fetch(`/veiculo/buscarVeiculos/${idTransportadora}`)
                 .then(res => res.json())
                 .then(pedidos => {
+                    console.log(pedidos)
                     pedidos.forEach(veiculopedido => {
                         const texto = `${veiculopedido.tipo} - Veículo placa: ${veiculopedido.placa}`
                         const valor = `${veiculopedido.idveiculo}`

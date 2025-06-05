@@ -27,7 +27,7 @@ function buscarClienteFinalizado(req, res) {
         });
 }
 
-function buscarVeiculo(req, res){
+function buscarVeiculo(req, res) {
     const idCliente = req.params.idCliente
     const idTransportadora = req.params.idTransportadora
 
@@ -41,7 +41,7 @@ function buscarVeiculo(req, res){
         });
 }
 
-function buscarDadosPedido(req, res){
+function buscarDadosPedido(req, res) {
     const idVeiculo = req.params.idVeiculo
     const idCliente = req.params.idCliente
 
@@ -55,7 +55,7 @@ function buscarDadosPedido(req, res){
         });
 }
 
-function buscarPedidoConcluido(req, res){
+function buscarPedidoConcluido(req, res) {
     const idCliente = req.params.idCliente
     const idTransportadora = req.params.idTransportadora
 
@@ -69,7 +69,7 @@ function buscarPedidoConcluido(req, res){
         });
 }
 
-function buscarDadosPedidoConcluido(req, res){
+function buscarDadosPedidoConcluido(req, res) {
     const idPedido = req.params.idPedido
 
     pedidoModel.buscarDadosPedidoConcluido(idPedido)
@@ -81,12 +81,59 @@ function buscarDadosPedidoConcluido(req, res){
             res.status(500).json({ erro: erro.sqlMessage });
         });
 }
+function cadastrarPedido(req, res) {
+    var qtd1 = req.body.qtd1Server;
+    var qtd2 = req.body.qtd2Server;
+    var medicamento2 = req.body.medicamento2Server;
+    var medicamento1 = req.body.medicamento1Server;
+    var selectCliente = req.body.selectClienteServer;
+    var dataDoPedido = req.body.dataDoPedidoServer;
+    var dataEntregaPrevista = req.body.dataEntregaPrevistaServer;
+    var veiculoDoPedido = req.body.veiculoDoPedidoServer;
 
+    // Faça as validações dos valores
+    if (qtd1 == undefined) {
+        res.status(400).send("Qtd1 está undefined!");
+    } else if (qtd2 == undefined) {
+        res.status(400).send("Qtd2 está undefined!");
+    } else if (medicamento2 == undefined) {
+        res.status(400).send("medicamento2 undefined!");
+    } else if (medicamento1 == undefined) {
+        res.status(400).send("medicamento1 undefined!");
+    } else if (selectCliente == undefined) {
+        res.status(400).send("selectCliente undefined!");
+    } else if (dataDoPedido == undefined) {
+        res.status(400).send("dataDoPedido undefined!");
+    } else if (dataEntregaPrevista == undefined) {
+        res.status(400).send("dataEntregaPrevista undefined!");
+    } else if (veiculoDoPedido == undefined) {
+        res.status(400).send("veiculoDoPedido undefined!");
+    } else {
+
+        veiculoModel.cadastrarPedido(qtd1, qtd2, medicamento2, medicamento1, selectCliente, dataDoPedido,
+           dataEntregaPrevista, veiculoDoPedido)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 module.exports = {
     buscarCliente,
     buscarVeiculo,
     buscarDadosPedido,
     buscarClienteFinalizado,
     buscarPedidoConcluido,
-    buscarDadosPedidoConcluido
+    buscarDadosPedidoConcluido,
+    cadastrarPedido
 }

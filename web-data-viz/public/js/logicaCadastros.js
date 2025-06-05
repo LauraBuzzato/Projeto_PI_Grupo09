@@ -2,11 +2,16 @@ function verificarPedidoJa() {
     var qtd1 = Number(qtd_med1.value)
     var qtd2 = Number(qtd_med2.value)
     var medicamento2 = med2.value
+    var medicamento1 = med1.value
+    var selectCliente = Cliente.value
+    var dataDoPedido = dataPedido.value
+    var dataEntregaPrevista = entregaPrevista.value
+    var veiculoDoPedido = veiculoPedido.value
 
 
-    if ((qtd2 > 0 && medicamento2 == '') || qtd1 <= 0 || (qtd2 <= 0 && medicamento2 != '')) {
+    if ((qtd2 > 0 && !medicamento2) || qtd1 <= 0 || (qtd2 <= 0 && medicamento2 != '')) {
 
-        if (qtd2 > 0 && medicamento2 == '') {
+        if (qtd2 > 0 && !medicamento2) {
             alert('Não possível inserir a quantidade do segundo medicamento sem inserir o seu tipo.')
             return;
         }
@@ -15,9 +20,54 @@ function verificarPedidoJa() {
             return;
         }
 
+    }else if(!selectCliente|| !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 ){
+        alert('Algum campo não preenchido.')
+        return
     } else {
-        alert('Cadastro realizado com sucesso!')
+        if(!medicamento2){
+            medicamento2 = null
+        }
+
+        if(!qtd2){
+            qtd2 = null
+        }
+
+        if(!dataDoPedido){
+            dataDoPedido = null
+        }
+        fetch("/pedidos/cadastrarPedido", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        qtd1Server: qtd1,
+        qtd2Server: qtd2,
+        medicamento2Server: medicamento2,
+        medicamento1Server: medicamento1,
+        selectClienteServer: selectCliente,
+        dataDoPedidoServer: dataDoPedido,
+        dataEntregaPrevistaServer:dataEntregaPrevista,
+        veiculoDoPedidoServer:veiculoDoPedido
+      }
+    
+    ), 
+    } )
+    .then((resposta) => {
+            if (!resposta.ok) {
+                throw new Error("Erro no cadastro do pedido!");
+            }
+
+            alert("Cadastro do pedido realizado com sucesso!");
+            
+        })
+        .catch((erro) => {
+            console.error("Erro:", erro);
+        });
+
+    return false;
     }
+
 
 }
 
