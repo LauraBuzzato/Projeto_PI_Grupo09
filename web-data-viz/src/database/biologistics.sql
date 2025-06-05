@@ -117,11 +117,7 @@ insert into veiculo (idtransportadora, tipo, placa, modelo, ano) values
 (3, 'Caminhão', 'HGF5T67', 'Ford Cargo 1119', 2019),
 (7, 'Avião',    'RTY8H76', 'Beechcraft King Air 350',2020);
 
-select c.*, t.* 
-from pedido as p
-inner join veiculo as v on v.idveiculo = p.idveiculo
-inner join transportadora as t on t.idtransportadora = v.idtransportadora
-inner join cliente as c on c.idcliente = p.idcliente;
+
 
 create table sensor (
     idsensor int primary key auto_increment,
@@ -247,4 +243,10 @@ select
 
 select  idleitura_sensor as Id, idsensor as Sensor, idpedido as Pedido, valor as Temperatura, data_hora as Horário
 	from leiturasensor where valor > 8 or valor < 2;
+    
+    select c.*, t.* 
+from pedido as p
+inner join veiculo as v on v.idveiculo = p.idveiculo
+inner join transportadora as t on t.idtransportadora = v.idtransportadora
+inner join cliente as c on c.idcliente = p.idcliente;
  
