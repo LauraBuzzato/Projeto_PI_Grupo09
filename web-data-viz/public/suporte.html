@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BobIA</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="../js/logicaLogin.js"></script>
 </head>
-<body>
+<body class="suporte">
+    <div class="header">
+        <img src="img/logo_BOBIA.png" alt="Bob IA" class="logo">
+        <ul class="navbar">
+            <li>
+                <a href="suporte.html"> <b>Bob IA</b></a>
+            </li>
+            <li>
+                <a href="https://biologistics.atlassian.net/jira/servicedesk/projects/BIOL/boards/35">Jira</a>
+            </li>
+           <li class="sair">
+                <a onclick="limparSessao()">Sair</a>
+            </li>
+        </ul>
+    </div>
 
     <div id="container">
         <h1>BobIA</h1>
@@ -16,6 +31,7 @@
         <h3>Resposta da IA:</h3>
         <div id="resposta"></div>
     </div>
+
 
     <script>
         
