@@ -43,9 +43,18 @@ function buscarDadosPedido(idCliente, idVeiculo) {
 
 function buscarPedidoConcluido(idCliente, idTransportadora) {
     var instrucao = `
-        select p.idpedido, placa from veiculo v
+        select 
+            p.idpedido, 
+            v.placa, 
+            c.nome as nome_cliente,
+            p.tipo_medicamento1,
+            p.data_entrega_real
+        from veiculo v
         inner join pedido p on v.idveiculo = p.idveiculo
-        where v.idtransportadora = ${idTransportadora} and idcliente = ${idCliente} and p.concluido = true;
+        inner join cliente c on p.idcliente = c.idcliente
+        where v.idtransportadora = ${idTransportadora} 
+        and p.idcliente = ${idCliente} 
+        and p.concluido = true;
     `;
     return database.executar(instrucao);
 }

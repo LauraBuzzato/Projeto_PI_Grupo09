@@ -73,10 +73,10 @@
                     <div class="resumo_pedido_container">
                         <div class="resumo_pedido">
                             <div class="partes" id="parte1">
-                                
+
                             </div>
                             <div class="partes" id="parte2">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -96,11 +96,35 @@
         </div>
     </div>
     <div class="mensagemAlerta hidden" id="alerta">
-        <h2 class="titulo">Alertas</h2>
-        <img src="../img/alerta.png" alt="" class="tabelaAlerta">
-
-        <h2 class="titulo">Tabela de Pedidos</h2>
-        <img src="../img/novaTabelaPedidos.png" alt="" class="tabelaPedidos">
+        <h2>Alertas do pedido:</h2>
+        <table id="tabelaAlertas">
+            <thead>
+                <tr>
+                    <th>Número do alerta</th>
+                    <th>Duração</th>
+                    <th>Temperatura excedida</th>
+                    <th>Início do alerta</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabelaAlertas">
+                <!-- lugar onde vão aparecer os alertas -->
+            </tbody>
+        </table>
+        <h2>Pedidos finalizados:</h2>
+        <table id="tabelaPedidos">
+            <thead>
+                <tr>
+                    <th>pedido</th>
+                    <th>nome</th>
+                    <th>placa do veículo</th>
+                    <th>tipo de medicamento</th>
+                    <th>data de entrega</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabelaPedidos">
+                <!-- lugar onde vão aparecer os alertas -->
+            </tbody>
+        </table>
     </div>
 
 
@@ -139,7 +163,6 @@
     </div>
 </body>
 <script>
-
     // grafico barra
     const labels = ["Alerta 1256", "Alerta 1257", "Alerta 1258", "Alerta 1259", "Alerta 1260", "Alerta 1261"];
     const data = {
@@ -205,7 +228,6 @@
     )
 
     // grafico rosquinha
-
     const data2 = {
         labels: [
             'Dentro dos padrões',
@@ -260,8 +282,8 @@
     const alerta = document.getElementById('alerta')
     const parte1 = document.getElementById('parte1')
     const parte2 = document.getElementById('parte2')
-    const mediaAlerta = document.getElementById('mediaAlerta')  
-    const qtdAlerta = document.getElementById('qtdAlerta') 
+    const mediaAlerta = document.getElementById('mediaAlerta')
+    const qtdAlerta = document.getElementById('qtdAlerta')
 
     var idUsuario = sessionStorage.ID_USUARIO
     fetch("/usuarios/buscarIdParaCadastro", {
@@ -295,6 +317,9 @@
 
                 $('#pedidos').html('<option value="">-- Escolha um veículo --</option>');
                 if (idEmpresa) {
+                    // Carrega todos os pedidos finalizados da empresa
+                    carregarPedidosFinalizados(idEmpresa, idTransportadora);
+                    
                     fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
                         .then(res => res.json())
                         .then(pedidos => {
@@ -312,10 +337,82 @@
 
         });
 
+    // Função para carregar os alertas de um pedido
+    function carregarAlertasPedido(idPedido) {
+        fetch(`/medidas/totalDeAlertas/${idPedido}`)
+            .then(res => res.json())
+            .then(alertas => {
+                const corpoTabela = document.getElementById('corpoTabelaAlertas');
+                corpoTabela.innerHTML = ''; // Limpa a tabela
+
+                if (alertas.length > 0) {
+                    for (let i = 0; i < alertas.length; i++) {
+                        const alerta = alertas[i];
+                        const linha = document.createElement('tr');
+
+                        // Células do alerta
+                        linha.innerHTML = `
+                            <td>${alerta.idalerta}</td>
+                            <td>${alerta.duracao || 'Em andamento'}</td>
+                            <td>${alerta.limite === 2 ? `abaixo de ${alerta.limite}°C` : `acima de ${alerta.limite}°C`}</td>
+                            <td>${alerta.inicio}</td>
+                        `;
+
+                        corpoTabela.appendChild(linha);
+                    }
+                } else {
+                    const linha = document.createElement('tr');
+                    linha.innerHTML = '<td colspan="5">Nenhum alerta registrado para este pedido</td>';
+                    corpoTabela.appendChild(linha);
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao buscar alertas:", erro);
+            });
+    }
+
+    // Função para carregar todos os pedidos finalizados da empresa selecionada
+    function carregarPedidosFinalizados(idEmpresa, idTransportadora) {
+    fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
+        .then(res => res.json())
+        .then(pedidos => {
+            const corpoTabela = document.getElementById('corpoTabelaPedidos');
+            corpoTabela.innerHTML = ''; // Limpa a tabela
+
+            if (pedidos.length > 0) {
+                for (let i = 0; i < pedidos.length; i++) {
+                    const pedido = pedidos[i];
+                    const linha = document.createElement('tr');
+
+                    // Células do pedido - corrigindo os nomes dos campos
+                    linha.innerHTML = `
+                        <td>${pedido.idpedido}</td>
+                        <td>${pedido.nome_cliente || 'N/A'}</td>
+                        <td>${pedido.placa}</td>
+                        <td>${pedido.tipo_medicamento1 || 'N/A'}</td>
+                        <td>${pedido.data_entrega_real ? new Date(pedido.data_entrega_real).toLocaleDateString() : 'N/A'}</td>
+                    `;
+
+                    corpoTabela.appendChild(linha);
+                }
+            } else {
+                const linha = document.createElement('tr');
+                linha.innerHTML = '<td colspan="5">Nenhum pedido finalizado encontrado</td>';
+                corpoTabela.appendChild(linha);
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar pedidos finalizados:", erro);
+        });
+}
+
     $('#pedidos').on('change', function () {
-        const idPedido = $(this).val()
+        const idPedido = $(this).val();
 
         if (idPedido) {
+            // Carrega os alertas do pedido selecionado
+            carregarAlertasPedido(idPedido);
+            
             fetch(`/pedidos/buscarDadosPedidoConcluido/${idPedido}`)
                 .then(res => res.json())
                 .then(info => {
@@ -337,19 +434,19 @@
                                 <h4>Tipo de medicamento: ${pedido.tipo_medicamento1}</h4>
         `);
                         fetch(`/alertas/buscarKPI2/${idPedido}`)
-                                .then(res => res.json())
-                                .then(dados => {
+                            .then(res => res.json())
+                            .then(dados => {
 
-                                        var mediaAlertaVar = dados[0].mediaAlerta
-                                        var qtdAlertaVar = dados[0].qtdAlerta
+                                var mediaAlertaVar = dados[0].mediaAlerta
+                                var qtdAlertaVar = dados[0].qtdAlerta
 
 
-                                        $('#mediaAlerta').text(mediaAlertaVar);
-                                        $('#qtdAlerta').text(qtdAlertaVar);
-                                        
-                                    $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
-                                    
-                                })
+                                $('#mediaAlerta').text(mediaAlertaVar);
+                                $('#qtdAlerta').text(qtdAlertaVar);
+
+                                $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+
+                            })
 
                     } else {
                         $('#dadosPedido, #grafico, #alerta').addClass('hidden');
@@ -360,10 +457,5 @@
                 })
         }
     })
-
-
-
-
 </script>
-
 </html>
