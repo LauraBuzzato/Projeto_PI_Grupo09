@@ -58,18 +58,18 @@ const serial = async (
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
-            
+
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
 
-            'INSERT INTO leiturasensor (idsensor, idpedido, valor) VALUES (2, 7, ?)',
+                'INSERT INTO leiturasensor (idsensor, idpedido, valor) VALUES (2, 7, ?)',
                 [sensorTemperatura]
 
-             
+
             );
 
-              if (sensorTemperatura > 8) {
-                
+            if (sensorTemperatura > 8) {
+
                 if (habilitar_insert) {
                     await poolBancoDados.execute(
                         'INSERT INTO alerta (idpedido,limite) VALUES (7, 8)'
@@ -78,10 +78,10 @@ const serial = async (
                     habilitar_insert = false
                 }
 
-                contagem++                
-            }else if(sensorTemperatura < 2){
+                contagem++
+            } else if (sensorTemperatura < 2) {
 
-                if(habilitar_insert){
+                if (habilitar_insert) {
                     await poolBancoDados.execute(
                         'INSERT INTO alerta (idpedido,limite) VALUES (7, 2)'
                     );
@@ -90,13 +90,76 @@ const serial = async (
                 }
 
                 contagem++
-            }else{
-                
-                if(!habilitar_insert){
+            } else {
+                if (!habilitar_insert) {
                     var contagemFinal = contagem * 5
+                    var duracaoFinal = ''
+
+                    if (contagemFinal < 10) {
+                        duracaoFinalL = `00:00:0${contagemFinal}`
+                    } else if (contagemFinal < 60) {
+                        duracaoFinal = `00:00:${contagemFinal}`
+                    } else if (contagemFinal >= 60 && contagemFinal < 3600) {
+                        var minutos = Math.trunc(contagemFinal / 60)
+                        var resto = contagemFinal % 60
+
+                        var resultado = `00:`
+
+                        if (minutos < 10) {
+                            resultado += `0${minutos}:`
+                        } else {
+                            resultado += `${minutos}:`
+                        }
+
+                        if (resto < 10) {
+                            resultado += `0${resto}`
+                        } else {
+                            resultado += `${resto}`
+                        }
+
+                        duracaoFinal = resultado
+                    } else if (contagemFinal >= 3600) {
+                        var hora = Math.trunc(contagemFinal / 3600)
+                        var restoHora = contagemFinal % 3600
+                        var resultadoHoras = ``
+
+
+                        if (hora < 10) {
+                            resultadoHoras += `0${hora}:`
+                        } else {
+                            resultadoHoras += `${hora}:`
+                        }
+
+
+                        if (restoHora >= 60) {
+                            var minutosHora = Math.trunc(restoHora / 60)
+                            var restoMinutos = restoHora % 60
+
+                            if (minutosHora < 10) {
+                                resultadoHoras += `0${minutosHora}:`
+                            } else {
+                                resultadoHoras += `${minutosHora}:`
+                            }
+                            if (restoHora < 10) {
+                                resultadoHoras += `0${restoMinutos}`
+                            } else {
+                                resultadoHoras += `${restoMinutos}`
+                            }
+
+                        } else {
+                            resultadoHoras += `00:`
+                            if (restoHora < 10) {
+                                resultadoHoras += `0${restoHora}`
+                            } else {
+                                resultadoHoras += `${restoHora}`
+                            }
+
+                        }
+                        duracaoFinal = resultadoHoras
+                    }
 
                     await poolBancoDados.execute(
-                        `UPDATE alerta SET duracao = ? WHERE idpedido = 7 AND duracao IS NULL`, [contagemFinal]
+                        `UPDATE alerta SET duracao = ? WHERE idpedido = 7 AND duracao IS NULL`, [duracaoFinal]
                     );
 
                     habilitar_insert = true
@@ -104,16 +167,16 @@ const serial = async (
                 }
             }
 
-    console.log("valores inseridos no banco: ", sensorTemperatura);
+            console.log("valores inseridos no banco: ", sensorTemperatura);
 
-}
+        }
 
     });
 
-// evento para lidar com erros na comunicação serial
-arduino.on('error', (mensagem) => {
-    console.error(`Erro no arduino (Mensagem: ${mensagem}`)
-});
+    // evento para lidar com erros na comunicação serial
+    arduino.on('error', (mensagem) => {
+        console.error(`Erro no arduino (Mensagem: ${mensagem}`)
+    });
 }
 
 // função para criar e configurar o servidor web

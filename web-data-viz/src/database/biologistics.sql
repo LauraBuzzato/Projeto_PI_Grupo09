@@ -213,9 +213,8 @@ desc endereco;
  -- Selects para o site
 select 
  -- nome das colunas com apelidos (apelido.coluna)
- p.idpedido as Idpedido, p.data_pedido as Dt_pedido, p.data_entrega_prevista as Dt_prevista, p.data_entrega_real as Dt_real, p.tipo_medicamento1 as 'Medicamento(1)', p.quantidade_medicamento1 as 'Qtd_med(1)', 
-		p.tipo_medicamento2 as 'Medicamento(2)', p.quantidade_medicamento2 as 'Qtd_med(2)', p.status as Status, 
-	v.tipo as Veículo, v.placa as Placa, c.nome as Cliente, c.telefone as Telefone, et.logradouro as Partida, et.numero as Nº_partida, et.cep as CEP_partida, ec.logradouro as Entrega, ec.numero as Nº_entrega, ec.cep as CEP_entrega
+ p.idpedido as Idpedido, p.data_pedido as Dt_pedido, p.data_entrega_prevista as Dt_prevista, p.data_entrega_real as Dt_real, 
+ p.tipo_medicamento1 as 'Medicamento', v.tipo as Veículo, v.placa as Placa, c.nome as Cliente, c.telefone as Telefone, et.logradouro as Partida, et.numero as Nº_partida, et.cep as CEP_partida, ec.logradouro as Entrega, ec.numero as Nº_entrega, ec.cep as CEP_entrega
 
 -- tabela que estamos nos referindo 
 	from pedido as p
