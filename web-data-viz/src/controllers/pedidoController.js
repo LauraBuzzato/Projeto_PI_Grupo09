@@ -98,7 +98,6 @@ function verificarVeiculoStatus(req, res) {
 function cadastrarPedido(req, res) {
     var medicamento1 = req.body.medicamento1Server;
     var selectCliente = req.body.selectClienteServer;
-    var dataDoPedido = req.body.dataDoPedidoServer;
     var dataEntregaPrevista = req.body.dataEntregaPrevistaServer;
     var veiculoDoPedido = req.body.veiculoDoPedidoServer;
 
@@ -113,7 +112,7 @@ function cadastrarPedido(req, res) {
         res.status(400).send("veiculoDoPedido undefined!");
     } else {
 
-        pedidoModel.cadastrarPedido(medicamento1, selectCliente, dataDoPedido,
+        pedidoModel.cadastrarPedido(medicamento1, selectCliente,
            dataEntregaPrevista, veiculoDoPedido)
             .then(
                 function (resultado) {

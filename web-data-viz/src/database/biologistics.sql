@@ -146,8 +146,8 @@ create table pedido (
     idpedido int primary key auto_increment,
     idveiculo int,
     idcliente int,
-    data_pedido date,
-    data_entrega_prevista date,
+    data_pedido datetime default current_timestamp,
+    data_entrega_prevista datetime,
     data_entrega_real datetime,
     tipo_medicamento1 varchar(100),
     concluido boolean default false,
@@ -156,14 +156,15 @@ create table pedido (
     
 );
 -- insert pedidos
-insert into pedido (idveiculo, idcliente, data_pedido, data_entrega_prevista, data_entrega_real, tipo_medicamento1) values 
-(5, 2, '2025-04-21', '2025-04-22', null, 'Vacina C'),
-(2, 6, '2025-04-20', '2025-04-21', '2025-04-21 15:00:00', 'Vacina A'),
-(7, 1, '2025-04-23', '2025-04-24', null, 'Vacina E'),
-(3, 4, '2025-04-22', '2025-04-23', null, 'Medicamento X'),
-(1, 5, '2025-04-24', '2025-04-25', '2025-04-25 12:00:00', 'Medicamento Z'),
-(4, 3, '2025-04-25', '2025-04-26', null, 'Vacina F'),
-(2, 5, '2025-04-26', '2025-04-29', null, 'Vacina A');
+INSERT INTO pedido (idveiculo, idcliente, data_pedido, data_entrega_prevista, data_entrega_real, tipo_medicamento1) VALUES 
+(5, 2, '2025-04-21 08:03:40', '2025-04-21 18:00:00', null, 'Vacina C'),
+(2, 6, '2025-04-20 09:15:13', '2025-04-20 20:00:00', '2025-04-20 21:32:40', 'Vacina A'),
+(7, 1, '2025-04-23 08:32:54', '2025-04-23 21:00:00', null, 'Vacina E'),
+(3, 4, '2025-04-22 10:20:30', '2025-04-22 07:00:00', null, 'Medicamento X'),
+(1, 5, '2025-04-24 08:45:03', '2025-04-24 05:00:00', '2025-04-24 05:00:00', 'Medicamento Z'),
+(4, 3, '2025-04-25 09:00:02', '2025-04-25 22:00:00', null, 'Vacina F'),
+(2, 5, '2025-04-26 08:20:50', '2025-04-26 19:00:00', null, 'Vacina A');
+
 
 
 

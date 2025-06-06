@@ -61,11 +61,11 @@
                 <div class="KPI_column">
                     <div class="KPI_Alerta">
                         <h2>Média de Alertas por hora:</h2>
-                        <h2>0.75</h2>
+                        <h2 id="mediaAlerta"></h2>
                     </div>
                     <div class="KPI_Alerta">
                         <h2>Quantidade de Alertas:</h2>
-                        <h2>9</h2>
+                        <h2 id="qtdAlerta"></h2>
                     </div>
                 </div>
                 <div class="pedido_info_container">
@@ -260,6 +260,8 @@
     const alerta = document.getElementById('alerta')
     const parte1 = document.getElementById('parte1')
     const parte2 = document.getElementById('parte2')
+    const mediaAlerta = document.getElementById('mediaAlerta')  
+    const qtdAlerta = document.getElementById('qtdAlerta') 
 
     var idUsuario = sessionStorage.ID_USUARIO
     fetch("/usuarios/buscarIdParaCadastro", {
@@ -334,11 +336,20 @@
                                 <h4>Data real da entrega: ${new Date(pedido.data_entrega_real).toLocaleDateString()}</h4>
                                 <h4>Tipo de medicamento: ${pedido.tipo_medicamento1}</h4>
         `);
+                        fetch(`/alertas/buscarKPI2/${idPedido}`)
+                                .then(res => res.json())
+                                .then(dados => {
 
-        $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                                        var mediaAlertaVar = dados[0].mediaAlerta
+                                        var qtdAlertaVar = dados[0].qtdAlerta
 
-                        
 
+                                        $('#mediaAlerta').text(mediaAlertaVar);
+                                        $('#qtdAlerta').text(mediaAlertaVar);
+                                        
+                                    $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                                    
+                                })
 
                     } else {
                         $('#dadosPedido, #grafico, #alerta').addClass('hidden');

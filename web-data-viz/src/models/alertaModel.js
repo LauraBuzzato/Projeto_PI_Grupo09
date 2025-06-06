@@ -10,6 +10,16 @@ var instrucao = `
     return database.executar(instrucao);
 }
 
+
+function  buscarKPI2(idPedido){
+var instrucao = `
+        select idalerta, duracao, limite, date_format(inicio, '%H:%i:%s') as inicio
+        from alerta
+        where idalerta = (select max(idalerta) from alerta where idpedido = '${idpedido}')
+    `;
+    return database.executar(instrucao);
+}
+
 function buscarAlertasAtivos(idTransportadora) {
     var instrucao = `
         SELECT a.idalerta, a.duracao, a.limite, 
@@ -53,5 +63,6 @@ function valorDaTemperatura(idpedido) {
 module.exports = {
     buscarDadosAlerta,
     buscarAlertasAtivos,
-    valorDaTemperatura
+    valorDaTemperatura,
+    buscarKPI2
 };

@@ -1,16 +1,17 @@
 function verificarPedidoJa() {
     var medicamento1 = med1.value
     var selectCliente = Cliente.value
-    var dataDoPedido = dataPedido.value
     var dataEntregaPrevista = entregaPrevista.value
     var veiculoDoPedido = veiculoPedido.value
 
 
-  if (!selectCliente || !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 || !dataDoPedido) {
+  if (!selectCliente || !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 ) {
         alert('Algum campo não preenchido.')
         return
     } else {
-    
+         dataEntregaPrevista += ':00'
+       var dataEntregaPrevistaReal = dataEntregaPrevista.replace('T', '')
+       
         fetch(`/pedidos/verificarVeiculoStatus/${veiculoDoPedido}`)
             .then((resposta) => {
                 if (!resposta.ok) {
@@ -35,8 +36,7 @@ function verificarPedidoJa() {
                         body: JSON.stringify({
                             medicamento1Server: medicamento1,
                             selectClienteServer: selectCliente,
-                            dataDoPedidoServer: dataDoPedido,
-                            dataEntregaPrevistaServer: dataEntregaPrevista,
+                            dataEntregaPrevistaServer: dataEntregaPrevistaReal,
                             veiculoDoPedidoServer: veiculoDoPedido
                         }
 

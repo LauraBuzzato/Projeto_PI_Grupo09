@@ -15,6 +15,21 @@ function buscarDadosAlerta(req, res) {
         });
 }
 
+function buscarKPI2(req, res) {
+    var idPedido = req.params.idPedido
+
+    alertaModel.buscarKPI2(idPedido)
+        .then(resultado => {
+         
+                res.json(resultado); 
+            
+        })
+         .catch(erro => {
+            console.error("Erro ao buscar dados alerta:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 function buscarAlertasAtivos(req, res) {
     var idTransportadora = req.params.idTransportadora;
 
@@ -46,5 +61,6 @@ function valorDaTemperatura(req, res) {
 module.exports = {
     buscarDadosAlerta,
     buscarAlertasAtivos,
-    valorDaTemperatura
+    valorDaTemperatura,
+    buscarKPI2
 };

@@ -9,6 +9,10 @@ router.get("/buscar-dados-alerta/:idpedido", function (req, res){
     alertaController.buscarDadosAlerta(req, res)
 })
 
+router.get("/buscarKPI2/:idPedido", function (req, res){
+    alertaController.buscarKPI2(req, res)
+})
+
 router.get("/buscarAlertasAtivos/:idTransportadora", function (req, res) {
     alertaController.buscarAlertasAtivos(req, res);
 });
