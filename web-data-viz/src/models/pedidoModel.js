@@ -74,11 +74,18 @@ function cadastrarPedido(qtd1, qtd2, medicamento2, medicamento1, selectCliente, 
         var instrucaoSql = `
             INSERT INTO pedido (quantidade_medicamento1, quantidade_medicamento2, tipo_medicamento1, 
             tipo_medicamento2, idcliente, data_pedido, data_entrega_prevista, idveiculo) 
-            VALUES ('${qtd1}','${qtd2}','${medicamento2}','${medicamento1}','${selectCliente}','${dataDoPedido}',
+            VALUES ('${qtd1}','${qtd2}','${medicamento1}','${medicamento2}','${selectCliente}','${dataDoPedido}',
             '${dataEntregaPrevista}','${veiculoDoPedido}');
         `;
         console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
+}
+
+function verificarVeiculoStatus(veiculoPedido){
+        var instrucao = `
+            select concluido from pedido where idveiculo = ${veiculoPedido} and concluido = 0;
+    `;
+    return database.executar(instrucao);
 }
 module.exports = {
     buscarCliente,
@@ -87,5 +94,6 @@ module.exports = {
     buscarClienteFinalizado,
     buscarPedidoConcluido,
     buscarDadosPedidoConcluido,
-    cadastrarPedido
+    cadastrarPedido,
+    verificarVeiculoStatus
 };

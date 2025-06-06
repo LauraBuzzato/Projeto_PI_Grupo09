@@ -34,4 +34,8 @@ router.post("/cadastrarPedido", function (req, res) {
 router.get("/buscarCliente/:idTransportadora", function (req, res) {
     pedidoController.buscarCliente(req, res);
 })
+
+router.get("/verificarVeiculoStatus/:veiculoDoPedido", function (req, res) {
+    pedidoController.verificarVeiculoStatus(req, res);
+})
 module.exports = router;

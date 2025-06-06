@@ -8,10 +8,6 @@ function verificarPedidoJa() {
     var dataEntregaPrevista = entregaPrevista.value
     var veiculoDoPedido = veiculoPedido.value
 
-    console.log('qtd1:', qtd1, 'qtd2:', qtd2, 'medicamento2',medicamento2,"medicamento1",medicamento1,
-        "selectCliente", selectCliente, "dataDoPedido", dataDoPedido, "dataEntregaPrevista", dataEntregaPrevista,
-        "veiculoDoPedido", veiculoDoPedido
-    )
 
     if ((qtd2 > 0 && !medicamento2) || qtd1 <= 0 || (qtd2 <= 0 && medicamento2 != '')) {
 
@@ -24,98 +20,122 @@ function verificarPedidoJa() {
             return;
         }
 
-    }else if(!selectCliente|| !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 || !dataDoPedido){
+    } else if (!selectCliente || !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 || !dataDoPedido) {
         alert('Algum campo não preenchido.')
         return
     } else {
-        if(!medicamento2){
+        if (!medicamento2) {
             medicamento2 = '-'
         }
-        
-        fetch("/pedidos/cadastrarPedido", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        qtd1Server: qtd1,
-        qtd2Server: qtd2,
-        medicamento2Server: medicamento2,
-        medicamento1Server: medicamento1,
-        selectClienteServer: selectCliente,
-        dataDoPedidoServer: dataDoPedido,
-        dataEntregaPrevistaServer:dataEntregaPrevista,
-        veiculoDoPedidoServer:veiculoDoPedido
-      }
-    
-    ), 
-    } )
-    .then((resposta) => {
-            if (!resposta.ok) {
-                console.log(resposta)
-                throw new Error("Erro no cadastro do pedido!");
-            }
+        fetch(`/pedidos/verificarVeiculoStatus/${veiculoDoPedido}`)
+            .then((resposta) => {
+                if (!resposta.ok) {
+                    throw new Error("Erro ao verificar se veiculo está em outro pedido.")
+                }
+                return resposta.json()
+            })
+            .then((dados) => {
+                
+                if (dados.length > 0) {
+                    alert('Veiculo está com um pedido em andamento!')
+                    console.log('BBBB')
+                    return
+                } else {
 
-            alert("Cadastro do pedido realizado com sucesso!");
-            
-        })
-        .catch((erro) => {
-            console.error("Erro:", erro);
-        });
+                    console.log('AAAA')
+                    fetch("/pedidos/cadastrarPedido", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            qtd1Server: qtd1,
+                            qtd2Server: qtd2,
+                            medicamento2Server: medicamento2,
+                            medicamento1Server: medicamento1,
+                            selectClienteServer: selectCliente,
+                            dataDoPedidoServer: dataDoPedido,
+                            dataEntregaPrevistaServer: dataEntregaPrevista,
+                            veiculoDoPedidoServer: veiculoDoPedido
+                        }
 
-    return false;
+                        ),
+                    })
+                        .then((resposta1) => {
+                            if (!resposta1.ok) {
+                                throw new Error("Erro no cadastro do pedido!");
+                            }
+
+                            alert("Cadastro do pedido realizado com sucesso!");
+
+                        })
+                        .catch((erro) => {
+                            console.error("Erro:", erro);
+                        });
+
+                    return false;
+                }
+
+
+            })
+
+
+
+
     }
 
 
-}
-
-function cadastrarVeiculo() {
-    var tipoVec = tipo.value
-    var placaVec = placa.value
-    var anoVec = ano.value
-    var modeloVec = modelo.value
-    var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
-    console.log(idTransportadora)
 
 
 
-    if (placaVec.length > 7 || placaVec.length < 5 || (placaVec.length != 7 && tipoVec == 'carro')) {
-        alert('Insira uma placa válida')
-        return;
-    } else if (anoVec.length != 4) {
-        alert('Insira um ano válido')
-        return;
-    } else {
-       fetch("/veiculo/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tipoVecServer: tipoVec,
-        placaVecServer: placaVec,
-        anoVecServer: anoVec,
-        modeloVecServer: modeloVec,
-        idTransportadoraVeiculoServer: idTransportadora,
-      }
-    
-    ), 
-    } )
-    .then((resposta3) => {
-            if (!resposta3.ok) {
-                throw new Error("Erro no cadastro!");
-            }
+    function cadastrarVeiculo() {
+        var tipoVec = tipo.value
+        var placaVec = placa.value
+        var anoVec = ano.value
+        var modeloVec = modelo.value
+        var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
+        console.log(idTransportadora)
 
-            alert("Cadastro realizado com sucesso!");
-            
-        })
-        .catch((erro) => {
-            console.error("Erro:", erro);
-        });
 
-    return false;
+
+        if (placaVec.length > 7 || placaVec.length < 5 || (placaVec.length != 7 && tipoVec == 'carro')) {
+            alert('Insira uma placa válida')
+            return;
+        } else if (anoVec.length != 4) {
+            alert('Insira um ano válido')
+            return;
+        } else {
+            fetch("/veiculo/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tipoVecServer: tipoVec,
+                    placaVecServer: placaVec,
+                    anoVecServer: anoVec,
+                    modeloVecServer: modeloVec,
+                    idTransportadoraVeiculoServer: idTransportadora,
+                }
+
+                ),
+            })
+                .then((resposta3) => {
+                    if (!resposta3.ok) {
+                        throw new Error("Erro no cadastro!");
+                    }
+
+                    alert("Cadastro realizado com sucesso!");
+
+                })
+                .catch((erro) => {
+                    console.error("Erro:", erro);
+                });
+
+            return false;
+        }
+
     }
-
 }
 
 /*var fkTransportadoraVeiculo
@@ -162,21 +182,21 @@ window.onload = function () {
 
 var funcionarios = []
 function buscarTransportadoraDoUsuario() {
-var idUsuario = sessionStorage.ID_USUARIO
-fetch("/usuarios/buscarIdParaCadastro", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
-body: JSON.stringify({
-idUsuarioServer: idUsuario
-}),
-})
-.then(res => res.json())
-.then(data => {
-sessionStorage.ID_TRANSPORTADORA = data.idtransportadora;
-mostrarFuncionarios();
-});
+    var idUsuario = sessionStorage.ID_USUARIO
+    fetch("/usuarios/buscarIdParaCadastro", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idUsuarioServer: idUsuario
+        }),
+    })
+        .then(res => res.json())
+        .then(data => {
+            sessionStorage.ID_TRANSPORTADORA = data.idtransportadora;
+            mostrarFuncionarios();
+        });
 }
 
 let botao = 0;
@@ -184,27 +204,27 @@ let tamanhoFooter = 12.5;
 tamanhoMaximo = 45;
 
 function mostrarFuncionarios() {
-var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
+    var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
 
-if (!idTransportadora) {
-console.error("ID da transportadora não encontrado!");
-return;
-}
+    if (!idTransportadora) {
+        console.error("ID da transportadora não encontrado!");
+        return;
+    }
 
-usuariosCadastrados.innerHTML = ``;
+    usuariosCadastrados.innerHTML = ``;
 
-fetch(`/usuarios/procurarNovoUsuario/${idTransportadora}`, {
-method: "POST"
-})
-.then(function (resposta) {
-console.log("resposta: ", resposta);
+    fetch(`/usuarios/procurarNovoUsuario/${idTransportadora}`, {
+        method: "POST"
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
 
-if (resposta.ok) {
-resposta.json().then(function (dados) {
-funcionarios = dados
+            if (resposta.ok) {
+                resposta.json().then(function (dados) {
+                    funcionarios = dados
 
-for (let i = 0; i < funcionarios.length; i++) {
-usuariosCadastrados.innerHTML += `
+                    for (let i = 0; i < funcionarios.length; i++) {
+                        usuariosCadastrados.innerHTML += `
 <h4><span class = "Itens">${funcionarios[i].nome}</span> <span class = "Itens">${funcionarios[i].email}</span> <span class = "Itens">${funcionarios[i].senha}</span> <span class = "Itens"><button onclick = "Excluir()" class = "botao1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
 </svg></button></span> <span class = "Itens"><button class = "botao2"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
@@ -217,76 +237,76 @@ margin-top: ${tamanhoFooter}rem;
 }
 </style>
 `;
-}
-});
-} else {
-throw "Houve um erro ao tentar buscar os funcionários!";
-}
-})
-.catch(function (erro) {
-console.log(`#ERRO: ${erro}`);
-});
+                    }
+                });
+            } else {
+                throw "Houve um erro ao tentar buscar os funcionários!";
+            }
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
+        });
 }
 
 
 
 function cadastroFuncionario() {
-nomeFuncionario = nome.value;
-emailFuncionario = email.value;
-senhaFuncionario = senha.value;
-idUsuario = sessionStorage.ID_USUARIO
+    nomeFuncionario = nome.value;
+    emailFuncionario = email.value;
+    senhaFuncionario = senha.value;
+    idUsuario = sessionStorage.ID_USUARIO
 
-if (nomeFuncionario == null || emailFuncionario == null || senhaFuncionario == null) {
-alert("preencha todos os campos!")
-return;
-}
-
-
-fetch("/usuarios/buscarIdParaCadastro", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
-body: JSON.stringify({
-idUsuarioServer: idUsuario
-}),
-})
-.then((resposta1) => {
-if (!resposta1.ok) {
-throw new Error("Erro ao cadastrar cliente");
-}
-return resposta1.json()
-})
-.then(function (dados) {
-var idTransportadora = dados.idtransportadora
+    if (nomeFuncionario == null || emailFuncionario == null || senhaFuncionario == null) {
+        alert("preencha todos os campos!")
+        return;
+    }
 
 
-return fetch("/usuarios/inserirNovoUsuario", {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify({
-nomeFuncionarioServer: nomeFuncionario,
-emailFuncionarioServer: emailFuncionario,
-senhaFuncionarioServer: senhaFuncionario,
-idTransportadoraServer: idTransportadora
-})
-})
-})
-.then(function (resposta2) {
-if (!resposta2.ok) {
-throw new Error("Erro ao cadastrar funcionário")
-}
+    fetch("/usuarios/buscarIdParaCadastro", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idUsuarioServer: idUsuario
+        }),
+    })
+        .then((resposta1) => {
+            if (!resposta1.ok) {
+                throw new Error("Erro ao cadastrar cliente");
+            }
+            return resposta1.json()
+        })
+        .then(function (dados) {
+            var idTransportadora = dados.idtransportadora
 
-alert("Funcionário cadastrado com sucesso!")
-buscarTransportadoraDoUsuario()
 
-})
-.catch(function (erro) {
-console.error("Erro:", erro)
-alert("Erro no cadastro. Verifique os campos e tente novamente.")
-})
+            return fetch("/usuarios/inserirNovoUsuario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeFuncionarioServer: nomeFuncionario,
+                    emailFuncionarioServer: emailFuncionario,
+                    senhaFuncionarioServer: senhaFuncionario,
+                    idTransportadoraServer: idTransportadora
+                })
+            })
+        })
+        .then(function (resposta2) {
+            if (!resposta2.ok) {
+                throw new Error("Erro ao cadastrar funcionário")
+            }
+
+            alert("Funcionário cadastrado com sucesso!")
+            buscarTransportadoraDoUsuario()
+
+        })
+        .catch(function (erro) {
+            console.error("Erro:", erro)
+            alert("Erro no cadastro. Verifique os campos e tente novamente.")
+        })
 
 
 }

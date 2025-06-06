@@ -81,6 +81,20 @@ function buscarDadosPedidoConcluido(req, res) {
             res.status(500).json({ erro: erro.sqlMessage });
         });
 }
+
+function verificarVeiculoStatus(req, res) {
+    const veiculoPedido = req.params.veiculoDoPedido
+
+    pedidoModel.verificarVeiculoStatus(veiculoPedido)
+        .then((resultado) => {
+            res.json(resultado);
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar status do veiculo", erro);
+            res.status(500).json({ erro: erro.sqlMessage });
+        });
+}
+
 function cadastrarPedido(req, res) {
     var qtd1 = req.body.qtd1Server;
     var qtd2 = req.body.qtd2Server;
@@ -126,6 +140,8 @@ function cadastrarPedido(req, res) {
             );
     }
 }
+
+
 module.exports = {
     buscarCliente,
     buscarVeiculo,
@@ -133,5 +149,6 @@ module.exports = {
     buscarClienteFinalizado,
     buscarPedidoConcluido,
     buscarDadosPedidoConcluido,
-    cadastrarPedido
+    cadastrarPedido,
+    verificarVeiculoStatus
 }
