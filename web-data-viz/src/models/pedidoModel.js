@@ -52,8 +52,8 @@ function buscarPedidoConcluido(idCliente, idTransportadora) {
 
 function buscarDadosPedidoConcluido(idPedido) {
     var instrucao = `
-        select c.nome, c.cnpj, concat(e.logradouro,', ', e.numero) endereco, p.data_entrega_prevista, p.data_entrega_real, p.tipo_medicamento1, p.quantidade_medicamento1, 
-        p.tipo_medicamento2, p.quantidade_medicamento2, p.idpedido, v.tipo, s.idsensor, (select  
+        select c.nome, c.cnpj, concat(e.logradouro,', ', e.numero) endereco, p.data_entrega_prevista, p.data_entrega_real, p.tipo_medicamento1, 
+        p.idpedido, v.tipo, s.idsensor, (select  
 timestampdiff(second, (select data_hora from leiturasensor where idpedido = ${idPedido} limit 1), 
 (select data_hora from leiturasensor where idpedido = ${idPedido} order by data_hora desc limit 1)) / 3600 duracao_em_horas
 from leiturasensor
