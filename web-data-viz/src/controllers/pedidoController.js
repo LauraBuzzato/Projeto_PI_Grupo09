@@ -102,15 +102,13 @@ function cadastrarPedido(req, res) {
         res.status(400).send("medicamento1 undefined!");
     } else if (selectCliente == undefined) {
         res.status(400).send("selectCliente undefined!");
-    } else if (dataDoPedido == undefined) {
-        res.status(400).send("dataDoPedido undefined!");
     } else if (dataEntregaPrevista == undefined) {
         res.status(400).send("dataEntregaPrevista undefined!");
     } else if (veiculoDoPedido == undefined) {
         res.status(400).send("veiculoDoPedido undefined!");
     } else {
 
-        veiculoModel.cadastrarPedido(qtd1, qtd2, medicamento2, medicamento1, selectCliente, dataDoPedido,
+        pedidoModel.cadastrarPedido(qtd1, qtd2, medicamento2, medicamento1, selectCliente, dataDoPedido,
            dataEntregaPrevista, veiculoDoPedido)
             .then(
                 function (resultado) {
