@@ -29,8 +29,21 @@ function totalDeAlertas(idPedido){
         return database.executar(instrucao)
 }
 
+function buscarDadosRosquinha(idPedido) {
+    var instrucaoSql = `
+        SELECT
+            SUM(CASE WHEN valor > 8 THEN 1 ELSE 0 END) AS acima,
+            SUM(CASE WHEN valor < 2 THEN 1 ELSE 0 END) AS abaixo,
+            SUM(CASE WHEN valor < 8 and valor > 2 THEN 1 ELSE 0 END) AS dentro
+        FROM leiturasensor
+        WHERE idpedido = '${idPedido}';
+    `
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    totalDeAlertas
+    totalDeAlertas,
+    buscarDadosRosquinha
 }

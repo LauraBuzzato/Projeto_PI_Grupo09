@@ -228,7 +228,9 @@
     )
 
     // grafico rosquinha
-    const data2 = {
+
+    function plotarGraficoRosquinha(info){
+        const data2 = {
         labels: [
             'Dentro dos padrões',
             'Abaixo de 2ºC',
@@ -236,7 +238,7 @@
         ],
         datasets: [{
             label: 'My First Dataset',
-            data: [300, 50, 100],
+            data: [info[0].dentro, info[0].abaixo, info[0].acima],
             backgroundColor: [
                 'rgb(99, 198, 255)',
                 'rgb(0, 53, 122)',
@@ -264,6 +266,8 @@
         document.getElementById('myChart2'),
         config2
     )
+    }
+    
 </script>
 
 <script>
@@ -446,6 +450,12 @@
 
                                 $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
 
+                            })
+
+                        fetch(`/medidas/buscarDadosRosquinha/${idPedido}`)
+                            .then(res1 => res1.json())
+                            .then(info => {
+                                plotarGraficoRosquinha(info)
                             })
 
                     } else {

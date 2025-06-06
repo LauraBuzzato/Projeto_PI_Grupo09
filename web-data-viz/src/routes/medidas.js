@@ -15,4 +15,8 @@ router.get("/totalDeAlertas/:idpedido", function (req, res) {
     medidaController.totalDeAlertas(req, res);
 })
 
+router.get("/buscarDadosRosquinha/:idPedido", function (req, res){
+    medidaController.buscarDadosRosquinha(req, res);  
+});
+
 module.exports = router;
