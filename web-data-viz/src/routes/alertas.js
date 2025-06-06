@@ -9,6 +9,8 @@ router.get("/buscar-dados-alerta/:idpedido", function (req, res){
     alertaController.buscarDadosAlerta(req, res)
 })
 
-
+router.get("/buscarAlertasAtivos/:idTransportadora", function (req, res) {
+    alertaController.buscarAlertasAtivos(req, res);
+});
 
 module.exports = router;

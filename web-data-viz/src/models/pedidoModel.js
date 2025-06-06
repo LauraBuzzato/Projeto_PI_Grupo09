@@ -14,7 +14,7 @@ function buscarClienteFinalizado(idTransportadora) {
         select c.idcliente, nome from cliente c
         inner join pedido p on c.idcliente=p.idcliente
         inner join veiculo v on p.idveiculo=v.idveiculo
-        where idtransportadora = ${idTransportadora} and p.concluido = true;
+        where v.idtransportadora = ${idTransportadora} and p.concluido = true;
     `;
     return database.executar(instrucao);
 }
@@ -24,7 +24,7 @@ function buscarVeiculo(idCliente, idTransportadora) {
     var instrucao = `
         select v.idveiculo, placa from veiculo v
         inner join pedido p on v.idveiculo = p.idveiculo
-        where idtransportadora = ${idTransportadora} and idcliente = ${idCliente} and p.concluido = false;
+        where v.idtransportadora = ${idTransportadora} and idcliente = ${idCliente} and p.concluido = false;
     `;
     return database.executar(instrucao);
 }
@@ -46,7 +46,7 @@ function buscarPedidoConcluido(idCliente, idTransportadora) {
     var instrucao = `
         select p.idpedido, placa from veiculo v
         inner join pedido p on v.idveiculo = p.idveiculo
-        where idtransportadora = ${idTransportadora} and idcliente = ${idCliente} and p.concluido = true;
+        where v.idtransportadora = ${idTransportadora} and idcliente = ${idCliente} and p.concluido = true;
     `;
     return database.executar(instrucao);
 }

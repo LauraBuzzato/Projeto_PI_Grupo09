@@ -8,6 +8,10 @@ function verificarPedidoJa() {
     var dataEntregaPrevista = entregaPrevista.value
     var veiculoDoPedido = veiculoPedido.value
 
+    console.log('qtd1:', qtd1, 'qtd2:', qtd2, 'medicamento2',medicamento2,"medicamento1",medicamento1,
+        "selectCliente", selectCliente, "dataDoPedido", dataDoPedido, "dataEntregaPrevista", dataEntregaPrevista,
+        "veiculoDoPedido", veiculoDoPedido
+    )
 
     if ((qtd2 > 0 && !medicamento2) || qtd1 <= 0 || (qtd2 <= 0 && medicamento2 != '')) {
 
@@ -20,21 +24,14 @@ function verificarPedidoJa() {
             return;
         }
 
-    }else if(!selectCliente|| !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 ){
+    }else if(!selectCliente|| !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 || !dataDoPedido){
         alert('Algum campo não preenchido.')
         return
     } else {
         if(!medicamento2){
-            medicamento2 = null
+            medicamento2 = '-'
         }
-
-        if(!qtd2){
-            qtd2 = null
-        }
-
-        if(!dataDoPedido){
-            dataDoPedido = null
-        }
+        
         fetch("/pedidos/cadastrarPedido", {
       method: "POST",
       headers: {
@@ -55,6 +52,7 @@ function verificarPedidoJa() {
     } )
     .then((resposta) => {
             if (!resposta.ok) {
+                console.log(resposta)
                 throw new Error("Erro no cadastro do pedido!");
             }
 
