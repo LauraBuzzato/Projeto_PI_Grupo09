@@ -1,8 +1,8 @@
 var database = require("../database/config")
 
 
-function  buscarDadosAlerta(idpedido){
-var instrucao = `
+function buscarDadosAlerta(idpedido) {
+    var instrucao = `
         select idalerta, duracao, limite, date_format(inicio, '%H:%i:%s') as inicio
         from alerta
         where idalerta = (select max(idalerta) from alerta where idpedido = '${idpedido}')
@@ -11,11 +11,14 @@ var instrucao = `
 }
 
 
-function  buscarKPI2(idPedido){
-var instrucao = `
-        select idalerta, duracao, limite, date_format(inicio, '%H:%i:%s') as inicio
-        from alerta
-        where idalerta = (select max(idalerta) from alerta where idpedido = '${idpedido}')
+function buscarKPI2(idPedido) {
+    var instrucao = `
+        select count(idalerta) as qtdAlerta,
+        round((count(idalerta) / Round(TIMESTAMPDIFF(minute, data_pedido ,data_entrega_real) / 60, 1)),2) 
+        as mediaAlerta 
+        from pedido as p 
+            inner join alerta as a on a.idpedido = p.idpedido 
+            where p.idpedido = ${idPedido};
     `;
     return database.executar(instrucao);
 }
