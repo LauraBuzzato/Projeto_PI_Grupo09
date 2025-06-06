@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             idUsuarioServer: sessionStorage.ID_USUARIO
         }),
     })
+    
     .then(function(res) {
         if (!res.ok) {
             throw new Error('Erro ao buscar transportadora');
@@ -39,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function carregarAlertas(idTransportadora) {
     var container = document.getElementById('containerAlertas');
     
-    // Verifica se o container existe
     if (!container) {
         console.error('Elemento containerAlertas não encontrado');
         return;
@@ -53,13 +53,15 @@ function carregarAlertas(idTransportadora) {
             return res.json();
         })
         .then(function(alertas) {
-            container.innerHTML = '';
-
-            if ( alertas.length === 0) {
+            console.log(alertas);
+            
+            if (alertas.length === 0) {
                 container.innerHTML = '<div class="alertas"><div class="info">Nenhum alerta ativo no momento</div></div>';
                 return;
             }
 
+            container.innerHTML = ''; // Limpa alertas anteriores
+            
             for (var i = 0; i < alertas.length; i++) {
                 var alerta = alertas[i];
                 var divAlerta = document.createElement('div');
@@ -73,11 +75,11 @@ function carregarAlertas(idTransportadora) {
                     mensagem = `ATENÇÃO!! O VEÍCULO ${alerta.placa} DO CLIENTE 
                               ${alerta.cliente} ESTÁ COM TEMPERATURA 
                               ${alerta.tipo_alerta.toUpperCase()} !!`;
-                } else {
+                } else if(alerta.gravidade === 'atencao') {
                     mensagem = `ATENÇÃO!! O VEÍCULO ${alerta.placa} DO CLIENTE 
                               ${alerta.cliente} ESTÁ COM TEMPERATURA PRÓXIMA DO
                               ${alerta.tipo_alerta.toUpperCase()} !!`;
-                }
+                } 
                 
                 divConteudo.textContent = mensagem;
                 
@@ -99,6 +101,7 @@ function carregarAlertas(idTransportadora) {
 
 function redirecionarParaDashboard(pedidoId) {
     window.location.href = `dashboard.html?pedido=${pedidoId}`;
+
 }
 
 function mostrarErro(mensagem) {

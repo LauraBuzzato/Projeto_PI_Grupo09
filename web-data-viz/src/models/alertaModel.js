@@ -21,6 +21,7 @@ function buscarAlertasAtivos(idTransportadora) {
             CASE 
                 WHEN ls.valor BETWEEN 1.5 AND 2.5 AND a.limite = 2 THEN 'atencao'
                 WHEN ls.valor BETWEEN 7.5 AND 8.5 AND a.limite = 8 THEN 'atencao'
+                WHEN ls.valor BETWEEN 2 AND 8 THEN 'normal'
                 ELSE 'perigo'
             END as gravidade
         FROM alerta a
@@ -31,12 +32,26 @@ function buscarAlertasAtivos(idTransportadora) {
         WHERE v.idtransportadora = ${idTransportadora}
         AND ls.data_hora = (SELECT MAX(data_hora) FROM leiturasensor WHERE idpedido = p.idpedido)
         AND p.concluido = false
+        AND a.duracao is null
+        AND ls.valor NOT BETWEEN 2 AND 8
         ORDER BY a.inicio DESC;
     `;
     return database.executar(instrucao);
 }
 
+function valorDaTemperatura(idpedido) {
+    var instrucao = `
+        SELECT ls.valor AS leitura, s.idsensor AS sensor, p.idpedido AS pedido
+        FROM leiturasensor ls
+        JOIN sensor s ON ls.idsensor = s.idsensor
+        JOIN pedido p ON ls.idpedido = p.idpedido
+        WHERE p.idpedido = ${idpedido};`;
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarDadosAlerta,
-    buscarAlertasAtivos
+    buscarAlertasAtivos,
+    valorDaTemperatura
 };
