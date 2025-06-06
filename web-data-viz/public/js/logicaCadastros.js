@@ -35,7 +35,7 @@ function verificarPedidoJa() {
                 return resposta.json()
             })
             .then((dados) => {
-                
+
                 if (dados.length > 0) {
                     alert('Veiculo está com um pedido em andamento!')
                     console.log('BBBB')
@@ -85,58 +85,84 @@ function verificarPedidoJa() {
     }
 
 
+}
+
+
+function cadastrarVeiculo() {
+    var tipoVec = tipo.value
+    var placaVec = placa.value
+    var anoVec = ano.value
+    var modeloVec = modelo.value
+    var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
+    
 
 
 
-    function cadastrarVeiculo() {
-        var tipoVec = tipo.value
-        var placaVec = placa.value
-        var anoVec = ano.value
-        var modeloVec = modelo.value
-        var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
-        console.log(idTransportadora)
+    if (placaVec.length > 7 || placaVec.length < 5 || (placaVec.length != 7 && tipoVec == 'carro')) {
+        alert('Insira uma placa válida')
+        return;
+    } else if (anoVec.length != 4) {
+        alert('Insira um ano válido')
+        return;
+    } else {
+        fetch("/veiculo/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                tipoVecServer: tipoVec,
+                placaVecServer: placaVec,
+                anoVecServer: anoVec,
+                modeloVecServer: modeloVec,
+                idTransportadoraVeiculoServer: idTransportadora,
+            }
 
-
-
-        if (placaVec.length > 7 || placaVec.length < 5 || (placaVec.length != 7 && tipoVec == 'carro')) {
-            alert('Insira uma placa válida')
-            return;
-        } else if (anoVec.length != 4) {
-            alert('Insira um ano válido')
-            return;
-        } else {
-            fetch("/veiculo/cadastrar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    tipoVecServer: tipoVec,
-                    placaVecServer: placaVec,
-                    anoVecServer: anoVec,
-                    modeloVecServer: modeloVec,
-                    idTransportadoraVeiculoServer: idTransportadora,
+            ),
+        })
+            .then((resposta3) => {
+                if (!resposta3.ok) {
+                    throw new Error("Erro no cadastro!");
                 }
 
-                ),
+                return fetch(`/veiculo/buscarIdVeiculo/${placaVec}`);
             })
-                .then((resposta3) => {
-                    if (!resposta3.ok) {
-                        throw new Error("Erro no cadastro!");
-                    }
+            .then((resposta2) => {
+                if (!resposta2.ok) {
+                    throw new Error("Erro no cadastro!");
+                }
+                console.log(resposta2)
+                return resposta2.json();
+            })
+            .then((dados1) => {
 
-                    alert("Cadastro realizado com sucesso!");
+                console.log(dados1)
+                const idVeiculo = dados1.idveiculo
 
-                })
-                .catch((erro) => {
-                    console.error("Erro:", erro);
+                return fetch("/veiculo/cadastroSensor", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        idVeiculoServer: idVeiculo
+                    }),
                 });
+            })
+            .then((resposta3) => {
+                if (!resposta3.ok) {
+                    throw new Error("Erro no cadastro!");
+                }
 
-            return false;
-        }
+                alert("Cadastro realizado com sucesso!");
+            })
+            .catch((erro) => {
+                console.error("Erro:", erro);
+            });
 
+        return false;
     }
+
 }
+
 
 /*var fkTransportadoraVeiculo
 //atualizando o gerenciamento
@@ -224,14 +250,8 @@ function mostrarFuncionarios() {
                     funcionarios = dados
 
                     for (let i = 0; i < funcionarios.length; i++) {
-    iduser = funcionarios[i].idUsuario
-    console.log('aqui id botão excluir', iduser)
                         usuariosCadastrados.innerHTML += `
-<h4><span class = "Itens">${funcionarios[i].nome}</span>
-<span class = "Itens">${funcionarios[i].email}</span>
-<span class = "Itens">${funcionarios[i].senha}</span>
-<span class = "Itens"><button onclick = "Excluir()" class = "botao1">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+<h4><span class = "Itens">${funcionarios[i].nome}</span> <span class = "Itens">${funcionarios[i].email}</span> <span class = "Itens">${funcionarios[i].senha}</span> <span class = "Itens"><button onclick = "Excluir()" class = "botao1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
 </svg></button></span> <span class = "Itens"><button class = "botao2"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
@@ -254,18 +274,18 @@ margin-top: ${tamanhoFooter}rem;
         });
 }
 
-function Excluir(iduser){
-       console.log('id user',iduser)
+function Excluir(iduser) {
+    console.log('id user', iduser)
 
-        fetch(`/veiculo/removerusuario/${iduser}`,{
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                
-            },
-        })
-        .then((res) =>{
-            if(res.json){
+    fetch(`/veiculo/removerusuario/${iduser}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+
+        },
+    })
+        .then((res) => {
+            if (res.json) {
                 buscarTransportadoraDoUsuario()
             }
         })

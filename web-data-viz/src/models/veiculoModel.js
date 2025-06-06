@@ -42,9 +42,30 @@ function removerveiculo(idveiculo){
     return database.executar(instrucao)
 }
 
+
+function buscarIdVeiculo(placaVec) {
+    var instrucao = `
+        select idveiculo from veiculo where placa = '${placaVec}'
+    `;
+    return database.executar(instrucao);
+}
+
+
+function cadastroSensor(idVeiculo) {
+
+    var instrucaoSql = `
+        INSERT INTO sensor (idveiculo) VALUES ('${idVeiculo}');
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrandoVeiculo,
     listarVeiculos,
     buscarVeiculos,
-    removerveiculo
+    removerveiculo,
+    buscarIdVeiculo,
+    cadastroSensor
 };

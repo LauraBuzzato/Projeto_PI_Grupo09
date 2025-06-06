@@ -79,11 +79,52 @@ function removerVeiculo(req,res){
 
 }
 
+
+function buscarIdVeiculo(req, res){
+    const placaVec = req.params.placaVec
+
+    veiculoModel.buscarIdVeiculo(placaVec)
+        .then(resultado => {
+            res.json(resultado[0]);
+        })
+        .catch((erro) => {
+            res.status(500).json({ erro: erro.sqlMessage });
+        });
+    }
+
+
+    function cadastroSensor(req, res) {
+ 
+    var idVeiculo = req.body.idVeiculoServer;
+
+    if (idVeiculo == undefined) {
+        res.status(400).send("Tipo de veiculo undefined!");
+    } else {
+
+        veiculoModel.cadastroSensor(idVeiculo)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
  
 module.exports = {
     cadastrarVeiculo,
     puxandoVeiculos,
     buscarVeiculos,
-    removerVeiculo
+    removerVeiculo,
+    buscarIdVeiculo,
+    cadastroSensor
   
 }

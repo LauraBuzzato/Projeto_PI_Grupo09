@@ -7,6 +7,14 @@ router.post("/cadastrar", function (req, res) {
     veiculoController.cadastrarVeiculo(req, res);
 })
 
+router.get("/buscarIdVeiculo/:placaVec", function (req, res) {
+    veiculoController.buscarIdVeiculo(req, res);
+})
+
+router.post("/cadastroSensor", function (req, res) {
+    veiculoController.cadastroSensor(req, res);
+})
+
 router.post("/atualizar", function (req, res) {
     veiculoController.puxandoVeiculos(req, res);
 })
