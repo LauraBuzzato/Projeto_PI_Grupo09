@@ -224,14 +224,12 @@ function buscarTransportadoraDoUsuario() {
             mostrarFuncionarios();
         });
 }
-
 let botao = 0;
 let tamanhoFooter = 12.5;
 tamanhoMaximo = 45;
 var iduser = 0
 function mostrarFuncionarios() {
     var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
-
     if (!idTransportadora) {
         console.error("ID da transportadora não encontrado!");
         return;
@@ -248,12 +246,13 @@ function mostrarFuncionarios() {
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
                     funcionarios = dados
-
+                    
                     for (let i = 0; i < funcionarios.length; i++) {
+                        iduser = funcionarios[i].userid
                         usuariosCadastrados.innerHTML += `
-<h4><span class = "Itens">${funcionarios[i].nome}</span> <span class = "Itens">${funcionarios[i].email}</span> <span class = "Itens">${funcionarios[i].senha}</span> <span class = "Itens"><button onclick = "Excluir()" class = "botao1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+<h4><span class = "Itens">${funcionarios[i].nome}</span> <span class = "Itens">${funcionarios[i].email}</span> <span class = "Itens">${funcionarios[i].senha}</span> <span class = "Itens"><button onclick = "Excluir(${iduser})" class = "botao1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg></button></span> <span class = "Itens"><button class = "botao2"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+</svg></button></span> <span class = "Itens"><button onclick = "Editar(${iduser})" class = "botao2"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
 </svg></button></span></h4>
 <style>
@@ -275,9 +274,28 @@ margin-top: ${tamanhoFooter}rem;
 }
 
 function Excluir(iduser) {
-    console.log('id user', iduser)
+    fetch(`/usuarios/removerusuario/${iduser}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
 
-    fetch(`/veiculo/removerusuario/${iduser}`, {
+        },
+    })
+        .then((res) => {
+            if (res.json) {
+                buscarTransportadoraDoUsuario()
+            }
+        })
+}
+
+function Editar(iduser){
+    var totaluser = 0
+for(var i = 0; i < funcionarios.length;i++){
+    totaluser++
+}
+      nome.value = `${funcionarios[totaluser].nome}`
+
+    fetch(`/usuarios/editando/${iduser}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

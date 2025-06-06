@@ -162,6 +162,15 @@ res.status(500).json(erro.sqlMessage);
 });
 }
 
+function removerUsuario(req,res){
+var iduser = req.params.idusuario
+console.log('controller', iduser)
+usuarioModel.removerUsuario(iduser)
+.then(function(resultado){
+res.json(resultado)
+})
+}
+
 module.exports = {
 cadastrar,
 cadastrar2,
@@ -169,5 +178,6 @@ buscarIdTransportadora,
 autenticar,
 buscarIdParaCadastro,
 inserirNovoUsuario,
-procurarNovoUsuario
+procurarNovoUsuario,
+removerUsuario
 }

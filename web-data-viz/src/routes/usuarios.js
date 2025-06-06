@@ -33,5 +33,13 @@ router.post("/procurarNovoUsuario/:idTransportadora", function (req, res) {
 usuarioController.procurarNovoUsuario(req, res)
 })
 
+router.delete("/removerusuario/:idusuario", function (req,res){
+    usuarioController.removerUsuario(req,res)
+})
+
+router.put("/editando/:iduser" , function (req,res){
+    usuarioController.editar(req,res)
+})
+
 
 module.exports = router;
