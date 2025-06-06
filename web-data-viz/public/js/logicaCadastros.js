@@ -1,7 +1,4 @@
 function verificarPedidoJa() {
-    var qtd1 = Number(qtd_med1.value)
-    var qtd2 = Number(qtd_med2.value)
-    var medicamento2 = med2.value
     var medicamento1 = med1.value
     var selectCliente = Cliente.value
     var dataDoPedido = dataPedido.value
@@ -9,24 +6,11 @@ function verificarPedidoJa() {
     var veiculoDoPedido = veiculoPedido.value
 
 
-    if ((qtd2 > 0 && !medicamento2) || qtd1 <= 0 || (qtd2 <= 0 && medicamento2 != '')) {
-
-        if (qtd2 > 0 && !medicamento2) {
-            alert('Não possível inserir a quantidade do segundo medicamento sem inserir o seu tipo.')
-            return;
-        }
-        if (qtd1 <= 0 || (qtd2 <= 0 && medicamento2 != '')) {
-            alert('Insira uma quantidade de medicamentos válida.')
-            return;
-        }
-
-    } else if (!selectCliente || !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 || !dataDoPedido) {
+  if (!selectCliente || !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 || !dataDoPedido) {
         alert('Algum campo não preenchido.')
         return
     } else {
-        if (!medicamento2) {
-            medicamento2 = '-'
-        }
+    
         fetch(`/pedidos/verificarVeiculoStatus/${veiculoDoPedido}`)
             .then((resposta) => {
                 if (!resposta.ok) {
@@ -38,20 +22,17 @@ function verificarPedidoJa() {
 
                 if (dados.length > 0) {
                     alert('Veiculo está com um pedido em andamento!')
-                    console.log('BBBB')
+                 
                     return
                 } else {
 
-                    console.log('AAAA')
+                
                     fetch("/pedidos/cadastrarPedido", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            qtd1Server: qtd1,
-                            qtd2Server: qtd2,
-                            medicamento2Server: medicamento2,
                             medicamento1Server: medicamento1,
                             selectClienteServer: selectCliente,
                             dataDoPedidoServer: dataDoPedido,

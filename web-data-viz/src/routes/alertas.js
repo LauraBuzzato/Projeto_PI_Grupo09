@@ -13,4 +13,8 @@ router.get("/buscarAlertasAtivos/:idTransportadora", function (req, res) {
     alertaController.buscarAlertasAtivos(req, res);
 });
 
+router.get("/valorDaTemperatura/:idpedido", function (req, res){
+    alertaController.valorDaTemperatura(req, res)
+})
+
 module.exports = router;

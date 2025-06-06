@@ -150,23 +150,20 @@ create table pedido (
     data_entrega_prevista date,
     data_entrega_real datetime,
     tipo_medicamento1 varchar(100),
-    quantidade_medicamento1 int,
-    tipo_medicamento2 varchar(100),
-    quantidade_medicamento2 int,
     concluido boolean default false,
     foreign key (idveiculo) references veiculo(idveiculo),
     foreign key (idcliente) references cliente(idcliente)
     
 );
 -- insert pedidos
-insert into pedido (idveiculo, idcliente, data_pedido, data_entrega_prevista, data_entrega_real, tipo_medicamento1, quantidade_medicamento1, tipo_medicamento2, quantidade_medicamento2) values 
-(5, 2, '2025-04-21', '2025-04-22', null, 'Vacina C', 150, 'Vacina D', 250),
-(2, 6, '2025-04-20', '2025-04-21', '2025-04-21 15:00:00', 'Vacina A', 100, 'Vacina B', 200),
-(7, 1, '2025-04-23', '2025-04-24', null, 'Vacina E', 200, null, null),
-(3, 4, '2025-04-22', '2025-04-23', null, 'Medicamento X', 50, 'Medicamento Y', 120),
-(1, 5, '2025-04-24', '2025-04-25', '2025-04-25 12:00:00', 'Medicamento Z', 75, 'Medicamento W', 180),
-(4, 3, '2025-04-25', '2025-04-26', null, 'Vacina F', 300, 'Vacina G', 100),
-(2, 5, '2025-04-26', '2025-04-29', null, 'Vacina A', 300, null, null);
+insert into pedido (idveiculo, idcliente, data_pedido, data_entrega_prevista, data_entrega_real, tipo_medicamento1) values 
+(5, 2, '2025-04-21', '2025-04-22', null, 'Vacina C'),
+(2, 6, '2025-04-20', '2025-04-21', '2025-04-21 15:00:00', 'Vacina A'),
+(7, 1, '2025-04-23', '2025-04-24', null, 'Vacina E'),
+(3, 4, '2025-04-22', '2025-04-23', null, 'Medicamento X'),
+(1, 5, '2025-04-24', '2025-04-25', '2025-04-25 12:00:00', 'Medicamento Z'),
+(4, 3, '2025-04-25', '2025-04-26', null, 'Vacina F'),
+(2, 5, '2025-04-26', '2025-04-29', null, 'Vacina A');
 
 
 
@@ -216,9 +213,8 @@ desc endereco;
  -- Selects para o site
 select 
  -- nome das colunas com apelidos (apelido.coluna)
- p.idpedido as Idpedido, p.data_pedido as Dt_pedido, p.data_entrega_prevista as Dt_prevista, p.data_entrega_real as Dt_real, p.tipo_medicamento1 as 'Medicamento(1)', p.quantidade_medicamento1 as 'Qtd_med(1)', 
-		p.tipo_medicamento2 as 'Medicamento(2)', p.quantidade_medicamento2 as 'Qtd_med(2)', p.status as Status, 
-	v.tipo as Veículo, v.placa as Placa, c.nome as Cliente, c.telefone as Telefone, et.logradouro as Partida, et.numero as Nº_partida, et.cep as CEP_partida, ec.logradouro as Entrega, ec.numero as Nº_entrega, ec.cep as CEP_entrega
+ p.idpedido as Idpedido, p.data_pedido as Dt_pedido, p.data_entrega_prevista as Dt_prevista, p.data_entrega_real as Dt_real, 
+ p.tipo_medicamento1 as 'Medicamento', v.tipo as Veículo, v.placa as Placa, c.nome as Cliente, c.telefone as Telefone, et.logradouro as Partida, et.numero as Nº_partida, et.cep as CEP_partida, ec.logradouro as Entrega, ec.numero as Nº_entrega, ec.cep as CEP_entrega
 
 -- tabela que estamos nos referindo 
 	from pedido as p
