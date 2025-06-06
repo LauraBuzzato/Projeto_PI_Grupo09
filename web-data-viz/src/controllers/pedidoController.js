@@ -96,9 +96,6 @@ function verificarVeiculoStatus(req, res) {
 }
 
 function cadastrarPedido(req, res) {
-    var qtd1 = req.body.qtd1Server;
-    var qtd2 = req.body.qtd2Server;
-    var medicamento2 = req.body.medicamento2Server;
     var medicamento1 = req.body.medicamento1Server;
     var selectCliente = req.body.selectClienteServer;
     var dataDoPedido = req.body.dataDoPedidoServer;
@@ -106,13 +103,7 @@ function cadastrarPedido(req, res) {
     var veiculoDoPedido = req.body.veiculoDoPedidoServer;
 
     // Faça as validações dos valores
-    if (qtd1 == undefined) {
-        res.status(400).send("Qtd1 está undefined!");
-    } else if (qtd2 == undefined) {
-        res.status(400).send("Qtd2 está undefined!");
-    } else if (medicamento2 == undefined) {
-        res.status(400).send("medicamento2 undefined!");
-    } else if (medicamento1 == undefined) {
+    if (medicamento1 == undefined) {
         res.status(400).send("medicamento1 undefined!");
     } else if (selectCliente == undefined) {
         res.status(400).send("selectCliente undefined!");
@@ -122,7 +113,7 @@ function cadastrarPedido(req, res) {
         res.status(400).send("veiculoDoPedido undefined!");
     } else {
 
-        pedidoModel.cadastrarPedido(qtd1, qtd2, medicamento2, medicamento1, selectCliente, dataDoPedido,
+        pedidoModel.cadastrarPedido(medicamento1, selectCliente, dataDoPedido,
            dataEntregaPrevista, veiculoDoPedido)
             .then(
                 function (resultado) {
