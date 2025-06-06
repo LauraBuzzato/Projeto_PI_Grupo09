@@ -270,11 +270,17 @@ function Excluir(iduser) {
 }
 
 function Editar(iduser){
-    var totaluser = 0
+
 for(var i = 0; i < funcionarios.length;i++){
-    totaluser++
+    console.log('entrou no if', funcionarios[i].nome)
+    if(i == iduser){
+        console.log('entrouifif')
+ nome.value = `${funcionarios[i].nome}`
+ break
 }
-      nome.value = `${funcionarios[totaluser].nome}`
+
+}
+     
 
     fetch(`/usuarios/editando/${iduser}`, {
         method: "PUT",
