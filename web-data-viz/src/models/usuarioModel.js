@@ -31,7 +31,7 @@ function cadastrar(email, senha, idTransportadora) {
 
 function autenticar(email, senha) {
     var instrucaoSql = `
-        SELECT idUsuario, email, idTransportadora, ativo, administrador FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT idUsuario, nome, email, idTransportadora, ativo, administrador FROM usuario WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -57,7 +57,7 @@ return database.executar(instrucaoSql);
 
 function procurarNovoUsuario(idTransportadora) {
 var instrucaoSql = `
-SELECT idUsuario, email, senha, ativo FROM usuario WHERE idTransportadora = '${idTransportadora}' and administrador like false;
+SELECT idUsuario, nome, email, senha, ativo FROM usuario WHERE idTransportadora = '${idTransportadora}' and administrador like false;
 `;
 console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
