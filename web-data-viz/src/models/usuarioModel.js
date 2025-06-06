@@ -57,12 +57,19 @@ return database.executar(instrucaoSql);
 
 function procurarNovoUsuario(idTransportadora) {
 var instrucaoSql = `
-SELECT idUsuario, nome, email, senha, ativo FROM usuario WHERE idTransportadora = '${idTransportadora}' and administrador like false;
+SELECT idUsuario as userid, nome, email, senha, ativo FROM usuario WHERE idTransportadora = '${idTransportadora}' and administrador like false;
 `;
 console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function removerUsuario(iduser){
+var instrucaoSql = `
+delete from usuario where idUsuario = ${iduser};
+`
+
+return database.executar(instrucaoSql)
+}
 
 module.exports = {
 cadastrar,
@@ -71,6 +78,7 @@ buscarTransportadoraPorNome,
 autenticar,
 buscarIdParaCadastro,
 inserirNovoUsuario,
-procurarNovoUsuario
+procurarNovoUsuario,
+removerUsuario
 
 };
