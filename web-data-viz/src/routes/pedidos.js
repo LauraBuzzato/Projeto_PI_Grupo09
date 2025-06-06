@@ -38,4 +38,8 @@ router.get("/buscarCliente/:idTransportadora", function (req, res) {
 router.get("/verificarVeiculoStatus/:veiculoDoPedido", function (req, res) {
     pedidoController.verificarVeiculoStatus(req, res);
 })
+
+router.put("/concluirPedido/:idPedidoVar", function (req, res) {
+    pedidoController.concluirPedido(req,res)
+})
 module.exports = router;

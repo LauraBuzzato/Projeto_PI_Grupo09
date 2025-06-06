@@ -73,7 +73,7 @@
 
             <div class="ultimoAlerta">
                 <h3>Último alerta: <span id="ultimoAlerta">-</span></h3>
-                <button>Encerrar pedido</button>
+                <button onclick="finalizarPedido()">Encerrar pedido</button>
             </div>
 
             <div class="KPI_row">
@@ -123,7 +123,7 @@
                     <img src="../img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
                         alt="">
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@biologistics.atlassian.net">
-                    <p>support@biologistics.atlassian.net</p>
+                        <p>support@biologistics.atlassian.net</p>
                     </a>
                 </div>
             </div>
@@ -249,9 +249,9 @@
                                         $('#ultimoAlerta').text(idAlertaVar);
                                         $('#alertaHora').text(inicioVar);
                                         if (duracaoVar == null) {
-                                        $('#duracao').text('Alerta em Andamento!');
-                                        }else{
-                                        $('#duracao').text(duracaoVar);
+                                            $('#duracao').text('Alerta em Andamento!');
+                                        } else {
+                                            $('#duracao').text(duracaoVar);
                                         }
                                         $('#temperatura').text(`${limiteVar}°C`);
 
@@ -459,34 +459,34 @@
                         }
 
                         fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
-                                .then(res => res.json())
-                                .then(dados => {
-                                    if (dados.length > 0) {
+                            .then(res => res.json())
+                            .then(dados => {
+                                if (dados.length > 0) {
 
-                                        var idAlertaVar = dados[0].idalerta
-                                        var duracaoVar = dados[0].duracao
-                                        var limiteVar = dados[0].limite
-                                        var inicioVar = dados[0].inicio
+                                    var idAlertaVar = dados[0].idalerta
+                                    var duracaoVar = dados[0].duracao
+                                    var limiteVar = dados[0].limite
+                                    var inicioVar = dados[0].inicio
 
-                                        console.log(dados[0].duracao)
+                                    console.log(dados[0].duracao)
 
-                                        $('#ultimoAlerta').text(idAlertaVar);
-                                        $('#alertaHora').text(inicioVar);
-                                        if (duracaoVar == null) {
+                                    $('#ultimoAlerta').text(idAlertaVar);
+                                    $('#alertaHora').text(inicioVar);
+                                    if (duracaoVar == null) {
                                         $('#duracao').text('Alerta em Andamento!');
-                                        }else{
-                                        $('#duracao').text(duracaoVar);
-                                        }
-                                        $('#temperatura').text(`${limiteVar}°C`);
-
                                     } else {
-                                        $('#ultimoAlerta').text('Sem alerta');
-                                        $('#alertaHora').text('-');
-                                        $('#duracao').text('-');
-                                        $('#temperatura').text('-');
+                                        $('#duracao').text(duracaoVar);
                                     }
+                                    $('#temperatura').text(`${limiteVar}°C`);
 
-                                })
+                                } else {
+                                    $('#ultimoAlerta').text('Sem alerta');
+                                    $('#alertaHora').text('-');
+                                    $('#duracao').text('-');
+                                    $('#temperatura').text('-');
+                                }
+
+                            })
 
                         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                         proximaAtualizacao = setTimeout(() => atualizarGrafico(idSensorVar, dados, myChart), 2000);
@@ -500,6 +500,27 @@
                 .catch(function (error) {
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
+
+        }
+
+        function finalizarPedido() {
+            var idPedidoVar = localStorage.ID_PEDIDO
+
+            fetch(`/pedidos/concluirPedido/${idPedidoVar}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+
+                },
+            })
+                .then((res) => {
+                    if (!res.ok) {
+                       throw new Error("Erro ao fazer o update")
+                    }
+                        
+                    window.location.href = window.location.href
+                    
+                })
 
         }
 

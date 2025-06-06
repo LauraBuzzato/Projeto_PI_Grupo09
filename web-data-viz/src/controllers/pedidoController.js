@@ -141,6 +141,17 @@ function cadastrarPedido(req, res) {
     }
 }
 
+function concluirPedido(req,res){
+    var idPedido = req.params.idPedidoVar
+ 
+
+    pedidoModel.concluirPedido(idPedido)
+    .then((resultado) => {
+        res.json(resultado)
+    })
+
+}
+
 
 module.exports = {
     buscarCliente,
@@ -150,5 +161,6 @@ module.exports = {
     buscarPedidoConcluido,
     buscarDadosPedidoConcluido,
     cadastrarPedido,
-    verificarVeiculoStatus
+    verificarVeiculoStatus,
+    concluirPedido
 }
