@@ -31,8 +31,7 @@ function buscarVeiculo(idCliente, idTransportadora) {
 
 function buscarDadosPedido(idCliente, idVeiculo) {
     var instrucao = `
-        select c.nome, c.cnpj, concat(e.logradouro,', ', e.numero) endereco, p.data_entrega_prevista, p.tipo_medicamento1, p.quantidade_medicamento1, 
-        p.tipo_medicamento2, p.quantidade_medicamento2, p.idpedido, v.tipo, s.idsensor from cliente c
+        select c.nome, c.cnpj, concat(e.logradouro,', ', e.numero) endereco, p.data_entrega_prevista, p.tipo_medicamento1, p.idpedido, v.tipo, s.idsensor from cliente c
 		inner join endereco e on c.idendereco = e.idendereco
         inner join pedido p on c.idcliente=p.idcliente
         inner join veiculo v on p.idveiculo=v.idveiculo

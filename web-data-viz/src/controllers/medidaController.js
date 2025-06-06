@@ -40,9 +40,25 @@ function buscarMedidasEmTempoReal(req, res) {
     });
 }
 
+function totalDeAlertas(req, res) {
+    var idpedido = req.params.idpedido
+
+    medidaModel.totalDeAlertas(idpedido)
+        .then(resultado => {
+         
+                res.json(resultado); 
+            
+        })
+         .catch(erro => {
+            console.error("Erro ao buscar dados alerta:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    totalDeAlertas
 
 }

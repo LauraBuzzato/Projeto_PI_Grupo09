@@ -20,8 +20,17 @@ ORDER BY idleitura_sensor DESC LIMIT 1`;
     return database.executar(instrucaoSql);
 }
 
+function totalDeAlertas(idPedido){
+    var instrucao = ` 
+        select idalerta, duracao, limite, date_format(inicio, '%H:%i:%s') as inicio
+        from alerta
+        where idpedido = ${idPedido} and duracao is not null;
+        `
+        return database.executar(instrucao)
+}
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    totalDeAlertas
 }

@@ -17,4 +17,8 @@ router.get("/valorDaTemperatura/:idpedido", function (req, res){
     alertaController.valorDaTemperatura(req, res)
 })
 
+router.get("/totalDeAlertas/:idpedido", function (req, res){
+    alertaController.totalDeAlertas(req, res)
+})
+
 module.exports = router;
