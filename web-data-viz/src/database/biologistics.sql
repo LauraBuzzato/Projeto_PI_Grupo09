@@ -148,7 +148,7 @@ create table pedido (
     idcliente int,
     data_pedido datetime default current_timestamp,
     data_entrega_prevista datetime,
-    data_entrega_real datetime current_timestamp,
+    data_entrega_real datetime default current_timestamp,
     tipo_medicamento1 varchar(100),
     concluido boolean default false,
     foreign key (idveiculo) references veiculo(idveiculo),
