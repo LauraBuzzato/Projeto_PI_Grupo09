@@ -89,7 +89,7 @@ function verificarVeiculoStatus(veiculoPedido) {
 function concluirPedido(idPedido) {
     var instrucao = `
         UPDATE pedido
-            SET concluido = 1
+            SET concluido = 1, data_entrega_real = current_timestamp
              WHERE idpedido = ${idPedido};
     `
     return database.executar(instrucao)

@@ -10,7 +10,7 @@ function verificarPedidoJa() {
         return
     } else {
          dataEntregaPrevista += ':00'
-       var dataEntregaPrevistaReal = dataEntregaPrevista.replace('T', '')
+       var dataEntregaPrevistaReal = dataEntregaPrevista.replace('T', ' ')
        
         fetch(`/pedidos/verificarVeiculoStatus/${veiculoDoPedido}`)
             .then((resposta) => {
