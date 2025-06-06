@@ -100,13 +100,18 @@
 
         <div class="mensagemAlerta hidden" id="alerta">
             <h2>Alertas do pedido:</h2>
-            <table>
-                <tr>
-                    <th>Numero do alerta</th>
-                    <th>duração</th>
-                    <th>temperatura excedida</th>
-                    <th>inicio do alerta</th>
-                </tr>
+            <table id="tabelaAlertas">
+                <thead>
+                    <tr>
+                        <th>Número do alerta</th>
+                        <th>Duração</th>
+                        <th>Temperatura excedida</th>
+                        <th>Início do alerta</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabelaAlertas">
+                    <!-- lugar onde vão aparecer os alertas -->
+                </tbody>
             </table>
         </div>
 
@@ -222,10 +227,12 @@
                     .then(info => {
                         if (info.length > 0) {
                             const pedido = info[0];
-                            localStorage.ID_SENSOR = pedido.idsensor
-                            localStorage.ID_PEDIDO = pedido.idpedido
+                            localStorage.ID_SENSOR = pedido.idsensor;
+                            localStorage.ID_PEDIDO = pedido.idpedido;
 
                             var idpedido = pedido.idpedido
+                            /*Mostrando a tabela ao abrir a página, a partir do idPedido*/
+                            atualizarTabelaAlertas(pedido.idpedido);
 
                             $('#parte1').html(`
             <h3>N° do Pedido: ${pedido.idpedido}</h3>
@@ -260,12 +267,12 @@
                                         } else {
                                             $('#duracao').text(duracaoVar);
                                         }
-                                        if(limiteVar == '2'){
+                                        if (limiteVar == '2') {
                                             $('#temperatura').text(`< ${limiteVar}°C`);
-                                        }else if(limiteVar == '8'){
+                                        } else if (limiteVar == '8') {
                                             $('#temperatura').text(`> ${limiteVar}°C`);
                                         }
-                                        
+
 
                                     } else {
                                         $('#ultimoAlerta').text('Sem alerta');
@@ -291,7 +298,6 @@
 
 
         let proximaAtualizacao;
-
 
         function obterDadosGrafico() {
             const idSensorVar = localStorage.ID_SENSOR
@@ -436,7 +442,8 @@
 
         function atualizarGrafico(idSensorVar, dados, myChart) {
             const idpedido = localStorage.ID_PEDIDO
-
+            /*Atualizando a tabela a partir da atualização do gráfico*/
+            atualizarTabelaAlertas(idpedido);
             fetch(`/medidas/tempo-real/${idSensorVar}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
 
@@ -527,13 +534,68 @@
             })
                 .then((res) => {
                     if (!res.ok) {
-                       throw new Error("Erro ao fazer o update")
+                        throw new Error("Erro ao fazer o update")
                     }
-                        
+
                     window.location.href = window.location.href
-                    
+
                 })
 
+        }
+
+
+        function atualizarTabelaAlertas(idpedido) {
+            fetch(`/medidas/totalDeAlertas/${idpedido}`)
+                .then(res => res.json())
+                .then(alertas => {
+                    const corpoTabela = document.getElementById('corpoTabelaAlertas');
+                    corpoTabela.innerHTML = ''; // Limpa a tabela
+
+                    if (alertas.length > 0) {
+                        // for para criar a quebra de informação
+                        for (let i = 0; i < alertas.length; i++) {
+                            const alerta = alertas[i];
+                            const linha = document.createElement('tr');
+
+                            // Célula do ID do alerta
+                            const celulaId = document.createElement('td');
+                            celulaId.textContent = alerta.idalerta;
+                            linha.appendChild(celulaId);
+
+                            // Célula da duração
+                            const celulaDuracao = document.createElement('td');
+                            celulaDuracao.textContent = alerta.duracao || 'Em andamento';
+                            linha.appendChild(celulaDuracao);
+
+                            // Célula do limite
+                            const celulaLimite = document.createElement('td');
+                            if (alerta.limite === 2) {
+                                celulaLimite.textContent = `abaixo de ${alerta.limite}°C`;
+                            } else if (alerta.limite === 8) {
+                                celulaLimite.textContent = `acima de ${alerta.limite}°C`;
+                            }
+                            linha.appendChild(celulaLimite);
+
+                            // Célula do início
+                            const celulaInicio = document.createElement('td');
+                            celulaInicio.textContent = alerta.inicio;
+                            linha.appendChild(celulaInicio);
+
+                            // Adiciona a linha à tabela
+                            corpoTabela.appendChild(linha);
+                        }
+                    } else {
+                        const linha = document.createElement('tr');
+                        const celulaMensagem = document.createElement('td');
+                        celulaMensagem.colSpan = 4;
+                        celulaMensagem.textContent = 'Nenhum alerta registrado para este pedido';
+                        linha.appendChild(celulaMensagem);
+                        corpoTabela.appendChild(linha);
+                    }
+                })
+                .catch(erro => {
+                    console.error("Erro ao buscar alertas:", erro);
+                });
         }
 
     </script>
