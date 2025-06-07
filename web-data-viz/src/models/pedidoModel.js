@@ -14,7 +14,8 @@ function buscarClienteFinalizado(idTransportadora) {
         select c.idcliente, nome from cliente c
         inner join pedido p on c.idcliente=p.idcliente
         inner join veiculo v on p.idveiculo=v.idveiculo
-        where v.idtransportadora = ${idTransportadora} and p.concluido = true;
+        where v.idtransportadora = ${idTransportadora} and p.concluido = true
+        group by c.idcliente;
     `;
     return database.executar(instrucao);
 }
