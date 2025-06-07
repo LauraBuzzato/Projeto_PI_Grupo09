@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
     <link rel="stylesheet" href="../style/transportadora.css">
+    <link rel="stylesheet" href="../style/style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -43,18 +44,18 @@
     </div>
 
     <div class="informacao">
-        <h2 class="tituloAlerta">Monitoramento em tempo Real</h2>
+        <h2 class="tituloAlerta"><b>Monitoramento em tempo Real</b></h2>
 
         <div class="containerPedido">
-            <label for="empresas">Selecione uma empresa:</label>
+            <label for="empresas" id="labelSelect">Selecione uma empresa:</label>
             <select id="empresas">
-                <option value="">-- Escolha uma empresa --</option>
+                <option value="" >-- Escolha uma empresa --</option>
 
             </select>
         </div>
 
         <div class="containerPedido hidden" id="veiculoContainer">
-            <label for="veiculos">Selecione um veículo:</label>
+            <label for="veiculos" id="labelSelect">Selecione um veículo:</label>
             <select id="veiculos">
                 <option value="">-- Escolha um veículo --</option>
             </select>
@@ -62,7 +63,7 @@
 
         <div class="KPI hidden" id="dadosPedido">
             <div class="pedido_info_container">
-                <h2 class="tituloAlerta">Informações do Pedido:</h2>
+                <h2 class="tituloAlerta"><b>Informações do Pedido:</b></h2>
                 <div class="resumo_pedido_container">
                     <div class="resumo_pedido">
                         <div class="partes" id="parte1"></div>
@@ -72,7 +73,7 @@
             </div>
 
             <div class="ultimoAlerta">
-                <h3>Último alerta: <span id="ultimoAlerta">-</span></h3>
+                <h3><b>Último alerta:</b> <span id="ultimoAlerta"><b>-</b></span></h3>
                 <button onclick="finalizarPedido()">Encerrar pedido</button>
             </div>
 
@@ -99,7 +100,7 @@
         </div>
 
         <div class="mensagemAlerta hidden" id="alerta">
-            <h2>Alertas do pedido:</h2>
+            <h2><b>Alertas do pedido:</b></h2>
             <table id="tabelaAlertas">
                 <thead>
                     <tr>

@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
     <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/transportadora.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -44,32 +45,32 @@
     </div>
     <div class="informacao">
         <div class="mensagemAlerta">
-            <h2 class="tituloAlerta">Resumo dos Pedidos</h2>
+            <h2 class="tituloAlerta"><b>Resumo dos Pedidos</b></h2>
             <div class="containerPedido">
-                <label for="empresas">Selecione uma empresa:</label>
+                <label for="empresas" id="labelSelect"><b>Selecione uma empresa:</b></label>
                 <select id="empresas">
-                    <option value="">-- Escolha uma empresa --</option>
+                    <option value=""><b>Escolha uma empresa</b> </option>
                 </select>
             </div>
             <div class="containerPedido hidden" id="veiculoContainer">
-                <label for="pedidos">Selecione um veículo:</label>
+                <label for="pedidos" id="labelSelect"><b>Selecione um veículo:</b></label>
                 <select id="pedidos">
-                    <option value="">Selecione o veículo</option>
+                    <option value=""><b>Selecione o veículo</b></option>
                 </select>
             </div>
             <div class="KPI_container hidden" id="dadosPedido">
                 <div class="KPI_column">
                     <div class="KPI_Alerta">
-                        <h2>Média de Alertas por hora:</h2>
+                        <h2><b>Média de Alertas por hora:</b></h2>
                         <h2 id="mediaAlerta"></h2>
                     </div>
                     <div class="KPI_Alerta">
-                        <h2>Quantidade de Alertas:</h2>
+                        <h2><b>Quantidade de Alertas:</b></h2>
                         <h2 id="qtdAlerta"></h2>
                     </div>
                 </div>
                 <div class="pedido_info_container">
-                    <h2 class="informacao_pedido">Informações do Pedido:</h2>
+                    <h2 class="informacao_pedido"><b>Informações do Pedido:</b></h2>
                     <div class="resumo_pedido_container">
                         <div class="resumo_pedido">
                             <div class="partes" id="parte1">
@@ -96,7 +97,7 @@
         </div>
     </div>
     <div class="mensagemAlerta hidden" id="alerta">
-        <h2>Alertas do pedido:</h2>
+        <h2><b>Alertas do pedido:</b></h2>
         <table id="tabelaAlertas">
             <thead>
                 <tr>
@@ -110,7 +111,7 @@
                 <!-- lugar onde vão aparecer os alertas -->
             </tbody>
         </table>
-        <h2>Pedidos finalizados:</h2>
+        <h2><b>Pedidos finalizados:</b></h2>
         <table id="tabelaPedidos">
             <thead>
                 <tr>
