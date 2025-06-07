@@ -10,8 +10,8 @@ function cadastrar2(nome, telefone, cnpj) {
     return database.executar(instrucaoSql);
 }
 
-function buscarTransportadoraPorNome(nome){
-var instrucao = `
+function buscarTransportadoraPorNome(nome) {
+    var instrucao = `
         select idtransportadora from transportadora where nome like '${nome}';
     `;
     return database.executar(instrucao);
@@ -39,46 +39,67 @@ function autenticar(email, senha) {
 
 
 function buscarIdParaCadastro(idUsuario) {
-var instrucaoSql = `
+    var instrucaoSql = `
 SELECT idtransportadora from usuario where idusuario like '${idUsuario}';
 `;
-console.log("Executando a instrução SQL: \n" + instrucaoSql);
-return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 function inserirNovoUsuario(nome, email, senha, idTransportadora) {
-var instrucaoSql = `
+    var instrucaoSql = `
 INSERT INTO usuario (nome, email, senha, administrador, ativo, idTransportadora)
 VALUES ('${nome}', '${email}', '${senha}', false, true, ${idTransportadora});
 `;
-console.log("Executando a instrução SQL: \n" + instrucaoSql);
-return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 function procurarNovoUsuario(idTransportadora) {
-var instrucaoSql = `
+    var instrucaoSql = `
 SELECT idUsuario as userid, nome, email, senha, ativo FROM usuario WHERE idTransportadora = '${idTransportadora}' and administrador like false;
 `;
-console.log("Executando a instrução SQL: \n" + instrucaoSql);
-return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
-function removerUsuario(iduser){
-var instrucaoSql = `
+function removerUsuario(iduser) {
+    var instrucaoSql = `
 delete from usuario where idUsuario = ${iduser};
 `
 
-return database.executar(instrucaoSql)
+    return database.executar(instrucaoSql)
+}
+
+function editarEmail(iduser, email) {
+    var instrucaoSql = `
+ update usuario
+ set email = '${email}'
+ where idUsuario = ${iduser}
+  and administrador = false;
+`
+    return database.executar(instrucaoSql)
+}
+
+function editarSenha(iduser, senha) {
+    var instrucaoSql = `
+ update usuario
+ set senha = '${senha}'
+ where idUsuario = ${iduser}
+ and administrador = false;
+`
+    return database.executar(instrucaoSql)
 }
 
 module.exports = {
-cadastrar,
-cadastrar2,
-buscarTransportadoraPorNome,
-autenticar,
-buscarIdParaCadastro,
-inserirNovoUsuario,
-procurarNovoUsuario,
-removerUsuario
-
+    cadastrar,
+    cadastrar2,
+    buscarTransportadoraPorNome,
+    autenticar,
+    buscarIdParaCadastro,
+    inserirNovoUsuario,
+    procurarNovoUsuario,
+    removerUsuario,
+    editarEmail,
+    editarSenha
 };

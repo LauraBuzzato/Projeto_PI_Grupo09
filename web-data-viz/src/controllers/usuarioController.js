@@ -171,6 +171,24 @@ res.json(resultado)
 })
 }
 
+function editandoemail(req, res){
+    var iduser = req.params.idusuario
+    var email = req.params.emailp
+    usuarioModel.editarEmail(iduser,email)
+    .then(function(resultado){
+        res.json(resultado)
+    })
+}
+
+function editandosenha(req, res){
+var iduser = req.params.idusuario
+var senha = req.params.senhap
+usuarioModel.editarSenha(iduser,senha)
+.then(function(resultado){
+    res.json(resultado)
+})
+}
+
 module.exports = {
 cadastrar,
 cadastrar2,
@@ -179,5 +197,7 @@ autenticar,
 buscarIdParaCadastro,
 inserirNovoUsuario,
 procurarNovoUsuario,
-removerUsuario
+removerUsuario,
+editandoemail,
+editandosenha
 }

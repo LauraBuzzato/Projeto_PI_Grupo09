@@ -37,8 +37,12 @@ router.delete("/removerusuario/:idusuario", function (req,res){
     usuarioController.removerUsuario(req,res)
 })
 
-router.put("/editando/:iduser" , function (req,res){
-    usuarioController.editar(req,res)
+router.put("/editandoemail/:idusuario/:emailp" , function (req,res){
+    usuarioController.editandoemail(req,res)
+})
+
+router.put("/editandosenha/:idusuario/:senhap" , function (req,res){
+    usuarioController.editandosenha(req,res)
 })
 
 

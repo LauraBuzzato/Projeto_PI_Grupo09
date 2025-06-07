@@ -1,3 +1,5 @@
+const nodemon = require("nodemon")
+
 function verificarPedidoJa() {
     var medicamento1 = med1.value
     var selectCliente = Cliente.value
@@ -5,13 +7,13 @@ function verificarPedidoJa() {
     var veiculoDoPedido = veiculoPedido.value
 
 
-  if (!selectCliente || !dataEntregaPrevista || !veiculoDoPedido || !medicamento1 ) {
+    if (!selectCliente || !dataEntregaPrevista || !veiculoDoPedido || !medicamento1) {
         alert('Algum campo não preenchido.')
         return
     } else {
-         dataEntregaPrevista += ':00'
-       var dataEntregaPrevistaReal = dataEntregaPrevista.replace('T', ' ')
-       
+        dataEntregaPrevista += ':00'
+        var dataEntregaPrevistaReal = dataEntregaPrevista.replace('T', ' ')
+
         fetch(`/pedidos/verificarVeiculoStatus/${veiculoDoPedido}`)
             .then((resposta) => {
                 if (!resposta.ok) {
@@ -23,11 +25,11 @@ function verificarPedidoJa() {
 
                 if (dados.length > 0) {
                     alert('Veiculo está com um pedido em andamento!')
-                 
+
                     return
                 } else {
 
-                
+
                     fetch("/pedidos/cadastrarPedido", {
                         method: "POST",
                         headers: {
@@ -75,7 +77,7 @@ function cadastrarVeiculo() {
     var anoVec = ano.value
     var modeloVec = modelo.value
     var idTransportadora = sessionStorage.ID_TRANSPORTADORA;
-    
+
 
 
 
@@ -227,7 +229,7 @@ function mostrarFuncionarios() {
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
                     funcionarios = dados
-                    
+
                     for (let i = 0; i < funcionarios.length; i++) {
                         iduser = funcionarios[i].userid
                         usuariosCadastrados.innerHTML += `
@@ -239,7 +241,7 @@ function mostrarFuncionarios() {
 <style>
 .fotter{
 display: block;
-margin-top: ${tamanhoFooter}rem;
+margin-top: 12.5rem;
 }
 </style>
 `;
@@ -269,31 +271,67 @@ function Excluir(iduser) {
         })
 }
 
-function Editar(iduser){
+var idAlterar = 0
+function Editar(iduser) {
+    for (var i = 0; i < funcionarios.length; i++) {
+        if (funcionarios[i].userid == iduser) {
+            idAlterar = funcionarios[i].userid
+            nome.value = `${funcionarios[i].nome}`
+            email.value = `${funcionarios[i].email}`
+            senha.value = `${funcionarios[i].senha}`
+            break
+        }
+    }
 
-for(var i = 0; i < funcionarios.length;i++){
-    console.log('entrou no if', funcionarios[i].nome)
-    if(i == iduser){
-        console.log('entrouifif')
- nome.value = `${funcionarios[i].nome}`
- break
 }
 
-}
-     
 
-    fetch(`/usuarios/editando/${iduser}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
+function editandoFuncionario() {
+    console.log('edit', idAlterar)
+    var nomeInput = document.getElementById("nome");
+    var emailInput = document.getElementById("email");
+    var senhaInput = document.getElementById("senha");
+    for (var i = 0; i < funcionarios.length; i++) {
+        var email = emailInput.value
+        var senha = senhaInput.value
+        var nome = nomeInput.value
+        if (funcionarios[i].userid === idAlterar) {
+            if (funcionarios[i].email === email) {
+                console.log('não alterou email')
+            } else {
+                console.log('alterou email')
+                fetch(`/usuarios/editandoemail/${idAlterar}/${email}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
 
-        },
-    })
-        .then((res) => {
-            if (res.json) {
-                buscarTransportadoraDoUsuario()
+                    },
+                })
+                    .then((res) => {
+                        if (res.json) {
+                            buscarTransportadoraDoUsuario()
+                        }
+                    })
             }
-        })
+             if (funcionarios[i].senha === senha) {
+                console.log('não alterou a senha')
+            }else{
+                console.log('alterou a senha')
+                      fetch(`/usuarios/editandosenha/${idAlterar}/${senha}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+
+                    },
+                })
+                    .then((res) => {
+                        if (res.json) {
+                            buscarTransportadoraDoUsuario()
+                        }
+                    })
+            }
+        }
+    }
 }
 
 function cadastroFuncionario() {
