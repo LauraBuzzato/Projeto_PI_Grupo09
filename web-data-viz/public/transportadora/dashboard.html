@@ -166,7 +166,7 @@
         const alertaHora = document.getElementById('alertaHora')       // Horário do alerta
         const duracao = document.getElementById('duracao')    // Duração do alerta
         const temperatura = document.getElementById('temperatura')   // Temperatura registrada
-
+        let myChart = null
 
         var idUsuario = sessionStorage.ID_USUARIO
         fetch("/usuarios/buscarIdParaCadastro", {
@@ -284,6 +284,7 @@
 
 
                                     $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                                  
                                     obterDadosGrafico()
                                 })
                         } else {
@@ -299,6 +300,7 @@
 
 
         let proximaAtualizacao;
+
 
         function obterDadosGrafico() {
             const idSensorVar = localStorage.ID_SENSOR
@@ -327,8 +329,15 @@
         }
 
         function plotarGrafico(resposta, idSensorVar) {
+            
 
             console.log('iniciando plotagem do gráfico...');
+
+            const ctx = document.getElementById(`myChart`)
+
+             if (myChart) {
+            myChart.destroy();
+            }
 
             // Criando estrutura para plotar gráfico - labels
             let labels = [];
@@ -431,8 +440,8 @@
             };
 
             // Adicionando gráfico criado em div na tela
-            let myChart = new Chart(
-                document.getElementById(`myChart`),
+           myChart = new Chart(
+                ctx,
                 config
             );
 
