@@ -62,7 +62,7 @@ const serial = async (
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
 
-                'INSERT INTO leiturasensor (idsensor, idpedido, valor) VALUES (2, 7, ?)',
+                'INSERT INTO leiturasensor (idsensor, idpedido, valor) VALUES (1, 9, ?)',
                 [sensorTemperatura]
 
 
@@ -72,7 +72,7 @@ const serial = async (
 
                 if (habilitar_insert) {
                     await poolBancoDados.execute(
-                        'INSERT INTO alerta (idpedido,limite) VALUES (7, 8)'
+                        'INSERT INTO alerta (idpedido,limite) VALUES (9, 8)'
                     );
 
                     habilitar_insert = false
@@ -83,7 +83,7 @@ const serial = async (
 
                 if (habilitar_insert) {
                     await poolBancoDados.execute(
-                        'INSERT INTO alerta (idpedido,limite) VALUES (7, 2)'
+                        'INSERT INTO alerta (idpedido,limite) VALUES (9, 2)'
                     );
 
                     habilitar_insert = false
@@ -159,7 +159,7 @@ const serial = async (
                     }
 
                     await poolBancoDados.execute(
-                        `UPDATE alerta SET duracao = ? WHERE idpedido = 7 AND duracao IS NULL`, [duracaoFinal]
+                        `UPDATE alerta SET duracao = ? WHERE idpedido = 9 AND duracao IS NULL`, [duracaoFinal]
                     );
 
                     habilitar_insert = true
