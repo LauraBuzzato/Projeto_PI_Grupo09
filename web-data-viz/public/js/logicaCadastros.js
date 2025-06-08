@@ -88,6 +88,13 @@ function cadastrarVeiculo() {
         alert('Insira um ano válido')
         return;
     } else {
+
+        if(tipoVec == 'carro'){
+            tipoVec = 'Automóvel'
+        }else if(tipoVec == 'aereo'){
+            tipoVec == 'Aéreo'
+        }
+
         fetch("/veiculo/cadastrar", {
             method: "POST",
             headers: {
@@ -147,46 +154,6 @@ function cadastrarVeiculo() {
 }
 
 
-/*var fkTransportadoraVeiculo
-//atualizando o gerenciamento
-window.onload = function () {
-  fetch("/veiculo/atualizar",{
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    }
-  })
-      .then(res => {
-          if (!res.ok) throw new Error("Erro ao buscar veículos.");
-          return res.json();
-      })
-      .then(veiculos => {
-          const tabela = document.getElementById("tabela-veiculos");
-          tabela.innerHTML = ""; // Limpa a tabela
-
-          veiculos.forEach(veiculo => {
-              const linha = document.createElement("tr");
-
-              linha.innerHTML = `
-                  <td>${veiculo.tipo}</td>
-                  <td>${veiculo.placa}</td>
-                  <td>${veiculo.ano}</td>
-                  <td>${veiculo.modelo}</td>
-                  <td>
-                      <button onclick="deletarVeiculo(${veiculo.idveiculo})">
-                          Deletar
-                      </button>
-                  </td>
-              `;
-
-              tabela.appendChild(linha);
-          });
-      })
-      .catch(erro => {
-          console.error("Erro ao carregar veículos:", erro);
-      });
-}; */
-
 
 
 var funcionarios = []
@@ -207,6 +174,8 @@ function buscarTransportadoraDoUsuario() {
             mostrarFuncionarios();
         });
 }
+
+
 let botao = 0;
 let tamanhoFooter = 12.5;
 tamanhoMaximo = 45;

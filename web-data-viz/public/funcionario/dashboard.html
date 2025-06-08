@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
     <link rel="stylesheet" href="../style/transportadora.css">
+    <link rel="stylesheet" href="../style/style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -14,7 +15,8 @@
 </head>
 
 <body>
-    <div class="header">
+      
+<div class="header">
         <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
             <li>
@@ -24,15 +26,15 @@
                 <a href="cadastroVeiculo.html">Cadastro Veiculos</a>
             </li>
             <li>
-                <a href="alertas.html">Alertas</a>
+                <a href="alertas.html"><b>Alertas</b></a>
             </li>
             <li>
-                <a href="dashboard.html"><b>Monitoramento</b></a>
+                <a href="dashboard.html">Monitoramento</a>
             </li>
             <li>
                 <a href="dashboardPedidos.html">Pedidos</a>
             </li>
-            <li class="sair"> 
+            <li class="sair">
                 <a onclick="limparSessao()">Sair</a>
             </li>
 
@@ -40,18 +42,18 @@
     </div>
 
     <div class="informacao">
-        <h2 class="tituloAlerta">Monitoramento em tempo Real</h2>
+        <h2 class="tituloAlerta"><b>Monitoramento em tempo Real</b></h2>
 
         <div class="containerPedido">
-            <label for="empresas">Selecione uma empresa:</label>
+            <label for="empresas" id="labelSelect">Selecione uma empresa:</label>
             <select id="empresas">
-                <option value="">-- Escolha uma empresa --</option>
+                <option value="" >-- Escolha uma empresa --</option>
 
             </select>
         </div>
 
         <div class="containerPedido hidden" id="veiculoContainer">
-            <label for="veiculos">Selecione um veículo:</label>
+            <label for="veiculos" id="labelSelect">Selecione um veículo:</label>
             <select id="veiculos">
                 <option value="">-- Escolha um veículo --</option>
             </select>
@@ -59,7 +61,7 @@
 
         <div class="KPI hidden" id="dadosPedido">
             <div class="pedido_info_container">
-                <h2 class="tituloAlerta">Informações do Pedido:</h2>
+                <h2 class="tituloAlerta"><b>Informações do Pedido:</b></h2>
                 <div class="resumo_pedido_container">
                     <div class="resumo_pedido">
                         <div class="partes" id="parte1"></div>
@@ -69,8 +71,8 @@
             </div>
 
             <div class="ultimoAlerta">
-                <h3>Último alerta: <span id="ultimoAlerta">-</span></h3>
-                <button>Encerrar pedido</button>
+                <h3><b>Último alerta:</b> <span id="ultimoAlerta"><b>-</b></span></h3>
+                <button onclick="finalizarPedido()">Encerrar pedido</button>
             </div>
 
             <div class="KPI_row">
@@ -96,8 +98,20 @@
         </div>
 
         <div class="mensagemAlerta hidden" id="alerta">
-            <h2 class="tituloAlerta">Alertas</h2>
-            <img src="../img/alerta.png" alt="" class="tabelaAlerta" width="100">
+            <h2><b>Alertas do pedido:</b></h2>
+            <table id="tabelaAlertas">
+                <thead>
+                    <tr>
+                        <th>Número do alerta</th>
+                        <th>Duração</th>
+                        <th>Temperatura excedida</th>
+                        <th>Início do alerta</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabelaAlertas">
+                    <!-- lugar onde vão aparecer os alertas -->
+                </tbody>
+            </table>
         </div>
 
 
@@ -120,7 +134,7 @@
                     <img src="../img/png-clipart-social-media-email-marketing-customer-social-media-angle-white-removebg-preview 1.png"
                         alt="">
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@biologistics.atlassian.net">
-                    <p>support@biologistics.atlassian.net</p>
+                        <p>support@biologistics.atlassian.net</p>
                     </a>
                 </div>
             </div>
@@ -150,7 +164,7 @@
         const alertaHora = document.getElementById('alertaHora')       // Horário do alerta
         const duracao = document.getElementById('duracao')    // Duração do alerta
         const temperatura = document.getElementById('temperatura')   // Temperatura registrada
-
+        let myChart = null
 
         var idUsuario = sessionStorage.ID_USUARIO
         fetch("/usuarios/buscarIdParaCadastro", {
@@ -184,7 +198,7 @@
 
                     $('#veiculos').html('<option value="">-- Escolha um veículo --</option>');
                     if (idEmpresa) {
-                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}`)
+                        fetch(`/pedidos/buscarVeiculo/${idEmpresa}/${idTransportadora}`)
                             .then(res => res.json())
                             .then(veiculos => {
                                 veiculos.forEach(veiculo => {
@@ -212,16 +226,13 @@
                     .then(info => {
                         if (info.length > 0) {
                             const pedido = info[0];
-                            localStorage.ID_SENSOR = pedido.idsensor
+                            localStorage.ID_SENSOR = pedido.idsensor;
+                            localStorage.ID_PEDIDO = pedido.idpedido;
 
-                            fetch(`/alertas/buscar-dados-alerta/${pedido.idpedido}`)
-                                .then(res => res.json())
-                                .then(dados => {
-                                    var idAlertaVar =  dados[0].idAlerta
-                                    var duracaoVar = dados[0].duracao
-                                    var limiteVar = dados[0].limite
-                                    var inicioVar = dados[0].inicio
-                                })
+                            var idpedido = pedido.idpedido
+                            /*Mostrando a tabela ao abrir a página, a partir do idPedido*/
+                            atualizarTabelaAlertas(pedido.idpedido);
+
                             $('#parte1').html(`
             <h3>N° do Pedido: ${pedido.idpedido}</h3>
             <h3>Tipo do Veículo: ${pedido.tipo}</h3>
@@ -236,13 +247,44 @@
             <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
         `);
 
-                            $('#ultimoAlerta').text(idAlertaVar || 'Sem Alerta');
-                            $('#alertaHora').text(inicioVar || '-');
-                            $('#duracao').text(duracaoVar || '-');
-                            $('#temperatura').text(`${limiteVar}°C` || '-');
+                            fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
+                                .then(res => res.json())
+                                .then(dados => {
+                                    if (dados.length > 0) {
 
-                            $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
-                            obterDadosGrafico()
+                                        var idAlertaVar = dados[0].idalerta
+                                        var duracaoVar = dados[0].duracao
+                                        var limiteVar = dados[0].limite
+                                        var inicioVar = dados[0].inicio
+
+                                        console.log(dados[0].duracao)
+
+                                        $('#ultimoAlerta').text(idAlertaVar);
+                                        $('#alertaHora').text(inicioVar);
+                                        if (duracaoVar == null) {
+                                            $('#duracao').text('Alerta em Andamento!');
+                                        } else {
+                                            $('#duracao').text(duracaoVar);
+                                        }
+                                        if (limiteVar == '2') {
+                                            $('#temperatura').text(`< ${limiteVar}°C`);
+                                        } else if (limiteVar == '8') {
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
+                                        }
+
+
+                                    } else {
+                                        $('#ultimoAlerta').text('Sem alerta');
+                                        $('#alertaHora').text('-');
+                                        $('#duracao').text('-');
+                                        $('#temperatura').text('-');
+                                    }
+
+
+                                    $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                                  
+                                    obterDadosGrafico()
+                                })
                         } else {
                             $('#dadosPedido, #grafico, #alerta').addClass('hidden');
                         }
@@ -285,8 +327,15 @@
         }
 
         function plotarGrafico(resposta, idSensorVar) {
+            
 
             console.log('iniciando plotagem do gráfico...');
+
+            const ctx = document.getElementById(`myChart`)
+
+             if (myChart) {
+            myChart.destroy();
+            }
 
             // Criando estrutura para plotar gráfico - labels
             let labels = [];
@@ -389,8 +438,8 @@
             };
 
             // Adicionando gráfico criado em div na tela
-            let myChart = new Chart(
-                document.getElementById(`myChart`),
+           myChart = new Chart(
+                ctx,
                 config
             );
 
@@ -400,7 +449,9 @@
 
 
         function atualizarGrafico(idSensorVar, dados, myChart) {
-
+            const idpedido = localStorage.ID_PEDIDO
+            /*Atualizando a tabela a partir da atualização do gráfico*/
+            atualizarTabelaAlertas(idpedido);
             fetch(`/medidas/tempo-real/${idSensorVar}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
 
@@ -434,6 +485,36 @@
                             myChart.update();
                         }
 
+                        fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
+                            .then(res => res.json())
+                            .then(dados => {
+                                if (dados.length > 0) {
+
+                                    var idAlertaVar = dados[0].idalerta
+                                    var duracaoVar = dados[0].duracao
+                                    var limiteVar = dados[0].limite
+                                    var inicioVar = dados[0].inicio
+
+                                    console.log(dados[0].duracao)
+
+                                    $('#ultimoAlerta').text(idAlertaVar);
+                                    $('#alertaHora').text(inicioVar);
+                                    if (duracaoVar == null) {
+                                        $('#duracao').text('Alerta em Andamento!');
+                                    } else {
+                                        $('#duracao').text(duracaoVar);
+                                    }
+                                    $('#temperatura').text(`${limiteVar}°C`);
+
+                                } else {
+                                    $('#ultimoAlerta').text('Sem alerta');
+                                    $('#alertaHora').text('-');
+                                    $('#duracao').text('-');
+                                    $('#temperatura').text('-');
+                                }
+
+                            })
+
                         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                         proximaAtualizacao = setTimeout(() => atualizarGrafico(idSensorVar, dados, myChart), 2000);
                     });
@@ -447,6 +528,82 @@
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
 
+        }
+
+        function finalizarPedido() {
+            var idPedidoVar = localStorage.ID_PEDIDO
+
+            fetch(`/pedidos/concluirPedido/${idPedidoVar}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+
+                },
+            })
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error("Erro ao fazer o update")
+                    }
+
+                    window.location.href = window.location.href
+
+                })
+
+        }
+
+
+        function atualizarTabelaAlertas(idpedido) {
+            fetch(`/medidas/totalDeAlertas/${idpedido}`)
+                .then(res => res.json())
+                .then(alertas => {
+                    const corpoTabela = document.getElementById('corpoTabelaAlertas');
+                    corpoTabela.innerHTML = ''; // Limpa a tabela
+
+                    if (alertas.length > 0) {
+                        // for para criar a quebra de informação
+                        for (let i = 0; i < alertas.length; i++) {
+                            const alerta = alertas[i];
+                            const linha = document.createElement('tr');
+
+                            // Célula do ID do alerta
+                            const celulaId = document.createElement('td');
+                            celulaId.textContent = alerta.idalerta;
+                            linha.appendChild(celulaId);
+
+                            // Célula da duração
+                            const celulaDuracao = document.createElement('td');
+                            celulaDuracao.textContent = alerta.duracao || 'Em andamento';
+                            linha.appendChild(celulaDuracao);
+
+                            // Célula do limite
+                            const celulaLimite = document.createElement('td');
+                            if (alerta.limite === 2) {
+                                celulaLimite.textContent = `abaixo de ${alerta.limite}°C`;
+                            } else if (alerta.limite === 8) {
+                                celulaLimite.textContent = `acima de ${alerta.limite}°C`;
+                            }
+                            linha.appendChild(celulaLimite);
+
+                            // Célula do início
+                            const celulaInicio = document.createElement('td');
+                            celulaInicio.textContent = alerta.inicio;
+                            linha.appendChild(celulaInicio);
+
+                            // Adiciona a linha à tabela
+                            corpoTabela.appendChild(linha);
+                        }
+                    } else {
+                        const linha = document.createElement('tr');
+                        const celulaMensagem = document.createElement('td');
+                        celulaMensagem.colSpan = 4;
+                        celulaMensagem.textContent = 'Nenhum alerta registrado para este pedido';
+                        linha.appendChild(celulaMensagem);
+                        corpoTabela.appendChild(linha);
+                    }
+                })
+                .catch(erro => {
+                    console.error("Erro ao buscar alertas:", erro);
+                });
         }
 
     </script>

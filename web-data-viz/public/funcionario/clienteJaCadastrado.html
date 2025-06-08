@@ -4,23 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/transportadora.css">
+    <link rel="stylesheet" href="../style/selectcss.css">
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../js/logicaLogin.js"></script>
 </head>
 
 <body>
-    <div class="header">
+      
+<div class="header">
         <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
             <li>
-                <a href="cadastroPedido.html"><b>Cadastro Pedidos</b></a>
+                <a href="cadastroPedido.html">Cadastro Pedidos</a>
             </li>
             <li>
                 <a href="cadastroVeiculo.html">Cadastro Veiculos</a>
             </li>
             <li>
-                <a href="alertas.html">Alertas</a>
+                <a href="alertas.html"><b>Alertas</b></a>
             </li>
             <li>
                 <a href="dashboard.html">Monitoramento</a>
@@ -44,57 +49,42 @@
 
                 <div class="campo">
                     <label for="Cliente">Selecione seu cliente:<span style="color: red;">*</span></label>
-                    <select name="Cliente" id="Cliente">
-                        <option value="MedCorp">MedCorp</option>
-                        <option value="HelthCorp">HealthCorp</option>
-                    </select>
-                </div>
-
-                <div class="campo">
-                    <label for="dataPedido">Data do pedido:</label>
-                    <input type="date" id="dataPedido" name="dataPedido" placeholder="Data do requerimento do pedido">
+                    <div class="cssSelectClienteJaCadastrado">
+                        <select name="Cliente" id="Cliente">
+                            <option value="">-- Escolha um cliente --</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="campo">
                     <label for="entregaPrevista">Entrega Prevista:<span style="color: red;">*</span></label>
-                    <input type="date" id="entregaPrevista" name="entregaPrevista" required>
+                    <input type="datetime-local" id="entregaPrevista" name="entregaPrevista" required>
                 </div>
 
                 <div class="campo">
                     <label for="veiculoPedido">Escolha o veículo:<span style="color: red;">*</span></label>
-                    <select name="veiculoPedido" id="veiculoPedido">
-                        <option value="um">Automóvel -placa: BRW9O02</option>
-                        <option value="um">Aéreo -placa: SP-EKN </option>
-                        <option value="um">Automóvel -plca: KDW2W02</option>
-                    </select>
+                    <div class="cssSelectClienteJaCadastrado">
+                        <select name="veiculoPedido" id="veiculoPedido">
+                            <option value="">-- Escolha um veículo --</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="campo">
-                    <label for="med1">Tipo do primeiro medicamento:<span style="color: red;">*</span></label>
+                    <label for="med1">Tipo do medicamento:<span style="color: red;">*</span></label>
                     <input type="text" id="med1" name="med1" required>
                 </div>
 
-                <div class="campo">
-                    <label for="qtd_med1">Quantidade do primeiro medicamento:<span style="color: red;">*</span></label>
-                    <input type="number" id="qtd_med1" name="qtd_med1" required>
-                </div>
-
-                <div class="campo">
-                    <label for="med2">Tipo do segundo medicamento:</label>
-                    <input type="text" id="med2" name="med2">
-                </div>
-
-                <div class="campo">
-                    <label for="qtd_med2">Quantidade do segundo medicamento:</label>
-                    <input type="number" id="qtd_med2" name="qtd_med2">
-                </div>
-
                 <div class="box_botao">
-                    <button type="submit" onclick="verificarPedidoJa()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                    <button type="button" onclick="verificarPedidoJa()"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle"
+                            viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
                         </svg></button>
+                </div>
+                <div class="campo">
+                    <h4>!Aviso: ao clicar no botão o pedido começará a ser monitorado automaticamente!</h4>
                 </div>
 
             </div>
@@ -138,5 +128,43 @@
 
 
 </body>
+<script>
+    $(document).ready(function () {
+        $('#Cliente').select2();
+        $('#veiculoPedido').select2();
+    });
+</script>
 <script src="../js/logicaCadastros.js"></script>
+<script>
+    var idTransportadora = sessionStorage.ID_TRANSPORTADORA
+    
+    fetch(`/pedidos/buscarCliente/${idTransportadora}`)
+        .then(res => res.json())
+        .then(cliente => {
+            cliente.forEach(cliente => {
+                const option = new Option(cliente.nome, cliente.idcliente);
+                $('#Cliente').append(option);
+            });
+            $('#Cliente').trigger('change.select2');
+        });
+
+        $('#veiculoPedido').html('<option value="">-- Escolha um veículo --</option>');
+
+      
+            fetch(`/veiculo/buscarVeiculos/${idTransportadora}`)
+                .then(res => res.json())
+                .then(pedidos => {
+                    console.log(pedidos)
+                    pedidos.forEach(veiculopedido => {
+                        const texto = `${veiculopedido.tipo} - Veículo placa: ${veiculopedido.placa}`
+                        const valor = `${veiculopedido.idveiculo}`
+                        const opt = new Option(texto, valor)
+                        $('#veiculoPedido').append(opt);
+                    });
+                    $('#veiculoPedido').trigger('change.select2');
+                });
+        
+
+</script>
+
 </html>

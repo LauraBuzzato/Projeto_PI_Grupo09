@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Biologistic - Monitoramento Inteligente para Medicamentos</title>
     <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/transportadora.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -15,10 +16,10 @@
 </head>
 
 <body>
-    <div class="header">
-        <img src="../img/biologistics.png" alt="" class="logo">
+      
+<div class="header">
+        <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
-
             <li>
                 <a href="cadastroPedido.html">Cadastro Pedidos</a>
             </li>
@@ -26,13 +27,13 @@
                 <a href="cadastroVeiculo.html">Cadastro Veiculos</a>
             </li>
             <li>
-                <a href="alertas.html">Alertas</a>
+                <a href="alertas.html"><b>Alertas</b></a>
             </li>
             <li>
                 <a href="dashboard.html">Monitoramento</a>
             </li>
             <li>
-                <a href="dashboardPedidos.html"><b>Pedidos</b></a>
+                <a href="dashboardPedidos.html">Pedidos</a>
             </li>
             <li class="sair">
                 <a onclick="limparSessao()">Sair</a>
@@ -42,41 +43,39 @@
     </div>
     <div class="informacao">
         <div class="mensagemAlerta">
-            <h2 class="tituloAlerta">Resumo dos Pedidos</h2>
+            <h2 class="tituloAlerta"><b>Resumo dos Pedidos</b></h2>
             <div class="containerPedido">
-                <label for="empresas">Selecione uma empresa:</label>
+                <label for="empresas" id="labelSelect"><b>Selecione uma empresa:</b></label>
                 <select id="empresas">
-                    <option value="">-- Escolha uma empresa --</option>
-                    <option value="empresa1">MedCorp</option>
-                    <option value="empresa2">BioSafe</option>
+                    <option value=""><b>Escolha uma empresa</b> </option>
                 </select>
             </div>
             <div class="containerPedido hidden" id="veiculoContainer">
-                <label for="pedidos">Selecione um veículo:</label>
+                <label for="pedidos" id="labelSelect"><b>Selecione um veículo:</b></label>
                 <select id="pedidos">
-                    <option value="">Selecione o veículo</option>
+                    <option value=""><b>Selecione o veículo</b></option>
                 </select>
             </div>
             <div class="KPI_container hidden" id="dadosPedido">
                 <div class="KPI_column">
                     <div class="KPI_Alerta">
-                        <h2>Média de Alertas por hora:</h2>
-                        <h2>0.75</h2>
+                        <h2><b>Média de Alertas por hora:</b></h2>
+                        <h2 id="mediaAlerta"></h2>
                     </div>
                     <div class="KPI_Alerta">
-                        <h2>Quantidade de Alertas:</h2>
-                        <h2>9</h2>
+                        <h2><b>Quantidade de Alertas:</b></h2>
+                        <h2 id="qtdAlerta"></h2>
                     </div>
                 </div>
                 <div class="pedido_info_container">
-                    <h2 class="informacao_pedido">Informações do Pedido:</h2>
+                    <h2 class="informacao_pedido"><b>Informações do Pedido:</b></h2>
                     <div class="resumo_pedido_container">
                         <div class="resumo_pedido">
                             <div class="partes" id="parte1">
-                                
+
                             </div>
                             <div class="partes" id="parte2">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -96,11 +95,35 @@
         </div>
     </div>
     <div class="mensagemAlerta hidden" id="alerta">
-        <h2 class="titulo">Alertas</h2>
-        <img src="../img/alerta.png" alt="" class="tabelaAlerta">
-
-        <h2 class="titulo">Tabela de Pedidos</h2>
-        <img src="../img/novaTabelaPedidos.png" alt="" class="tabelaPedidos">
+        <h2><b>Alertas do pedido:</b></h2>
+        <table id="tabelaAlertas">
+            <thead>
+                <tr>
+                    <th>Número do alerta</th>
+                    <th>Duração</th>
+                    <th>Temperatura excedida</th>
+                    <th>Início do alerta</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabelaAlertas">
+                <!-- lugar onde vão aparecer os alertas -->
+            </tbody>
+        </table>
+        <h2><b>Pedidos finalizados:</b></h2>
+        <table id="tabelaPedidos">
+            <thead>
+                <tr>
+                    <th>pedido</th>
+                    <th>nome</th>
+                    <th>placa do veículo</th>
+                    <th>tipo de medicamento</th>
+                    <th>data de entrega</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabelaPedidos">
+                <!-- lugar onde vão aparecer os alertas -->
+            </tbody>
+        </table>
     </div>
 
 
@@ -140,108 +163,164 @@
 </body>
 <script>
 
-    // grafico barra
-    const labels = ["Alerta 1256", "Alerta 1257", "Alerta 1258", "Alerta 1259", "Alerta 1260", "Alerta 1261"];
-    const data = {
-        labels: labels,
-        datasets: [{
-            axis: 'y',
-            label: 'Duração (min)',
-            data: [5, 5, 4, 2, 2, 1],
-            fill: false,
-            backgroundColor: [
-                'rgb(99, 198, 255)'
-            ],
-            borderColor: [
-                'rgb(124, 229, 255)'
-            ],
-            borderWidth: 2
-        }]
-    };
 
-    const config = {
-        type: 'bar',
-        data,
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    grid: {
-                        color: 'rgb(223, 240, 255)',
+    // grafico barra
+
+    function plotarGraficoBarra(info2) {
+
+        const ctx = document.getElementById('myChart')
+
+        if(myChart){
+            myChart.destroy()
+        }
+
+        var id = []
+        var tempo = []
+
+        for (let i = 0; i < info2.length; i++) {
+
+            var partes = []
+
+            partes = (info2[i].duracao).split(':')
+
+
+            if(partes.length < 3){
+                var seg = parseInt(partes[1])
+                var min = parseInt(partes[0])
+            }
+
+            if(partes.length > 2){
+                var seg = parseInt(partes[2])
+                var min = parseInt(partes[1])
+                var hora = parseInt(partes[0])
+            }
+
+            if(partes.length == 2){
+                var duracaoTotal = (min + (seg / 60)).toFixed(2)
+            }else if(partes.length == 3){
+                var duracaoTotal = (min + (hora * 60) + (seg / 60)).toFixed(2)
+            }
+
+            
+
+            id.push(info2[i].idalerta)
+            tempo.push(parseFloat(duracaoTotal))
+        }
+
+
+        const labels = id;
+        const data = {
+            labels: labels,
+            datasets: [{
+                axis: 'y',
+                label: 'Duração (min)',
+                data: tempo,
+                fill: false,
+                backgroundColor: [
+                    'rgb(99, 198, 255)'
+                ],
+                borderColor: [
+                    'rgb(124, 229, 255)'
+                ],
+                borderWidth: 2
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgb(223, 240, 255)',
+                        },
+                        ticks: {
+                            color: 'rgb(223, 240, 255)',
+                            font: {
+                                size: 14
+                            }
+                        }
                     },
-                    ticks: {
-                        color: 'rgb(223, 240, 255)',
-                        font: {
-                            size: 14
+                    y: {
+                        grid: {
+                            color: 'rgb(223, 240, 255)',
+                        },
+                        ticks: {
+                            color: 'rgb(223, 240, 255)',
+                            font: {
+                                size: 14
+                            }
                         }
                     }
                 },
-                y: {
-                    grid: {
-                        color: 'rgb(223, 240, 255)',
-                    },
-                    ticks: {
-                        color: 'rgb(223, 240, 255)',
-                        font: {
-                            size: 14
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'rgb(223, 240, 255)',
                         }
                     }
                 }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'rgb(223, 240, 255)',
-                    }
-                }
             }
-        }
-    };
-    const myChart = new Chart(
-        document.getElementById('myChart'),
-        config
-    )
+        };
+        myChart = new Chart(
+            ctx,
+            config
+        )
+    }
+
 
     // grafico rosquinha
 
-    const data2 = {
-        labels: [
-            'Dentro dos padrões',
-            'Abaixo de 2ºC',
-            'Acima de 8ºC'
-        ],
-        datasets: [{
-            label: 'My First Dataset',
-            data: [300, 50, 100],
-            backgroundColor: [
-                'rgb(99, 198, 255)',
-                'rgb(0, 53, 122)',
-                'rgb(124, 229, 255)'
+    function plotarGraficoRosquinha(info) {
+
+        const ctx2 = document.getElementById('myChart2')
+
+        if(myChart2){
+            myChart2.destroy()
+        }
+
+        const data2 = {
+            labels: [
+                'Dentro dos padrões',
+                'Abaixo de 2ºC',
+                'Acima de 8ºC'
             ],
-            hoverOffset: 4
-        }]
-    };
-    const config2 = {
-        type: 'doughnut',
-        data: data2,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'rgb(223, 240, 255)',
+            datasets: [{
+                label: 'My First Dataset',
+                data: [info[0].dentro, info[0].abaixo, info[0].acima],
+                backgroundColor: [
+                    'rgb(99, 198, 255)',
+                    'rgb(0, 53, 122)',
+                    'rgb(124, 229, 255)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const config2 = {
+            type: 'doughnut',
+            data: data2,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'rgb(223, 240, 255)',
+                        }
                     }
                 }
             }
-        }
-    };
-    const myChart2 = new Chart(
-        document.getElementById('myChart2'),
-        config2
-    )
+        };
+      myChart2 = new Chart(
+            ctx2,
+            config2
+        )
+    }
+
 </script>
 
 <script>
@@ -260,7 +339,11 @@
     const alerta = document.getElementById('alerta')
     const parte1 = document.getElementById('parte1')
     const parte2 = document.getElementById('parte2')
-
+    const mediaAlerta = document.getElementById('mediaAlerta')
+    const qtdAlerta = document.getElementById('qtdAlerta')
+    let myChart = null
+    let myChart2 = null
+    
     var idUsuario = sessionStorage.ID_USUARIO
     fetch("/usuarios/buscarIdParaCadastro", {
         method: "POST",
@@ -293,6 +376,9 @@
 
                 $('#pedidos').html('<option value="">-- Escolha um veículo --</option>');
                 if (idEmpresa) {
+                    // Carrega todos os pedidos finalizados da empresa
+                    carregarPedidosFinalizados(idEmpresa, idTransportadora);
+
                     fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
                         .then(res => res.json())
                         .then(pedidos => {
@@ -310,10 +396,82 @@
 
         });
 
+    // Função para carregar os alertas de um pedido
+    function carregarAlertasPedido(idPedido) {
+        fetch(`/medidas/totalDeAlertas/${idPedido}`)
+            .then(res => res.json())
+            .then(alertas => {
+                const corpoTabela = document.getElementById('corpoTabelaAlertas');
+                corpoTabela.innerHTML = ''; // Limpa a tabela
+
+                if (alertas.length > 0) {
+                    for (let i = 0; i < alertas.length; i++) {
+                        const alerta = alertas[i];
+                        const linha = document.createElement('tr');
+
+                        // Células do alerta
+                        linha.innerHTML = `
+                            <td>${alerta.idalerta}</td>
+                            <td>${alerta.duracao || 'Em andamento'}</td>
+                            <td>${alerta.limite === 2 ? `abaixo de ${alerta.limite}°C` : `acima de ${alerta.limite}°C`}</td>
+                            <td>${alerta.inicio}</td>
+                        `;
+
+                        corpoTabela.appendChild(linha);
+                    }
+                } else {
+                    const linha = document.createElement('tr');
+                    linha.innerHTML = '<td colspan="5">Nenhum alerta registrado para este pedido</td>';
+                    corpoTabela.appendChild(linha);
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao buscar alertas:", erro);
+            });
+    }
+
+    // Função para carregar todos os pedidos finalizados da empresa selecionada
+    function carregarPedidosFinalizados(idEmpresa, idTransportadora) {
+        fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
+            .then(res => res.json())
+            .then(pedidos => {
+                const corpoTabela = document.getElementById('corpoTabelaPedidos');
+                corpoTabela.innerHTML = ''; // Limpa a tabela
+
+                if (pedidos.length > 0) {
+                    for (let i = 0; i < pedidos.length; i++) {
+                        const pedido = pedidos[i];
+                        const linha = document.createElement('tr');
+
+                        // Células do pedido - corrigindo os nomes dos campos
+                        linha.innerHTML = `
+                        <td>${pedido.idpedido}</td>
+                        <td>${pedido.nome_cliente || 'N/A'}</td>
+                        <td>${pedido.placa}</td>
+                        <td>${pedido.tipo_medicamento1 || 'N/A'}</td>
+                        <td>${pedido.data_entrega_real ? new Date(pedido.data_entrega_real).toLocaleDateString() : 'N/A'}</td>
+                    `;
+
+                        corpoTabela.appendChild(linha);
+                    }
+                } else {
+                    const linha = document.createElement('tr');
+                    linha.innerHTML = '<td colspan="5">Nenhum pedido finalizado encontrado</td>';
+                    corpoTabela.appendChild(linha);
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao buscar pedidos finalizados:", erro);
+            });
+    }
+
     $('#pedidos').on('change', function () {
-        const idPedido = $(this).val()
+        const idPedido = $(this).val();
 
         if (idPedido) {
+            // Carrega os alertas do pedido selecionado
+            carregarAlertasPedido(idPedido);
+
             fetch(`/pedidos/buscarDadosPedidoConcluido/${idPedido}`)
                 .then(res => res.json())
                 .then(info => {
@@ -333,15 +491,33 @@
                                 <h4>Data prevista da entrega: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h4>
                                 <h4>Data real da entrega: ${new Date(pedido.data_entrega_real).toLocaleDateString()}</h4>
                                 <h4>Tipo de medicamento: ${pedido.tipo_medicamento1}</h4>
-                                <h4>Quantidade de medicamento: ${pedido.quantidade_medicamento1}</h4>
-                                <h4>Tipo de medicamento (caso tenha mais de um): ${pedido.tipo_medicamento2}</h4>
-                                <h4>Quantidade de medicamento: ${pedido.quantidade_medicamento2}</h4>
         `);
+                        fetch(`/alertas/buscarKPI2/${idPedido}`)
+                            .then(res => res.json())
+                            .then(dados => {
 
-        $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                                var mediaAlertaVar = dados[0].mediaAlerta
+                                var qtdAlertaVar = dados[0].qtdAlerta
 
-                        
 
+                                $('#mediaAlerta').text(mediaAlertaVar);
+                                $('#qtdAlerta').text(qtdAlertaVar);
+
+                                $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+
+                            })
+
+                        fetch(`/medidas/buscarDadosRosquinha/${idPedido}`)
+                            .then(res1 => res1.json())
+                            .then(info => {
+                                plotarGraficoRosquinha(info)
+                            })
+                        fetch(`/medidas/buscarDadosBarra/${idPedido}`)
+                            .then(res2 => res2.json())
+                            .then(info2 => {
+
+                                plotarGraficoBarra(info2)
+                            })
 
                     } else {
                         $('#dadosPedido, #grafico, #alerta').addClass('hidden');
@@ -352,7 +528,6 @@
                 })
         }
     })
-
 </script>
 
 </html>
