@@ -26,10 +26,10 @@
                 <a href="cadastroVeiculo.html">Cadastro Veiculos</a>
             </li>
             <li>
-                <a href="alertas.html"><b>Alertas</b></a>
+                <a href="alertas.html">Alertas</a>
             </li>
             <li>
-                <a href="dashboard.html">Monitoramento</a>
+                <a href="dashboard.html"><b>Monitoramento</b></a>
             </li>
             <li>
                 <a href="dashboardPedidos.html">Pedidos</a>
@@ -181,7 +181,7 @@
                 const idTransportadora = data.idtransportadora
 
                 // Pega os nomes das empresas no BD
-                fetch(`/pedidos/buscarCliente/${idTransportadora}`)
+                fetch(`/pedidos/buscarClienteAndamento/${idTransportadora}`)
                     .then(res => res.json())
                     .then(empresas => {
                         empresas.forEach(empresa => {

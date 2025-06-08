@@ -7,6 +7,10 @@ router.get("/buscarCliente/:idTransportadora", function (req, res) {
     pedidoController.buscarCliente(req, res);
 })
 
+router.get("/buscarClienteAndamento/:idTransportadora", function (req, res) {
+    pedidoController.buscarClienteAndamento(req, res);
+})
+
 router.get("/buscarVeiculo/:idCliente/:idTransportadora", function (req, res) {
     pedidoController.buscarVeiculo(req, res);
 })

@@ -14,6 +14,19 @@ function buscarCliente(req, res) {
         });
 }
 
+function buscarClienteAndamento(req, res) {
+    const idTransportadora = req.params.idTransportadora
+
+    pedidoModel.buscarClienteAndamento(idTransportadora)
+        .then((resultado) => {
+            res.json(resultado);
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar clientes:", erro);
+            res.status(500).json({ erro: erro.sqlMessage });
+        });
+}
+
 function buscarClienteFinalizado(req, res) {
     const idTransportadora = req.params.idTransportadora
 
@@ -152,5 +165,6 @@ module.exports = {
     buscarDadosPedidoConcluido,
     cadastrarPedido,
     verificarVeiculoStatus,
-    concluirPedido
+    concluirPedido,
+    buscarClienteAndamento
 }

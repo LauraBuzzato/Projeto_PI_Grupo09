@@ -9,6 +9,17 @@ function buscarCliente(idTransportadora) {
     return database.executar(instrucao);
 }
 
+function buscarClienteAndamento(idTransportadora) {
+    var instrucao = `
+        select c.idcliente, c.nome from cliente c
+        inner join pedido p on c.idcliente=p.idcliente
+        inner join transportadora as t on t.idtransportadora = c.idtransportadora
+        where c.idtransportadora = ${idTransportadora} and p.concluido = false
+        group by c.idcliente;
+    `;
+    return database.executar(instrucao);
+}
+
 function buscarClienteFinalizado(idTransportadora) {
     var instrucao = `
         select c.idcliente, nome from cliente c
@@ -63,10 +74,7 @@ function buscarPedidoConcluido(idCliente, idTransportadora) {
 function buscarDadosPedidoConcluido(idPedido) {
     var instrucao = `
         select c.nome, c.cnpj, concat(e.logradouro,', ', e.numero) endereco, p.data_entrega_prevista, p.data_entrega_real, p.tipo_medicamento1, 
-        p.idpedido, v.tipo, s.idsensor, (select  
-timestampdiff(second, (select data_hora from leiturasensor where idpedido = ${idPedido} limit 1), 
-(select data_hora from leiturasensor where idpedido = ${idPedido} order by data_hora desc limit 1)) / 3600 duracao_em_horas
-from leiturasensor
+        p.idpedido, v.tipo, s.idsensor, (select timestampdiff(hour, data_pedido, data_entrega_real) as horas_total from pedido where idpedido = ${idPedido}
 limit 1) as tempo_total, concat(et.logradouro,', ', et.numero) enderecoT from cliente c
 		inner join endereco e on c.idendereco = e.idendereco
         inner join pedido p on c.idcliente=p.idcliente
@@ -113,5 +121,6 @@ module.exports = {
     buscarDadosPedidoConcluido,
     cadastrarPedido,
     verificarVeiculoStatus,
-    concluirPedido
+    concluirPedido,
+    buscarClienteAndamento
 };

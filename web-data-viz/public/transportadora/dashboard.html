@@ -183,7 +183,7 @@
                 const idTransportadora = data.idtransportadora
 
                 // Pega os nomes das empresas no BD
-                fetch(`/pedidos/buscarCliente/${idTransportadora}`)
+                fetch(`/pedidos/buscarClienteAndamento/${idTransportadora}`)
                     .then(res => res.json())
                     .then(empresas => {
                         empresas.forEach(empresa => {
