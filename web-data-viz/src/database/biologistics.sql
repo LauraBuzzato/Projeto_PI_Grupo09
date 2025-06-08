@@ -1,6 +1,5 @@
 create database biologistics;
 use biologistics;
-drop database biologistics;
 
 
 create table endereco (
