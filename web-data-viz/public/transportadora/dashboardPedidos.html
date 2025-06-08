@@ -164,9 +164,17 @@
     </div>
 </body>
 <script>
+
+
     // grafico barra
 
     function plotarGraficoBarra(info2) {
+
+        const ctx = document.getElementById('myChart')
+
+        if(myChart){
+            myChart.destroy()
+        }
 
         var id = []
         var tempo = []
@@ -260,8 +268,8 @@
                 }
             }
         };
-        const myChart = new Chart(
-            document.getElementById('myChart'),
+        myChart = new Chart(
+            ctx,
             config
         )
     }
@@ -270,6 +278,13 @@
     // grafico rosquinha
 
     function plotarGraficoRosquinha(info) {
+
+        const ctx2 = document.getElementById('myChart2')
+
+        if(myChart2){
+            myChart2.destroy()
+        }
+
         const data2 = {
             labels: [
                 'Dentro dos padrões',
@@ -302,8 +317,8 @@
                 }
             }
         };
-        const myChart2 = new Chart(
-            document.getElementById('myChart2'),
+      myChart2 = new Chart(
+            ctx2,
             config2
         )
     }
@@ -328,7 +343,9 @@
     const parte2 = document.getElementById('parte2')
     const mediaAlerta = document.getElementById('mediaAlerta')
     const qtdAlerta = document.getElementById('qtdAlerta')
-
+    let myChart = null
+    let myChart2 = null
+    
     var idUsuario = sessionStorage.ID_USUARIO
     fetch("/usuarios/buscarIdParaCadastro", {
         method: "POST",
