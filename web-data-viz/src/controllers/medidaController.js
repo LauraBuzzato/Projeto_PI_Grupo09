@@ -68,10 +68,24 @@ function buscarDadosRosquinha(req, res){
         });
 }
 
+function buscarDadosBarra(req, res){
+    const idPedido = req.params.idPedido
+
+    medidaModel.buscarDadosBarra(idPedido)
+    .then(resultado => {
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.error("Erro ao contar status:", erro);
+            res.status(500).send("Erro ao contar status.");
+        });
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     totalDeAlertas,
-    buscarDadosRosquinha
+    buscarDadosRosquinha,
+    buscarDadosBarra
 
 }

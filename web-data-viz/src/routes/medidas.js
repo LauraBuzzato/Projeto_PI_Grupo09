@@ -19,4 +19,8 @@ router.get("/buscarDadosRosquinha/:idPedido", function (req, res){
     medidaController.buscarDadosRosquinha(req, res);  
 });
 
+router.get("/buscarDadosBarra/:idPedido", function (req, res){
+    medidaController.buscarDadosBarra(req, res);  
+});
+
 module.exports = router;

@@ -41,9 +41,20 @@ function buscarDadosRosquinha(idPedido) {
     return database.executar(instrucaoSql);
 }
 
+function buscarDadosBarra(idPedido) {
+    var instrucaoSql = `
+        SELECT idalerta, duracao
+        FROM alerta
+            WHERE idpedido = '${idPedido}'
+            ORDER BY duracao DESC;
+    `
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     totalDeAlertas,
+    buscarDadosBarra,
     buscarDadosRosquinha
 }

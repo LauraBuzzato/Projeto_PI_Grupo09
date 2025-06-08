@@ -165,110 +165,149 @@
 </body>
 <script>
     // grafico barra
-    const labels = ["Alerta 1256", "Alerta 1257", "Alerta 1258", "Alerta 1259", "Alerta 1260", "Alerta 1261"];
-    const data = {
-        labels: labels,
-        datasets: [{
-            axis: 'y',
-            label: 'Duração (min)',
-            data: [5, 5, 4, 2, 2, 1],
-            fill: false,
-            backgroundColor: [
-                'rgb(99, 198, 255)'
-            ],
-            borderColor: [
-                'rgb(124, 229, 255)'
-            ],
-            borderWidth: 2
-        }]
-    };
 
-    const config = {
-        type: 'bar',
-        data,
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    grid: {
-                        color: 'rgb(223, 240, 255)',
+    function plotarGraficoBarra(info2) {
+
+        var id = []
+        var tempo = []
+
+        for (let i = 0; i < info2.length; i++) {
+
+            var partes = []
+
+            partes = (info2[i].duracao).split(':')
+
+
+            if(partes.length < 3){
+                var seg = parseInt(partes[1])
+                var min = parseInt(partes[0])
+            }
+
+            if(partes.length > 2){
+                var seg = parseInt(partes[2])
+                var min = parseInt(partes[1])
+                var hora = parseInt(partes[0])
+            }
+
+            if(partes.length == 2){
+                var duracaoTotal = (min + (seg / 60)).toFixed(2)
+            }else if(partes.length == 3){
+                var duracaoTotal = (min + (hora * 60) + (seg / 60)).toFixed(2)
+            }
+
+            
+
+            id.push(info2[i].idalerta)
+            tempo.push(parseFloat(duracaoTotal))
+        }
+
+
+        const labels = id;
+        const data = {
+            labels: labels,
+            datasets: [{
+                axis: 'y',
+                label: 'Duração (min)',
+                data: tempo,
+                fill: false,
+                backgroundColor: [
+                    'rgb(99, 198, 255)'
+                ],
+                borderColor: [
+                    'rgb(124, 229, 255)'
+                ],
+                borderWidth: 2
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgb(223, 240, 255)',
+                        },
+                        ticks: {
+                            color: 'rgb(223, 240, 255)',
+                            font: {
+                                size: 14
+                            }
+                        }
                     },
-                    ticks: {
-                        color: 'rgb(223, 240, 255)',
-                        font: {
-                            size: 14
+                    y: {
+                        grid: {
+                            color: 'rgb(223, 240, 255)',
+                        },
+                        ticks: {
+                            color: 'rgb(223, 240, 255)',
+                            font: {
+                                size: 14
+                            }
                         }
                     }
                 },
-                y: {
-                    grid: {
-                        color: 'rgb(223, 240, 255)',
-                    },
-                    ticks: {
-                        color: 'rgb(223, 240, 255)',
-                        font: {
-                            size: 14
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'rgb(223, 240, 255)',
                         }
                     }
                 }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'rgb(223, 240, 255)',
-                    }
-                }
             }
-        }
-    };
-    const myChart = new Chart(
-        document.getElementById('myChart'),
-        config
-    )
+        };
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        )
+    }
+
 
     // grafico rosquinha
 
-    function plotarGraficoRosquinha(info){
+    function plotarGraficoRosquinha(info) {
         const data2 = {
-        labels: [
-            'Dentro dos padrões',
-            'Abaixo de 2ºC',
-            'Acima de 8ºC'
-        ],
-        datasets: [{
-            label: 'My First Dataset',
-            data: [info[0].dentro, info[0].abaixo, info[0].acima],
-            backgroundColor: [
-                'rgb(99, 198, 255)',
-                'rgb(0, 53, 122)',
-                'rgb(124, 229, 255)'
+            labels: [
+                'Dentro dos padrões',
+                'Abaixo de 2ºC',
+                'Acima de 8ºC'
             ],
-            hoverOffset: 4
-        }]
-    };
-    const config2 = {
-        type: 'doughnut',
-        data: data2,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'rgb(223, 240, 255)',
+            datasets: [{
+                label: 'My First Dataset',
+                data: [info[0].dentro, info[0].abaixo, info[0].acima],
+                backgroundColor: [
+                    'rgb(99, 198, 255)',
+                    'rgb(0, 53, 122)',
+                    'rgb(124, 229, 255)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const config2 = {
+            type: 'doughnut',
+            data: data2,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'rgb(223, 240, 255)',
+                        }
                     }
                 }
             }
-        }
-    };
-    const myChart2 = new Chart(
-        document.getElementById('myChart2'),
-        config2
-    )
+        };
+        const myChart2 = new Chart(
+            document.getElementById('myChart2'),
+            config2
+        )
     }
-    
+
 </script>
 
 <script>
@@ -324,7 +363,7 @@
                 if (idEmpresa) {
                     // Carrega todos os pedidos finalizados da empresa
                     carregarPedidosFinalizados(idEmpresa, idTransportadora);
-                    
+
                     fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
                         .then(res => res.json())
                         .then(pedidos => {
@@ -378,19 +417,19 @@
 
     // Função para carregar todos os pedidos finalizados da empresa selecionada
     function carregarPedidosFinalizados(idEmpresa, idTransportadora) {
-    fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
-        .then(res => res.json())
-        .then(pedidos => {
-            const corpoTabela = document.getElementById('corpoTabelaPedidos');
-            corpoTabela.innerHTML = ''; // Limpa a tabela
+        fetch(`/pedidos/buscarPedidoConcluido/${idEmpresa}/${idTransportadora}`)
+            .then(res => res.json())
+            .then(pedidos => {
+                const corpoTabela = document.getElementById('corpoTabelaPedidos');
+                corpoTabela.innerHTML = ''; // Limpa a tabela
 
-            if (pedidos.length > 0) {
-                for (let i = 0; i < pedidos.length; i++) {
-                    const pedido = pedidos[i];
-                    const linha = document.createElement('tr');
+                if (pedidos.length > 0) {
+                    for (let i = 0; i < pedidos.length; i++) {
+                        const pedido = pedidos[i];
+                        const linha = document.createElement('tr');
 
-                    // Células do pedido - corrigindo os nomes dos campos
-                    linha.innerHTML = `
+                        // Células do pedido - corrigindo os nomes dos campos
+                        linha.innerHTML = `
                         <td>${pedido.idpedido}</td>
                         <td>${pedido.nome_cliente || 'N/A'}</td>
                         <td>${pedido.placa}</td>
@@ -398,18 +437,18 @@
                         <td>${pedido.data_entrega_real ? new Date(pedido.data_entrega_real).toLocaleDateString() : 'N/A'}</td>
                     `;
 
+                        corpoTabela.appendChild(linha);
+                    }
+                } else {
+                    const linha = document.createElement('tr');
+                    linha.innerHTML = '<td colspan="5">Nenhum pedido finalizado encontrado</td>';
                     corpoTabela.appendChild(linha);
                 }
-            } else {
-                const linha = document.createElement('tr');
-                linha.innerHTML = '<td colspan="5">Nenhum pedido finalizado encontrado</td>';
-                corpoTabela.appendChild(linha);
-            }
-        })
-        .catch(erro => {
-            console.error("Erro ao buscar pedidos finalizados:", erro);
-        });
-}
+            })
+            .catch(erro => {
+                console.error("Erro ao buscar pedidos finalizados:", erro);
+            });
+    }
 
     $('#pedidos').on('change', function () {
         const idPedido = $(this).val();
@@ -417,7 +456,7 @@
         if (idPedido) {
             // Carrega os alertas do pedido selecionado
             carregarAlertasPedido(idPedido);
-            
+
             fetch(`/pedidos/buscarDadosPedidoConcluido/${idPedido}`)
                 .then(res => res.json())
                 .then(info => {
@@ -458,6 +497,12 @@
                             .then(info => {
                                 plotarGraficoRosquinha(info)
                             })
+                        fetch(`/medidas/buscarDadosBarra/${idPedido}`)
+                            .then(res2 => res2.json())
+                            .then(info2 => {
+
+                                plotarGraficoBarra(info2)
+                            })
 
                     } else {
                         $('#dadosPedido, #grafico, #alerta').addClass('hidden');
@@ -469,4 +514,5 @@
         }
     })
 </script>
+
 </html>
