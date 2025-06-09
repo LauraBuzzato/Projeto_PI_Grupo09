@@ -269,7 +269,7 @@
                                             $('#duracao').text(duracaoVar);
                                         }
                                         if (limiteVar == '2') {
-                                            $('#temperatura').text(`< ${limiteVar}°C`);
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
                                         } else if (limiteVar == '8') {
                                             $('#temperatura').text(`> ${limiteVar}°C`);
                                         }
@@ -506,7 +506,11 @@
                                     } else {
                                         $('#duracao').text(duracaoVar);
                                     }
-                                    $('#temperatura').text(`${limiteVar}°C`);
+                                    if (limiteVar == '2') {
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
+                                        } else if (limiteVar == '8') {
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
+                                        }
 
                                 } else {
                                     $('#ultimoAlerta').text('Sem alerta');
