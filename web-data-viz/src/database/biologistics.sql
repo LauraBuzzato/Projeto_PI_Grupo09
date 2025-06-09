@@ -58,7 +58,8 @@ foreign key (idTransportadora) references transportadora(idTransportadora)
 
 insert into usuario (nome,email, senha, administrador, idTransportadora) values 
 ('Fernando Lima','fernando.lima@healthcargo.com', '123',   true, 1), 
-('Ana Moreira','ana.moreira@biotrans.com','123',   false,  1);
+('Ana Moreira','ana.moreira@biotrans.com','123',   false,  1),
+(null,'suporte@gmail.com','123',   true,  1);
 
 
 
