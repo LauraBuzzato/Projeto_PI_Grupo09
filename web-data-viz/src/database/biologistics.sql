@@ -90,7 +90,7 @@ create table veiculo (
     idveiculo int primary key auto_increment,
     idtransportadora int not null,
     tipo varchar(12) not null,
-    placa varchar(10) unique not null,
+    placa varchar(10) not null,
     modelo varchar(50) not null,
     ano int,
     ativo boolean default true,

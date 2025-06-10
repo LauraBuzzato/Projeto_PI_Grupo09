@@ -14,7 +14,7 @@ function buscarDadosAlerta(idpedido) {
 function buscarKPI2(idPedido) {
     var instrucao = `
         select count(idalerta) as qtdAlerta,
-        round((count(idalerta) / Round(TIMESTAMPDIFF(minute, data_pedido ,data_entrega_real) / 60, 1)),2) 
+        round((count(idalerta) / Round(TIMESTAMPDIFF(minute, data_pedido ,data_entrega_real), 1)),2) 
         as mediaAlerta 
         from pedido as p 
             inner join alerta as a on a.idpedido = p.idpedido 
