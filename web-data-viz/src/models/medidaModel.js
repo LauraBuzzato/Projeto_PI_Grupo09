@@ -1,4 +1,4 @@
-const { vMensalRosquinha } = require("../controllers/medidaController");
+
 var database = require("../database/config");
 
 function buscarUltimasMedidas(idSensor, limite_linhas) {
