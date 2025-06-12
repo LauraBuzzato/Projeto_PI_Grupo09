@@ -368,13 +368,29 @@
                         const option = new Option(empresa.nome, empresa.idcliente);
                         $('#empresas').append(option);
                     });
+                    const vMensal = new Option('Visão Mensal')
                     $('#empresas').trigger('change.select2');
                 });
 
             $('#empresas').on('change', function () {
+
                 const idEmpresa = $(this).val();
 
-                $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                if(idEmpresa == null){
+                    fetch(`medidas/vMensalRosquinha/${idTransportadora}`)
+                        .then (res2 => res2.json())
+                        .then (dadosMensal1 => {
+                            plotarGraficoRoosquinha(dadosMensal1)
+                        })
+                    fetch(`medidas/vMensalBarra/${idTransportadora}`)
+                        .then (res3 => res3.json())
+                        .then (dadosMensal2 => {
+                            plotarGraficoBarra(dadosMensal2)
+                        })
+
+
+                }else{
+                    $('#dadosPedido, #grafico, #alerta').addClass('hidden');
 
                 $('#pedidos').html('<option value="">-- Escolha um veículo --</option>');
                 if (idEmpresa) {
@@ -394,6 +410,9 @@
                             $('#veiculoContainer').removeClass('hidden');
                         });
                 }
+                }
+
+                
             });
 
         });
