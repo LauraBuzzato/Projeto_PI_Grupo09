@@ -369,6 +369,7 @@
                         $('#empresas').append(option);
                     });
                     const vMensal = new Option('Visão Mensal')
+                    $('#empresas').append(vMensal)
                     $('#empresas').trigger('change.select2');
                 });
 
@@ -376,19 +377,24 @@
 
                 const idEmpresa = $(this).val();
 
-                if(idEmpresa == null){
-                    fetch(`medidas/vMensalRosquinha/${idTransportadora}`)
+                if(idEmpresa == 'Visão Mensal'){
+                    
+
+                    fetch(`/medidas/vMensalRosquinha/${idTransportadora}`)
                         .then (res2 => res2.json())
                         .then (dadosMensal1 => {
-                            plotarGraficoRoosquinha(dadosMensal1)
+                            console.log(dadosMensal1)
+                            plotarGraficoRosquinha(dadosMensal1)
+
+                            
                         })
-                    fetch(`medidas/vMensalBarra/${idTransportadora}`)
+                    fetch(`/medidas/vMensalBarra/${idTransportadora}`)
                         .then (res3 => res3.json())
                         .then (dadosMensal2 => {
                             plotarGraficoBarra(dadosMensal2)
                         })
 
-
+                        $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
                 }else{
                     $('#dadosPedido, #grafico, #alerta').addClass('hidden');
 

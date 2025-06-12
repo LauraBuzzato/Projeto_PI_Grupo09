@@ -88,6 +88,6 @@ module.exports = {
     totalDeAlertas,
     buscarDadosBarra,
     buscarDadosRosquinha,
-    vMensalBarra,
-    vMensalRosquinha
+    vMensalRosquinha,
+    vMensalBarra
 }

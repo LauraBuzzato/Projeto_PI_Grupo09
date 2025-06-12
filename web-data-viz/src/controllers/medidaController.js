@@ -113,7 +113,7 @@ module.exports = {
     totalDeAlertas,
     buscarDadosRosquinha,
     buscarDadosBarra,
-    vMensalRosquinha,
-    vMensalBarra
+    vMensalBarra,
+    vMensalRosquinha
 
 }
