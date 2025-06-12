@@ -63,9 +63,25 @@ function valorDaTemperatura(idpedido) {
     return database.executar(instrucao);
 }
 
+function mensalKPI(idTransportadora) {
+    var instrucao = `
+           select count(idalerta) as qtdAlerta,
+        round((count(idalerta) / Round(TIMESTAMPDIFF(minute, data_pedido ,data_entrega_real), 1)),2) 
+        as mediaAlerta 
+        from pedido as p 
+            inner join alerta as a on a.idpedido = p.idpedido 
+            inner join veiculo as v on v.idveiculo = p.idveiculo
+            where  idtransportadora = 1
+            and month(inicio) = (month(current_date())-1)
+            group by v.idveiculo;
+    `;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarDadosAlerta,
     buscarAlertasAtivos,
     valorDaTemperatura,
-    buscarKPI2
+    buscarKPI2,
+    mensalKPI
 };

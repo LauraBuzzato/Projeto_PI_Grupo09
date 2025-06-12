@@ -394,6 +394,18 @@
                             plotarGraficoBarra(dadosMensal2)
                         })
 
+                        fetch(`/alertas/mensalKPI/${idTransportadora}`)
+                            .then(res4 => res4.json())
+                            .then(dadosMensal3 => {
+
+                                var mediaAlertaVar = dadosMensal3[0].mediaAlerta
+                                var qtdAlertaVar = dadosMensal3[0].qtdAlerta
+
+
+                                $('#mediaAlerta').text(mediaAlertaVar);
+                                $('#qtdAlerta').text(qtdAlertaVar);
+                            })
+
                         $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
                 }else{
                     $('#dadosPedido, #grafico, #alerta').addClass('hidden');

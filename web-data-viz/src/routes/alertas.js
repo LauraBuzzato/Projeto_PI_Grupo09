@@ -25,4 +25,7 @@ router.get("/totalDeAlertas/:idpedido", function (req, res){
     alertaController.totalDeAlertas(req, res)
 })
 
+router.get("/mensalKPI/:idTransportadora", function (req, res){
+    alertaController.mensalKPI(req, res)
+})
 module.exports = router;

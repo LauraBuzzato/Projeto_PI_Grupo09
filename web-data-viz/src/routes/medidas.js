@@ -31,4 +31,5 @@ router.get("/vMensalBarra/:idTransportadora", function (req, res){
     medidaController.vMensalBarra(req, res);  
 });
 
+
 module.exports = router;
