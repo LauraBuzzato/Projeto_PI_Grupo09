@@ -26,7 +26,7 @@ function buscarKPI2(idPedido) {
 function buscarAlertasAtivos(idTransportadora) {
     var instrucao = `
         SELECT a.idalerta, a.duracao, a.limite, 
-        DATE_FORMAT(a.inicio, '%H:%i:%s') as inicio, p.idpedido, v.placa, c.nome as cliente,
+        DATE_FORMAT(a.inicio, '%H:%i:%s') as inicio, p.idpedido, v.placa, c.nome as cliente, p.idveiculo as idveiculo, p.idcliente as idcliente,
             CASE 
                 WHEN a.limite <= 2 THEN 'abaixo do mínimo'
                 WHEN a.limite >= 8 THEN 'acima do máximo'
