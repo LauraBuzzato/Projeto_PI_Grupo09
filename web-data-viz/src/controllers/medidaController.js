@@ -81,11 +81,39 @@ function buscarDadosBarra(req, res){
         });
 }
 
+function vMensalBarra(req, res){
+    const idTransportadora = req.params.idTransportadora
+
+    medidaModel.vMensalBarra(idTransportadora)
+    .then(resultado => {
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.error("Erro ao contar status:", erro);
+            res.status(500).send("Erro ao contar status.");
+        });
+}
+
+function vMensalRosquinha(req, res){
+    const idTransportadora = req.params.idTransportadora
+
+    medidaModel.vMensalRosquinha(idTransportadora)
+    .then(resultado => {
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.error("Erro ao contar status:", erro);
+            res.status(500).send("Erro ao contar status.");
+        });
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     totalDeAlertas,
     buscarDadosRosquinha,
-    buscarDadosBarra
+    buscarDadosBarra,
+    vMensalBarra,
+    vMensalRosquinha
 
 }

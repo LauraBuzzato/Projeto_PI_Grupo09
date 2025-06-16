@@ -49,7 +49,7 @@
         <div class="containerPedido">
             <label for="empresas" id="labelSelect">Selecione uma empresa:</label>
             <select id="empresas">
-                <option value="" >-- Escolha uma empresa --</option>
+                <option value="">-- Escolha uma empresa --</option>
 
             </select>
         </div>
@@ -79,7 +79,7 @@
 
             <div class="KPI_row">
                 <div class="KPI_Alerta">
-                    <h2><b>Último alerta:</b></h2>
+                    <h2><b>Início:</b></h2>
                     <h2><b id="alertaHora">--:--</b></h2>
                 </div>
                 <div class="KPI_Alerta">
@@ -87,7 +87,7 @@
                     <h2><b id="duracao">--</b></h2>
                 </div>
                 <div class="KPI_Alerta">
-                    <h2><b>Temperatura:</b></h2>
+                    <h2><b>Limite Ultrapassado:</b></h2>
                     <h2><b id="temperatura">--°C</b></h2>
                 </div>
             </div>
@@ -95,7 +95,7 @@
 
         <div class="graficos-gerais hidden" id="grafico">
             <div class="grafico-Principal">
-                <canvas id="myChart" width="400" height="150" style="background:#f4f4f4;"></canvas>
+                <canvas id="myChart" width="400" height="150" style="background:#1372c0;"></canvas>
             </div>
         </div>
 
@@ -153,8 +153,13 @@
     </script>
 
     <script>
-        // Pegando elementos do HTML
-        const empresas = document.getElementById('empresas')    // Select de empresas
+        let myChart = null
+        const params = new URLSearchParams(window.location.search);
+
+        const idVeiculo = params.get('idveiculo');
+        const idEmpresa = params.get('idcliente');
+
+        const empresas = document.getElementById('empresas')
         const veiculos = document.getElementById('veiculos')     // Select de veículo
         const veiculoContainer = document.getElementById('veiculoContainer')   // Div que envolve o select de veículos
         const dadosPedido = document.getElementById('dadosPedido')   // Div com os dados do pedido
@@ -166,7 +171,6 @@
         const alertaHora = document.getElementById('alertaHora')       // Horário do alerta
         const duracao = document.getElementById('duracao')    // Duração do alerta
         const temperatura = document.getElementById('temperatura')   // Temperatura registrada
-        let myChart = null
 
         var idUsuario = sessionStorage.ID_USUARIO
         fetch("/usuarios/buscarIdParaCadastro", {
@@ -269,7 +273,7 @@
                                             $('#duracao').text(duracaoVar);
                                         }
                                         if (limiteVar == '2') {
-                                            $('#temperatura').text(`< ${limiteVar}°C`);
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
                                         } else if (limiteVar == '8') {
                                             $('#temperatura').text(`> ${limiteVar}°C`);
                                         }
@@ -284,7 +288,7 @@
 
 
                                     $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
-                                  
+
                                     obterDadosGrafico()
                                 })
                         } else {
@@ -296,6 +300,88 @@
                     })
             }
         })
+
+
+        if (idVeiculo != null && idEmpresa != null) {
+            if (idVeiculo && idEmpresa) {
+                fetch(`/pedidos/buscarDadosPedido/${idEmpresa}/${idVeiculo}`)
+                    .then(res => res.json())
+                    .then(info => {
+                        if (info.length > 0) {
+                            const pedido = info[0];
+                            localStorage.ID_SENSOR = pedido.idsensor;
+                            localStorage.ID_PEDIDO = pedido.idpedido;
+
+                            var idpedido = pedido.idpedido
+                            /*Mostrando a tabela ao abrir a página, a partir do idPedido*/
+                            atualizarTabelaAlertas(pedido.idpedido);
+
+                            $('#parte1').html(`
+            <h3>N° do Pedido: ${pedido.idpedido}</h3>
+            <h3>Tipo do Veículo: ${pedido.tipo}</h3>
+            <h3>N° do sensor: ${pedido.idsensor}</h3>
+            <h3>Endereço de destino: ${pedido.endereco}</h3>
+        `);
+
+                            $('#parte2').html(`
+            <h3>Cliente: ${pedido.nome}</h3>
+            <h3>CNPJ Cliente: ${pedido.cnpj}</h3>
+            <h3>Data de entrega prevista: ${new Date(pedido.data_entrega_prevista).toLocaleDateString()}</h3>
+            <h3>Tipo de medicamento: ${pedido.tipo_medicamento1}</h3>
+        `);
+
+                            fetch(`/alertas/buscar-dados-alerta/${idpedido}`)
+                                .then(res => res.json())
+                                .then(dados => {
+                                    if (dados.length > 0) {
+
+                                        var idAlertaVar = dados[0].idalerta
+                                        var duracaoVar = dados[0].duracao
+                                        var limiteVar = dados[0].limite
+                                        var inicioVar = dados[0].inicio
+
+                                        console.log(dados[0].duracao)
+
+                                        $('#ultimoAlerta').text(idAlertaVar);
+                                        $('#alertaHora').text(inicioVar);
+                                        if (duracaoVar == null) {
+                                            $('#duracao').text('Alerta em Andamento!');
+                                        } else {
+                                            $('#duracao').text(duracaoVar);
+                                        }
+                                        if (limiteVar == '2') {
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
+                                        } else if (limiteVar == '8') {
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
+                                        }
+
+
+                                    } else {
+                                        $('#ultimoAlerta').text('Sem alerta');
+                                        $('#alertaHora').text('-');
+                                        $('#duracao').text('-');
+                                        $('#temperatura').text('-');
+                                    }
+
+
+                                    $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+
+                                    obterDadosGrafico()
+                                })
+                        } else {
+                            $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                        }
+                    })
+                    .catch(erro => {
+                        console.error('Erro ao buscar dados do veículo:', erro)
+                    })
+            }
+
+        }
+
+
+
+
 
 
 
@@ -329,14 +415,14 @@
         }
 
         function plotarGrafico(resposta, idSensorVar) {
-            
+
 
             console.log('iniciando plotagem do gráfico...');
 
             const ctx = document.getElementById(`myChart`)
 
-             if (myChart) {
-            myChart.destroy();
+            if (myChart) {
+                myChart.destroy();
             }
 
             // Criando estrutura para plotar gráfico - labels
@@ -440,7 +526,7 @@
             };
 
             // Adicionando gráfico criado em div na tela
-           myChart = new Chart(
+            myChart = new Chart(
                 ctx,
                 config
             );
@@ -506,7 +592,11 @@
                                     } else {
                                         $('#duracao').text(duracaoVar);
                                     }
-                                    $('#temperatura').text(`${limiteVar}°C`);
+                                    if (limiteVar == '2') {
+                                        $('#temperatura').text(`> ${limiteVar}°C`);
+                                    } else if (limiteVar == '8') {
+                                        $('#temperatura').text(`> ${limiteVar}°C`);
+                                    }
 
                                 } else {
                                     $('#ultimoAlerta').text('Sem alerta');

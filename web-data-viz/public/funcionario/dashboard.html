@@ -15,8 +15,7 @@
 </head>
 
 <body>
-      
-<div class="header">
+    <div class="header">
         <img src="../img/biologistics.png" alt="Biologistic" class="logo">
         <ul class="navbar">
             <li>
@@ -29,10 +28,10 @@
                 <a href="alertas.html">Alertas</a>
             </li>
             <li>
-                <a href="dashboard.html"><b>Monitoramento</b></a>
+                <a href="dashboard.html">Monitoramento</a>
             </li>
             <li>
-                <a href="dashboardPedidos.html">Pedidos</a>
+                <a href="dashboardPedidos.html"><b>Pedidos</b></a>
             </li>
             <li class="sair">
                 <a onclick="limparSessao()">Sair</a>
@@ -77,15 +76,15 @@
 
             <div class="KPI_row">
                 <div class="KPI_Alerta">
-                    <h2><b>Último alerta:</b></h2>
+                    <h2><b>Início:</b></h2>
                     <h2><b id="alertaHora">--:--</b></h2>
                 </div>
                 <div class="KPI_Alerta">
                     <h2><b>Duração:</b></h2>
                     <h2><b id="duracao">--</b></h2>
-                </div>
+                </div>     
                 <div class="KPI_Alerta">
-                    <h2><b>Temperatura:</b></h2>
+                    <h2><b>Limite Ultrapassado:</b></h2>
                     <h2><b id="temperatura">--°C</b></h2>
                 </div>
             </div>
@@ -93,7 +92,7 @@
 
         <div class="graficos-gerais hidden" id="grafico">
             <div class="grafico-Principal">
-                <canvas id="myChart" width="400" height="150" style="background:#f4f4f4;"></canvas>
+                <canvas id="myChart" width="400" height="150" style="background:#1372c0;"></canvas>
             </div>
         </div>
 
@@ -267,7 +266,7 @@
                                             $('#duracao').text(duracaoVar);
                                         }
                                         if (limiteVar == '2') {
-                                            $('#temperatura').text(`< ${limiteVar}°C`);
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
                                         } else if (limiteVar == '8') {
                                             $('#temperatura').text(`> ${limiteVar}°C`);
                                         }
@@ -504,7 +503,11 @@
                                     } else {
                                         $('#duracao').text(duracaoVar);
                                     }
-                                    $('#temperatura').text(`${limiteVar}°C`);
+                                    if (limiteVar == '2') {
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
+                                        } else if (limiteVar == '8') {
+                                            $('#temperatura').text(`> ${limiteVar}°C`);
+                                        }
 
                                 } else {
                                     $('#ultimoAlerta').text('Sem alerta');

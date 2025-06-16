@@ -56,7 +56,8 @@ foreign key (idTransportadora) references transportadora(idTransportadora)
 
 insert into usuario (nome,email, senha, administrador, idTransportadora) values 
 ('Fernando Lima','fernando.lima@healthcargo.com', '123',   true, 1), 
-('Ana Moreira','ana.moreira@biotrans.com','123',   false,  1);
+('Ana Moreira','ana.moreira@biotrans.com','123',   false,  1),
+(null,'suporte@gmail.com','123',   true,  1);
 
 
 
@@ -87,7 +88,7 @@ create table veiculo (
     idveiculo int primary key auto_increment,
     idtransportadora int not null,
     tipo varchar(12) not null,
-    placa varchar(10) unique not null,
+    placa varchar(10) not null,
     modelo varchar(50) not null,
     ano int,
     ativo boolean default true,

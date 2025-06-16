@@ -58,9 +58,25 @@ function valorDaTemperatura(req, res) {
         });
 }
 
+function mensalKPI(req, res) {
+    var idTransportadora = req.params.idTransportadora
+
+    alertaModel.mensalKPI(idTransportadora)
+        .then(resultado => {
+         
+                res.json(resultado); 
+            
+        })
+         .catch(erro => {
+            console.error("Erro ao buscar dados alerta:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarDadosAlerta,
     buscarAlertasAtivos,
     valorDaTemperatura,
-    buscarKPI2
+    buscarKPI2,
+    mensalKPI
 };

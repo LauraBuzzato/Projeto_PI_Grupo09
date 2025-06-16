@@ -14,7 +14,7 @@ function buscarDadosAlerta(idpedido) {
 function buscarKPI2(idPedido) {
     var instrucao = `
         select count(idalerta) as qtdAlerta,
-        round((count(idalerta) / Round(TIMESTAMPDIFF(minute, data_pedido ,data_entrega_real) / 60, 1)),2) 
+        round((count(idalerta) / Round(TIMESTAMPDIFF(minute, data_pedido ,data_entrega_real), 1)),2) 
         as mediaAlerta 
         from pedido as p 
             inner join alerta as a on a.idpedido = p.idpedido 
@@ -26,7 +26,7 @@ function buscarKPI2(idPedido) {
 function buscarAlertasAtivos(idTransportadora) {
     var instrucao = `
         SELECT a.idalerta, a.duracao, a.limite, 
-        DATE_FORMAT(a.inicio, '%H:%i:%s') as inicio, p.idpedido, v.placa, c.nome as cliente,
+        DATE_FORMAT(a.inicio, '%H:%i:%s') as inicio, p.idpedido, v.placa, c.nome as cliente, p.idveiculo as idveiculo, p.idcliente as idcliente,
             CASE 
                 WHEN a.limite <= 2 THEN 'abaixo do mínimo'
                 WHEN a.limite >= 8 THEN 'acima do máximo'
@@ -63,9 +63,25 @@ function valorDaTemperatura(idpedido) {
     return database.executar(instrucao);
 }
 
+function mensalKPI(idTransportadora) {
+    var instrucao = `
+           select count(idalerta) as qtdAlerta,
+        round((count(idalerta) / Round(TIMESTAMPDIFF(minute, data_pedido ,data_entrega_real), 1)),2) 
+        as mediaAlerta 
+        from pedido as p 
+            inner join alerta as a on a.idpedido = p.idpedido 
+            inner join veiculo as v on v.idveiculo = p.idveiculo
+            where  idtransportadora = 1
+            and month(inicio) = (month(current_date())-1)
+            group by v.idveiculo;
+    `;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarDadosAlerta,
     buscarAlertasAtivos,
     valorDaTemperatura,
-    buscarKPI2
+    buscarKPI2,
+    mensalKPI
 };

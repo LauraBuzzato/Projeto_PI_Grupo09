@@ -1,3 +1,4 @@
+
 var database = require("../database/config");
 
 function buscarUltimasMedidas(idSensor, limite_linhas) {
@@ -51,10 +52,42 @@ function buscarDadosBarra(idPedido) {
     return database.executar(instrucaoSql);
 }
 
+function vMensalRosquinha(idTransportadora) {
+    var instrucaoSql = `
+         SELECT
+            SUM(CASE WHEN valor > 8 THEN 1 ELSE 0 END) AS acima,
+            SUM(CASE WHEN valor < 2 THEN 1 ELSE 0 END) AS abaixo,
+            SUM(CASE WHEN valor < 8 and valor > 2 THEN 1 ELSE 0 END) AS dentro
+        FROM leiturasensor AS ls
+        INNER JOIN pedido AS p ON p.idpedido = ls.idpedido
+        INNER JOIN veiculo AS v ON v.idveiculo = p.idveiculo
+        WHERE idtransportadora = ${idTransportadora}
+        AND month(data_hora) = (month(current_date()) - 1) ;
+    `
+    return database.executar(instrucaoSql);
+}
+
+
+function vMensalBarra(idTransportadora) {
+    var instrucaoSql = `
+            SELECT idalerta, duracao
+        FROM alerta AS a
+        INNER JOIN pedido AS p ON a.idpedido = p.idpedido
+        INNER JOIN veiculo AS v ON v.idveiculo = p.idveiculo
+            WHERE idtransportadora = '${idTransportadora}'
+            AND month(inicio) = (month(current_date()) - 1)
+            ORDER BY duracao DESC;
+    `
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     totalDeAlertas,
     buscarDadosBarra,
-    buscarDadosRosquinha
+    buscarDadosRosquinha,
+    vMensalRosquinha,
+    vMensalBarra
 }

@@ -83,11 +83,11 @@ function carregarAlertas(idTransportadora) {
                 
                 divConteudo.textContent = mensagem;
                 
-                divConteudo.onclick = (function(pedidoId) {
+                divConteudo.onclick = (function(veiculoId, clienteId) {
                     return function() {
-                        redirecionarParaDashboard(pedidoId);
+                        redirecionarParaDashboard(veiculoId, clienteId);
                     };
-                })(alerta.idpedido);
+                })(alerta.idveiculo, alerta.idcliente);
                 
                 divAlerta.appendChild(divConteudo);
                 container.appendChild(divAlerta);
@@ -99,10 +99,12 @@ function carregarAlertas(idTransportadora) {
         });
 }
 
-function redirecionarParaDashboard(pedidoId) {
-    window.location.href = `dashboard.html?pedido=${pedidoId}`;
+function redirecionarParaDashboard(veiculoId, clienteId) {
+
+    window.location.href = `dashboard.html?idveiculo=${veiculoId}&idcliente=${clienteId}`;
 
 }
+
 
 function mostrarErro(mensagem) {
     var container = document.getElementById('containerAlertas');

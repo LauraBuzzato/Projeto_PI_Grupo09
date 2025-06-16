@@ -61,7 +61,7 @@
             <div class="KPI_container hidden" id="dadosPedido">
                 <div class="KPI_column">
                     <div class="KPI_Alerta">
-                        <h2><b>Média de Alertas por hora:</b></h2>
+                        <h2><b>Média de Alertas por minuto:</b></h2>
                         <h2 id="mediaAlerta"></h2>
                     </div>
                     <div class="KPI_Alerta">
@@ -368,13 +368,47 @@
                         const option = new Option(empresa.nome, empresa.idcliente);
                         $('#empresas').append(option);
                     });
+                    const vMensal = new Option('Visão Mensal')
+                    $('#empresas').append(vMensal)
                     $('#empresas').trigger('change.select2');
                 });
 
             $('#empresas').on('change', function () {
+
                 const idEmpresa = $(this).val();
 
-                $('#dadosPedido, #grafico, #alerta').addClass('hidden');
+                if(idEmpresa == 'Visão Mensal'){
+                    
+
+                    fetch(`/medidas/vMensalRosquinha/${idTransportadora}`)
+                        .then (res2 => res2.json())
+                        .then (dadosMensal1 => {
+                            console.log(dadosMensal1)
+                            plotarGraficoRosquinha(dadosMensal1)
+
+                            
+                        })
+                    fetch(`/medidas/vMensalBarra/${idTransportadora}`)
+                        .then (res3 => res3.json())
+                        .then (dadosMensal2 => {
+                            plotarGraficoBarra(dadosMensal2)
+                        })
+
+                        fetch(`/alertas/mensalKPI/${idTransportadora}`)
+                            .then(res4 => res4.json())
+                            .then(dadosMensal3 => {
+
+                                var mediaAlertaVar = dadosMensal3[0].mediaAlerta
+                                var qtdAlertaVar = dadosMensal3[0].qtdAlerta
+
+
+                                $('#mediaAlerta').text(mediaAlertaVar);
+                                $('#qtdAlerta').text(qtdAlertaVar);
+                            })
+
+                        $('#dadosPedido, #grafico, #alerta').removeClass('hidden');
+                }else{
+                    $('#dadosPedido, #grafico, #alerta').addClass('hidden');
 
                 $('#pedidos').html('<option value="">-- Escolha um veículo --</option>');
                 if (idEmpresa) {
@@ -394,6 +428,9 @@
                             $('#veiculoContainer').removeClass('hidden');
                         });
                 }
+                }
+
+                
             });
 
         });
