@@ -56,8 +56,7 @@ foreign key (idTransportadora) references transportadora(idTransportadora)
 
 insert into usuario (nome,email, senha, administrador, idTransportadora) values 
 ('Fernando Lima','fernando.lima@healthcargo.com', '123',   true, 1), 
-('Ana Moreira','ana.moreira@biotrans.com','123',   false,  1),
-(null,'suporte@gmail.com','123',   true,  1);
+('Ana Moreira','ana.moreira@biotrans.com','123',   false,  1);
 
 
 
@@ -88,7 +87,7 @@ create table veiculo (
     idveiculo int primary key auto_increment,
     idtransportadora int not null,
     tipo varchar(12) not null,
-    placa varchar(10) not null,
+    placa varchar(10) unique not null,
     modelo varchar(50) not null,
     ano int,
     ativo boolean default true,
@@ -148,12 +147,11 @@ INSERT INTO pedido (idveiculo, idcliente, data_pedido, data_entrega_prevista, da
 (5, 2, '2025-04-21 08:03:40', '2025-04-21 18:00:00', null, 'Vacina Pfizer-BioNTech', false),
 (2, 6, '2025-04-20 09:15:13', '2025-04-20 20:00:00', '2025-04-20 21:32:40', 'Vacina CoronaVac', true),
 (3, 1, '2025-04-23 08:32:54', '2025-04-23 21:00:00', null, 'Vacina Moderna Spikevax', false),
-(3, 4, '2025-04-22 10:20:30', '2025-04-22 17:00:00', null, 'Vacina AstraZeneca', false),
+(6, 4, '2025-04-22 10:20:30', '2025-04-22 17:00:00', null, 'Vacina AstraZeneca', false),
 (1, 5, '2025-04-24 08:45:03', '2025-04-24 18:00:00', '2025-04-24 17:30:00', 'Vacina Janssen (Johnson & Johnson)', true),
 (1, 3, '2025-04-25 09:00:02', '2025-04-25 22:00:00', '2025-06-08 16:51:59', 'Vacina Novavax', true),
 (2, 5, '2025-04-26 08:20:50', '2025-04-26 19:00:00', '2025-04-26 18:45:00', 'Vacina Pfizer-BioNTech', true),
 (1, 5, '2025-05-01 08:45:03', '2025-04-28 18:00:00', '2025-05-27 19:30:00', 'Vacina Comirnaty', true);
-
 
 
 create table leiturasensor (
@@ -481,12 +479,10 @@ constraint chk_limite check (limite in (2, 8)),
 foreign key (idpedido) references pedido(idpedido)
 );
 
+
 insert into alerta (idpedido, duracao, limite, inicio) values
 (1, null, 8,'2025-04-21 09:20:40'),
-(1, null, 8,'2025-04-21 09:25:00'),
 (4, null, 8, '2025-04-21 09:16:30'),
-(4, null, 8, '2025-04-21 09:19:30'),
-(3, null, 2, '2025-04-21 09:19:30'),
 (3, null, 2, '2025-04-21 09:19:30'),
 (5, '00:00:10', 8, '2025-04-22 08:15:00'),
 (5, '00:00:25', 8, '2025-04-22 08:20:30'),
